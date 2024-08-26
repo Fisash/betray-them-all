@@ -1,0 +1,866 @@
+{
+    "events": [
+        {
+            "eventName": "Отряд уже был здесь",
+            "eventText": "Теперь здесь нет ничего интересного. Отряд уже исследовал эту клетку недавно. Может быть, что-то появится здесь позже?",
+            "eventId": "explained",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Уйти",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+            ]
+        },
+        {
+            "eventName": "Лич повержен!",
+            "eventText": "Это безумное чудище наконец-то мертво. Поздравляю! Спасибо за прохождение Betray Them All beta!! Вы можете продолжить играть в этом мире или выйти  в меню.",
+            "eventId": "won",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Продолжить",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                },
+                {
+                    "answerText": "Выйти в меню",
+                    "nextEventId": "none",
+                    "actionId": "to_menu"
+                }
+            ]
+        },
+        {
+            "eventName": "Кончается провизия",
+            "eventText": "У отряда осталось меньше 25 единиц провизии. Срочно купите еды в ближайшей деревне или городе. Если провизия кончится - отряд уйдет от вас и вы проиграете.",
+            "eventId": "need_provision",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Ок",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+            ]
+        },
+        {
+            "eventName": "Провизии нет...",
+            "eventText": "Отряд совсем изморился голодом. Наёмники ушли от вас один за другим, ведь вы не можете обеспечить их пищей. Игра окончена.",
+            "eventId": "no_provision",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Выйти в меню",
+                    "nextEventId": "none",
+                    "actionId": "to_menu"
+                }
+            ]
+        },
+        {
+            "eventName": "Добыча",
+            "eventText": "Наконец-то нам улыбнулась удача",
+            "eventId": "loot",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Забрать всё",
+                    "nextEventId": "none",
+                    "actionId": "take_loot"
+                }
+            ]
+        },
+        {
+            "eventName": "Звери",
+            "eventText": "С особой неистовой жестокостью отряд был атакован стаей диких зверей",
+            "eventId": "big_forest1",
+            "eventTypeId": 9,
+            "isOnlyExplain": false,
+            "isOnlyPass": false,
+            "weight": 20,
+            "answers": [
+                {
+                    "answerText": "Вступить в бой",
+                    "nextEventId": "none",
+                    "actionId": "hard_forest_animal_fight"
+                }
+            ]
+        },
+        {
+            "eventName": "Злые духи",
+            "eventText": "Отряд проходил по чащобе, как вдруг откуда ни возьмись появились злые духи и напали на нас",
+            "eventId": "big_forest3",
+            "eventTypeId": 9,
+            "isOnlyExplain": false,
+            "isOnlyPass": false,
+            "weight": 10,
+            "answers": [
+                {
+                    "answerText": "Вступить в бой",
+                    "nextEventId": "none",
+                    "actionId": "hard_spirit_fight"
+                }
+            ]
+        },
+        {
+            "eventName": "Тревожные Шёпоты",
+            "eventText": "Ваш отряд услышал странные шёпоты, доносящиеся со всех сторон.",
+            "eventId": "big_forest2",
+            "eventTypeId": 9,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 15,
+            "answers": [
+                {
+                    "answerText": "Прислушаться к шепотам",
+                    "nextEventId": "none",
+                    "actionId": "listen_to_whispers"
+                },
+                {
+                    "answerText": "Старательно их\nигнорировать",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+            ]
+        },
+        {
+            "eventName": "Тревожные Шёпоты",
+            "eventText": "Ваши наёмники прислушались с шёпоту. Голоса леса вещали о Страшном Суде, о заговоре против человеческом расы, о скором конце всего сущего. Это... напрягло. Вы попытались найти источники звука, но, что самое жуткое, никак не смогли. Половина отряда получила эффект Безумие.",
+            "eventId": "whispers1",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Ну и ну",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+            ]
+        },
+        {
+            "eventName": "Тревожные Шёпоты",
+            "eventText": "Голоса шептали много всего. Разобрать удалось не всё, но, кажется, вы услышали, что к северу отсюда под дубом зарыто сокровище. Отряд поспешил туда и действительно нашел его. Получено 70 золота",
+            "eventId": "whispers2",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Отлично",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+            ]
+        },
+        {
+            "eventName": "Лес",
+            "eventText": "Ваш отряд прочесал лес вдоль и поперёк. Ничего интерсного. Даже грибов и ягод толком не удалось найти",
+            "eventId": "forest1",
+            "eventTypeId": 6,
+            "weight": 8,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "answers": [
+                {
+                    "answerText": "Уйти",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+            ]
+        },
+        {
+            "eventName": "Лес",
+            "eventText": "Ваш отряд прочесал весь лес. Ничего необычного. Зато вы нашли много грибов и ягод.\n Получено немного провизии",
+            "eventId": "forest2",
+            "eventTypeId": 6,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 8,
+            "answers": [
+                {
+                    "answerText": "Уйти",
+                    "nextEventId": "none",
+                    "actionId": "add_provision"
+                }
+            ]
+        },
+        {
+            "eventName": "Звери",
+            "eventText": "В лесу на вас напали дикие звери",
+            "eventId": "forest3",
+            "eventTypeId": 6,
+            "isOnlyExplain": false,
+            "isOnlyPass": false,
+            "weight": 15,
+            "answers": [
+                {
+                    "answerText": "Вступить в бой",
+                    "nextEventId": "none",
+                    "actionId": "forest_animal_fight"
+                }
+            ]
+        },
+        {
+            "eventName": "Разбойники",
+            "eventText": "Внезапно, отряд был атакован группой разбойников, которые устроили засаду среди деревьев. Они согласны отстать от нашего отряда и пропустить его, если мы заплатим им 20 золотых. Что будем делать?",
+            "eventId": "forest_outlaws",
+            "eventTypeId": 6,
+            "isOnlyExplain": false,
+            "isOnlyPass": false,
+            "weight": 15,
+            "answers": [
+                {
+                    "answerText": "Черта с два.\nв атаку!",
+                    "nextEventId": "none",
+                    "actionId": "outlaws_fight"
+                },
+                {
+                    "answerText": "Вот золото",
+                    "nextEventId": "none",
+                    "actionId": "try_outlaws_give_gold"
+                }
+            ]
+        },
+        {
+            "eventName": "Лагерь разбойников",
+            "eventText": "Прогуливаясь по лесу, отряд заметил недалеко лагерь разбойников. Кажется, они нас не заметили, так что мы еще можем тихо уйти. С другой стороны, можно пойти на лагерь штурмом. Должно быть, там есть ценная добыча.",
+            "eventId": "outlaws_camp",
+            "eventTypeId": 6,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 15,
+            "answers": [
+                {
+                    "answerText": "В атаку!",
+                    "nextEventId": "none",
+                    "actionId": "outlaws_camp"
+                },
+                {
+                    "answerText": "Уходим",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+            ]
+        },
+        {
+            "eventName": "Избушка кузнеца в лесу",
+            "eventText": "В лесу вы нашли одинокую ветхую избушку. Здесь живёт старый кузнец. Он сказал отряду, что может подковать оружие одного из наёмников.",
+            "eventId": "forest4",
+            "eventTypeId": 6,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 15,
+            "answers": [
+                {
+                    "answerText": "Согласиться",
+                    "nextEventId": "weapon_upgrade_choose",
+                    "actionId": "weapon_upgrade"
+                },
+                {
+                    "answerText": "Отказаться",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+            ]
+        },
+        {
+            "eventName": "Безумный мечник",
+            "eventText": "На лесной дороге мы нашли странного человека. Выглядел он разбито. Мечник сказал нам, что он одержим злым духом. И что нам следует побыстрее убраться, ради собственной безопасности. ",
+            "eventId": "crazy_swordman",
+            "eventTypeId": 6,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 15,
+            "answers": [
+                {
+                    "answerText": "Что за вздор?",
+                    "nextEventId": "none",
+                    "actionId": "crazy_swordman_fight"
+                },
+                {
+                    "answerText": "Мудрое решение.\nУходим!",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+            ]
+        },
+        {
+            "eventName": "Избушка кузнеца в лесу",
+            "eventText": "Отлично. Выбери, кому из наёмником кузнецу стоит подковать оружие. Это улучшит его.",
+            "eventId": "weapon_upgrade_choose",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+
+            ]
+        },
+        {
+            "eventName": "Угасший Костер",
+            "eventText": "Ваш отряд наткнулся на угасший костер. Вокруг него разбросаны остатки лагеря. Здесь что-то случилось.",
+            "eventId": "forest_fire",
+            "eventTypeId": 6,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 15,
+            "answers": [
+                {
+                    "answerText": "Осмотретьcя",
+                    "nextEventId": "none",
+                    "actionId": "forest_search_camp"
+                },
+                {
+                    "answerText": "Игнорировать",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+            ]
+        },
+        {
+            "eventName": "Угасший Костер",
+            "eventText": "Хм, похоже, что отряд, что находился здесь, в спешке побросал свои вещи и поспешил убраться отсюда. Что же их так напугало? Как бы то ни было, мы нашли немного провизии и эти вещи.",
+            "eventId": "forest_fire1",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Отлично",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+            ]
+        },
+        {
+            "eventName": "Угасший Костер",
+            "eventText": "Дым от костра внезапно материализовался в некого духа, он похоже, настроен агрессивно.",
+            "eventId": "forest_fire2",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "В бой!",
+                    "nextEventId": "none",
+                    "actionId": "fire_spirit_fight"
+                }
+            ]
+        },
+        {
+            "eventName": "Деревня",
+            "eventText": "Ваш отряд прогуливается по деревне. Куда направимся?",
+            "eventId": "village_base",
+            "eventTypeId": 3,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Торговцы",
+                    "nextEventId": "village_shop",
+                    "actionId": "show_village_shop"
+                },
+                {
+                    "answerText": "Таверна",
+                    "nextEventId": "village_tavern",
+                    "actionId": "show_taverna_shop"
+                },
+                {
+                    "answerText": "Уйти",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Город в осаде",
+            "eventText": "Этот город сейчас осаждают войска. Кажется, захватчики города готовятся ко штурму. Командир гарнизона очень радуется, когда узнает, что мы наёмники. Он просит нашей помощи в предстоящей битве. Взамен он предлагает нам %gold% золотых монет.",
+            "eventId": "town_sieged",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Мы согласны.\nЗащитим город!",
+                    "nextEventId": "town_protected_win",
+                    "actionId": "protect_town_fight"
+                },
+                {
+                    "answerText": "Отказаться",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Атака отбита!",
+            "eventText": "Наш отряд сразил часть атаковавших город сил. Совместными усилиями с гарнизоном города, мы полностью отбили штурм. Затем кольцо осады города было прорвано. Заказчик-командир доволен нашей услугой, мы получаем обещанные монеты.",
+            "eventId": "town_protected_win",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Великолепно",
+                    "nextEventId": "none",
+                    "actionId": "town_protected_win"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Войско осаждает город",
+            "eventText": "Войска подошли к городу вплотную. Какое-то время город находится в осаде. Кажется, командир захватчников города планирует идти на штурм. Заручиться поддержкой наёмников в этом деле очень полезно. Нам предлагают почувствовать в штурме. Взамен мы получим %gold% золотых монет.",
+            "eventId": "sieg_army",
+            "eventTypeId": 4,
+            "isOnlyExplain": false,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Мы согласны.\nВозьмем город!",
+                    "nextEventId": "town_atacked_win",
+                    "actionId": "atack_town_fight"
+                },
+                {
+                    "answerText": "Отказаться",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Город взят!",
+            "eventText": "Наш отряд принял участие в масштабном штурме. Мы взяли на себя часть вражеских войск и успешно их уничтожили. Совместными усилиями с частями регулярной армии город был взят. Закзачик-командир доволен нашей услугой и мы получем обещанные монеты. Ура!",
+            "eventId": "town_atacked_win",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Великолепно",
+                    "nextEventId": "none",
+                    "actionId": "town_atacked_win"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Город",
+            "eventText": "Ваш отряд вошёл в город. Куда направимся?",
+            "eventId": "town_base",
+            "eventTypeId": 5,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Рынок",
+                    "nextEventId": "town_shop",
+                    "actionId": "show_village_shop"
+                },
+                {
+                    "answerText": "Таверна",
+                    "nextEventId": "village_tavern",
+                    "actionId": "show_taverna_shop"
+                },
+                {
+                    "answerText": "Уйти",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Городские торговцы",
+            "eventText": "Отряд посетил грандиозный городской рынок. Торговцы, кузнецы, алхимики - все собрались здесь.",
+            "eventId": "town_shop",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Уйти",
+                    "nextEventId": "town_base",
+                    "actionId": "close_shop"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Торговцы деревни",
+            "eventText": "Кузнецы, купцы и знахари с этой деревни могут предложить нам следующие товары:",
+            "eventId": "village_shop",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Уйти",
+                    "nextEventId": "village_base",
+                    "actionId": "close_shop"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Таверна",
+            "eventText": "Вы зашли в местный трактир. В этом месте собираются разного рода искатели приключений, а также те, кто просто хотят поддаться в наёмники. Вот кого мы здесь нашли:",
+            "eventId": "village_tavern",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Отдохнуть\n(-5 золота за карту)",
+                    "nextEventId": "none",
+                    "actionId": "try_tavern_chill"
+                },
+                {
+                    "answerText": "Уйти",
+                    "nextEventId": "village_base",
+                    "actionId": "close_shop"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Таверна",
+            "eventText": "Ваш отряд отдохнул в таверне и полностью восстановил свое здоровье",
+            "eventId": "tavern_chill",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Отлично",
+                    "nextEventId": "village_tavern",
+                    "actionId": "none"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Таверна",
+            "eventText": "Кажется, нам не хватает золота даже на выпивку и еду (нужно 5 золота за каждую карту наёмника c неполным здоровьем)",
+            "eventId": "tavern_need_gold",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Ясно",
+                    "nextEventId": "village_tavern",
+                    "actionId": "none"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Таверна",
+            "eventText": "Отряд и так полон сил, нет смысла отдыхать",
+            "eventId": "all_health",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Ясно",
+                    "nextEventId": "village_tavern",
+                    "actionId": "none"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Деревня",
+            "eventText": "Ваш отряд прогуливался по деревне. Внезапно, за вами увязывается юноша, почти мальчишка. Когда он понимает, что вы наёмники, его охватывает вострог. Парень настойчиво просит позволить ему присоединиться к вашему отряду. Он рассказал, что мечтает о жизни наёмника, полной приключений, денег, и славных битв. ",
+            "eventId": "village1",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 10,
+            "answers": [
+                {
+                    "answerText": "Взять его с собой",
+                    "nextEventId": "village1_1",
+                    "actionId": "add_villager_to_squad"
+                },
+                {
+                    "answerText": "Отказаться",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Новый наёмник",
+            "eventText": "Отряд пополняется новым членом. ",
+            "eventId": "village1_1",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Отлично",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Луг",
+            "eventText": "Ваш отряд исследовал этот луг. На этой территории нет ничего примечательного ",
+            "eventId": "meadow1",
+            "eventTypeId": 1,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 50,
+            "answers": [
+                {
+                    "answerText": "Отлично",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Луг",
+            "eventText": "Здесь был спрятан клад!",
+            "eventId": "meadow_clad",
+            "eventTypeId": 1,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Отлично",
+                    "nextEventId": "none",
+                    "actionId": "clad"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Горы",
+            "eventText": "Отряд обошел этот участок гор. Ничего необычного мы не нашли. Хотя, конечно, в горах чему-то спрятаться очень легко.",
+            "eventId": "mountains1",
+            "eventTypeId": 7,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 8,
+            "answers": [
+                {
+                    "answerText": "Ясно",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Горы",
+            "eventText": "Отряд шёл через горы, как вдруг на нас напала стая гарпий. Боя не избежать",
+            "eventId": "mountains2",
+            "eventTypeId": 7,
+            "isOnlyExplain": false,
+            "isOnlyPass": false,
+            "weight": 10,
+            "answers": [
+                {
+                    "answerText": "Вступить в бой",
+                    "nextEventId": "none",
+                    "actionId": "harpia_fight"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Горы",
+            "eventText": "Мы нашли гнездо грифонов. Здесь лежат пара яиц этих созданий, а вот самих грифонов не видно. Мы можем взять эти яйца, они хорошо ценятся у торговцев. Правда есть риск, что грифоны всё же объявятся и атакуют нас.",
+            "eventId": "mountains3",
+            "eventTypeId": 7,
+            "isOnlyExplain": false,
+            "isOnlyPass": false,
+            "weight": 10,
+            "answers": [
+                {
+                    "answerText": "Возьмите яйца",
+                    "nextEventId": "none",
+                    "actionId": "try_still_eggs"
+                },
+                {
+                    "answerText": "Не трогайте их.\nМы уходим",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Особняк вампиров",
+            "eventText": "Вы зашли внутрь. Двери с грохотом захлопнулись сами собой, как в фильмах ужасов. Отряд медленно двигался вперёд, пока на него не напали силы тьмы. ",
+            "eventId": "vampires",
+            "eventTypeId": 10,
+            "isOnlyExplain": false,
+            "isOnlyPass": false,
+            "weight": 10,
+            "answers": [
+                {
+                    "answerText": "Вступить в бой",
+                    "nextEventId": "none",
+                    "actionId": "vampires_fight"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Особняк вампиров?",
+            "eventText": "Пред вами было показались вампиры, но то была иллюзия. Кажется в этом особняке обитает нечто куда более зловещее и  могучее.",
+            "eventId": "lich",
+            "eventTypeId": 0,
+            "isOnlyExplain": false,
+            "isOnlyPass": false,
+            "weight": 10,
+            "answers": [
+                {
+                    "answerText": "Вступить в бой",
+                    "nextEventId": "none",
+                    "actionId": "lich_fight"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Пещера",
+            "eventText": "Как толко мы вышли, вход в пещеру странным образом завалило камнем.",
+            "eventId": "cave_ruined",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Ясно",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+            ]
+        },
+        {
+            "eventName": "Пещера",
+            "eventText": "Это была ловушка! Сокровища ложные! Отряд получил урон",
+            "eventId": "cave_trap",
+            "eventTypeId": 0,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 1,
+            "answers": [
+                {
+                    "answerText": "Вот чёрт",
+                    "nextEventId": "none",
+                    "actionId": "none"
+                }
+            ]
+        },
+        {
+            "eventName": "Пещера",
+            "eventText": "В пещере мы встретили группу троллей, охраняющих сокровище. Один из них сказал, что дальше мы не пройдем и что они дают нам последний шанс убраться отсюда. Как поступим?",
+            "eventId": "cave1",
+            "eventTypeId": 11,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 10,
+            "answers": [
+                {
+                    "answerText": "Мы не отступим",
+                    "nextEventId": "none",
+                    "actionId": "troll_fight"
+                },
+                {
+                    "answerText": "Уходим",
+                    "nextEventId": "none",
+                    "actionId": "cave_ruined"
+                }
+
+            ]
+        },
+        {
+            "eventName": "Пещера",
+            "eventText": "В пещере мы столкнулись с отрядом скелетов. Они нападают!",
+            "eventId": "cave2",
+            "eventTypeId": 11,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 8,
+            "answers": [
+                {
+                    "answerText": "В бой",
+                    "nextEventId": "none",
+                    "actionId": "skeleton_fight"
+                }
+            ]
+        },
+        {
+            "eventName": "Пещера",
+            "eventText": "В пещеры мы нашли сокровища!",
+            "eventId": "cave3",
+            "eventTypeId": 11,
+            "isOnlyExplain": true,
+            "isOnlyPass": false,
+            "weight": 5,
+            "answers": [
+                {
+                    "answerText": "Взять их",
+                    "nextEventId": "none",
+                    "actionId": "cave_clad"
+                },
+                {
+                    "answerText": "Уходим",
+                    "nextEventId": "cave_ruined",
+                    "actionId": "none"
+                }
+
+            ]
+        }
+
+    ]
+}

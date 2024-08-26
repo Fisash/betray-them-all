@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8c4886a90a1e749941dc489e1921a0, type: 3}
+  m_Name: FabricArmor
+  m_EditorClassIdentifier: 
+  title: "\u0422\u043A\u0430\u043D\u0435\u0432\u0430\u044F \u0431\u0440\u043E\u043D\u044F"
+  baseDescription: 
+  isItUsableInFight: 0
+  icon: {fileID: 2122859079, guid: a8862d8c921d79543842f8dad2bab28e, type: 3}
+  cost: 20
+  type: 2
+  minStartProtection: 1
+  maxStartProtection: 3
+  minStartEvasionChance: 8
+  maxStartEvasionChance: 16

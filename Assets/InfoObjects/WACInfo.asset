@@ -1,0 +1,606 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9aef7f2e1b74ee48ac62035317ac2ce, type: 3}
+  m_Name: WACInfo
+  m_EditorClassIdentifier: 
+  items:
+  - {fileID: 11400000, guid: 098570f227b30e24da415da5e1ce46da, type: 2}
+  - {fileID: 11400000, guid: 5a292b2e4e7deea4c8d7225132e7de88, type: 2}
+  - {fileID: 11400000, guid: b5c7a9336b295974f91c625685ff0931, type: 2}
+  - {fileID: 11400000, guid: 45db6566c893d7b438a52a317c990ca0, type: 2}
+  - {fileID: 11400000, guid: e17253496b302a04984a4c93bffeaca0, type: 2}
+  - {fileID: 11400000, guid: 6f74ec5623d7cf343ab9a51420b1bab7, type: 2}
+  - {fileID: 11400000, guid: e894a21a773218e40b88b3291ce0f24c, type: 2}
+  - {fileID: 11400000, guid: 69bc05cbba4118f448ddd99c8c233f96, type: 2}
+  - {fileID: 11400000, guid: 0b82d4a0da372a64eacfd979e306f351, type: 2}
+  - {fileID: 11400000, guid: 2d560b6e1858bd84b90b884aa347be3c, type: 2}
+  - {fileID: 11400000, guid: 6a4a214277597854699ba7af29c7f6ce, type: 2}
+  - {fileID: 11400000, guid: ac0de26d8667ae94d9c5371620136a65, type: 2}
+  - {fileID: 11400000, guid: af3cd553a8ee6fa4d8ae704fe676a153, type: 2}
+  - {fileID: 11400000, guid: 867c319e8992dd44b9cbef056443086e, type: 2}
+  - {fileID: 11400000, guid: 114f50e4de728be4f8ad1347180f63fa, type: 2}
+  - {fileID: 11400000, guid: f1bafb6efbd503f4a93bf2b00c4cb214, type: 2}
+  classes:
+  - name: "\u0412\u043E\u0438\u043D"
+    mercenaryClass: 0
+    minStartHp: 18
+    maxStartHp: 25
+    minStartBaseDamage: 6
+    maxStartBaseDamage: 8
+    minBaseDamageOffset: 3
+    maxBaseDamageOffset: 4
+    minBaseCriticalStrikeChance: 3
+    maxBaseCriticalStrikeChance: 5
+    minBaseProtection: 3
+    maxBaseProtection: 5
+    minBaseProtectionOffset: 3
+    maxBaseProtectionOffset: 4
+    minBaseEvasionChance: 2
+    maxBaseEvasionChance: 8
+    minPrice: 20
+    maxPrice: 30
+    sutableWeapons: 00000000010000000200000003000000
+    sutableArmors: 000000000100000002000000
+    weaponsOnStart: 000000000200000001000000
+    armorOnStart: 0000000001000000
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: bd509ab2e5da70441bd62780f1c34723, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    icnons:
+    - {fileID: 1267147076, guid: 0da7c8668991c47459798cdd33f0e8e9, type: 3}
+    - {fileID: 977636517, guid: 0da7c8668991c47459798cdd33f0e8e9, type: 3}
+    - {fileID: -103791348, guid: 0da7c8668991c47459798cdd33f0e8e9, type: 3}
+  - name: "\u0422\u0430\u043D\u043A"
+    mercenaryClass: 1
+    minStartHp: 22
+    maxStartHp: 30
+    minStartBaseDamage: 8
+    maxStartBaseDamage: 12
+    minBaseDamageOffset: 4
+    maxBaseDamageOffset: 6
+    minBaseCriticalStrikeChance: 2
+    maxBaseCriticalStrikeChance: 6
+    minBaseProtection: 3
+    maxBaseProtection: 6
+    minBaseProtectionOffset: 3
+    maxBaseProtectionOffset: 4
+    minBaseEvasionChance: 0
+    maxBaseEvasionChance: 1
+    minPrice: 30
+    maxPrice: 40
+    sutableWeapons: 00000000030000000100000002000000
+    sutableArmors: 000000000100000002000000
+    weaponsOnStart: 0300000001000000
+    armorOnStart: 0100000000000000
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: 3aa6b853c69257d45a90c6ba9de771ec, type: 2}
+    - {fileID: 11400000, guid: f99e9f16501df974c956e0e355dcee8d, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    icnons:
+    - {fileID: 1196136353, guid: 0da7c8668991c47459798cdd33f0e8e9, type: 3}
+    - {fileID: 95819907, guid: 0da7c8668991c47459798cdd33f0e8e9, type: 3}
+  - name: "\u0420\u0430\u0437\u0431\u043E\u0439\u043D\u0438\u043A"
+    mercenaryClass: 2
+    minStartHp: 17
+    maxStartHp: 22
+    minStartBaseDamage: 4
+    maxStartBaseDamage: 6
+    minBaseDamageOffset: 2
+    maxBaseDamageOffset: 3
+    minBaseCriticalStrikeChance: 12
+    maxBaseCriticalStrikeChance: 18
+    minBaseProtection: 0
+    maxBaseProtection: 3
+    minBaseProtectionOffset: 2
+    maxBaseProtectionOffset: 3
+    minBaseEvasionChance: 20
+    maxBaseEvasionChance: 25
+    minPrice: 10
+    maxPrice: 20
+    sutableWeapons: 0600000000000000
+    sutableArmors: 000000000200000001000000
+    weaponsOnStart: 06000000
+    armorOnStart: 02000000
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: bc7199d7215ee5248914d1133f40a832, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    icnons:
+    - {fileID: -221315004, guid: 811279336a3dfb340bf01dbeffc00035, type: 3}
+    - {fileID: 715429468, guid: 811279336a3dfb340bf01dbeffc00035, type: 3}
+  - name: "\u041B\u0443\u0447\u043D\u0438\u043A"
+    mercenaryClass: 3
+    minStartHp: 17
+    maxStartHp: 20
+    minStartBaseDamage: 6
+    maxStartBaseDamage: 9
+    minBaseDamageOffset: 3
+    maxBaseDamageOffset: 5
+    minBaseCriticalStrikeChance: 3
+    maxBaseCriticalStrikeChance: 5
+    minBaseProtection: 1
+    maxBaseProtection: 4
+    minBaseProtectionOffset: 3
+    maxBaseProtectionOffset: 4
+    minBaseEvasionChance: 3
+    maxBaseEvasionChance: 10
+    minPrice: 20
+    maxPrice: 28
+    sutableWeapons: 0400000005000000
+    sutableArmors: 000000000100000002000000
+    weaponsOnStart: 0400000005000000
+    armorOnStart: 0000000002000000
+    skills:
+    - {fileID: 11400000, guid: 969829b870ebd774682b5f9be4c9e6e0, type: 2}
+    - {fileID: 11400000, guid: 6f8e5afc9970e8c4791a7c4996fbf076, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    icnons:
+    - {fileID: -1622680617, guid: 0da7c8668991c47459798cdd33f0e8e9, type: 3}
+    - {fileID: -1666904959, guid: 811279336a3dfb340bf01dbeffc00035, type: 3}
+  - name: "\u041B\u0435\u043A\u0430\u0440\u044C"
+    mercenaryClass: 4
+    minStartHp: 15
+    maxStartHp: 20
+    minStartBaseDamage: 2
+    maxStartBaseDamage: 3
+    minBaseDamageOffset: 0
+    maxBaseDamageOffset: 1
+    minBaseCriticalStrikeChance: 3
+    maxBaseCriticalStrikeChance: 5
+    minBaseProtection: 2
+    maxBaseProtection: 4
+    minBaseProtectionOffset: 2
+    maxBaseProtectionOffset: 3
+    minBaseEvasionChance: 2
+    maxBaseEvasionChance: 8
+    minPrice: 20
+    maxPrice: 30
+    sutableWeapons: 07000000
+    sutableArmors: 000000000100000002000000
+    weaponsOnStart: 07000000
+    armorOnStart: 02000000
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: 4b38a72e0c132004dbb9f0bb112c98b2, type: 2}
+    - {fileID: 11400000, guid: 08e9548cfb59f5742be6d6621bff65a6, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    icnons:
+    - {fileID: 2108621911, guid: 811279336a3dfb340bf01dbeffc00035, type: 3}
+    - {fileID: -566509023, guid: 811279336a3dfb340bf01dbeffc00035, type: 3}
+  enemyPatterns:
+  - name: "\u041C\u0435\u0434\u0432\u0435\u0434\u044C"
+    mercenaryClass: 5
+    minStartHp: 23
+    maxStartHp: 35
+    minStartBaseDamage: 8
+    maxStartBaseDamage: 12
+    minBaseDamageOffset: 4
+    maxBaseDamageOffset: 6
+    minBaseCriticalStrikeChance: 6
+    maxBaseCriticalStrikeChance: 12
+    minBaseProtection: 1
+    maxBaseProtection: 2
+    minBaseProtectionOffset: 0
+    maxBaseProtectionOffset: 1
+    minBaseEvasionChance: 5
+    maxBaseEvasionChance: 8
+    minPrice: 0
+    maxPrice: 0
+    sutableWeapons: 
+    sutableArmors: 
+    weaponsOnStart: 
+    armorOnStart: 
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    - {fileID: 11400000, guid: e133a0f3a4b6cf14c9c4d41240117a7d, type: 2}
+    icnons:
+    - {fileID: 2114229625, guid: 0da7c8668991c47459798cdd33f0e8e9, type: 3}
+  - name: "\u0412\u043E\u043B\u043A"
+    mercenaryClass: 6
+    minStartHp: 15
+    maxStartHp: 20
+    minStartBaseDamage: 6
+    maxStartBaseDamage: 10
+    minBaseDamageOffset: 2
+    maxBaseDamageOffset: 3
+    minBaseCriticalStrikeChance: 5
+    maxBaseCriticalStrikeChance: 10
+    minBaseProtection: 1
+    maxBaseProtection: 2
+    minBaseProtectionOffset: 0
+    maxBaseProtectionOffset: 0
+    minBaseEvasionChance: 5
+    maxBaseEvasionChance: 10
+    minPrice: 0
+    maxPrice: 0
+    sutableWeapons: 
+    sutableArmors: 
+    weaponsOnStart: 
+    armorOnStart: 
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    - {fileID: 11400000, guid: e133a0f3a4b6cf14c9c4d41240117a7d, type: 2}
+    icnons:
+    - {fileID: 1802489206, guid: 0da7c8668991c47459798cdd33f0e8e9, type: 3}
+  - name: "\u041C\u0430\u043D\u0438\u043A\u0435\u043D"
+    mercenaryClass: 6
+    minStartHp: 5
+    maxStartHp: 10
+    minStartBaseDamage: 0
+    maxStartBaseDamage: 0
+    minBaseDamageOffset: 0
+    maxBaseDamageOffset: 0
+    minBaseCriticalStrikeChance: 0
+    maxBaseCriticalStrikeChance: 0
+    minBaseProtection: 1
+    maxBaseProtection: 2
+    minBaseProtectionOffset: 0
+    maxBaseProtectionOffset: 0
+    minBaseEvasionChance: 5
+    maxBaseEvasionChance: 10
+    minPrice: 0
+    maxPrice: 0
+    sutableWeapons: 
+    sutableArmors: 
+    weaponsOnStart: 
+    armorOnStart: 
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    icnons:
+    - {fileID: 1267147076, guid: 0da7c8668991c47459798cdd33f0e8e9, type: 3}
+  - name: "\u0413\u043B\u0430\u0432\u0430\u0440\u044C \u0440\u0430\u0437\u0431\u043E\u0439\u043D\u0438\u043A\u043E\u0432"
+    mercenaryClass: 8
+    minStartHp: 22
+    maxStartHp: 30
+    minStartBaseDamage: 15
+    maxStartBaseDamage: 17
+    minBaseDamageOffset: 5
+    maxBaseDamageOffset: 8
+    minBaseCriticalStrikeChance: 8
+    maxBaseCriticalStrikeChance: 15
+    minBaseProtection: 4
+    maxBaseProtection: 8
+    minBaseProtectionOffset: 2
+    maxBaseProtectionOffset: 3
+    minBaseEvasionChance: 5
+    maxBaseEvasionChance: 8
+    minPrice: 18
+    maxPrice: 30
+    sutableWeapons: 
+    sutableArmors: 
+    weaponsOnStart: 
+    armorOnStart: 
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    icnons:
+    - {fileID: 1348344941, guid: 80bf7422b81352546a188c10b2fbd9c8, type: 3}
+  - name: "\u0420\u0430\u0437\u0431\u043E\u0439\u043D\u0438\u043A"
+    mercenaryClass: 9
+    minStartHp: 15
+    maxStartHp: 20
+    minStartBaseDamage: 9
+    maxStartBaseDamage: 12
+    minBaseDamageOffset: 3
+    maxBaseDamageOffset: 5
+    minBaseCriticalStrikeChance: 5
+    maxBaseCriticalStrikeChance: 10
+    minBaseProtection: 3
+    maxBaseProtection: 5
+    minBaseProtectionOffset: 2
+    maxBaseProtectionOffset: 3
+    minBaseEvasionChance: 10
+    maxBaseEvasionChance: 15
+    minPrice: 10
+    maxPrice: 15
+    sutableWeapons: 
+    sutableArmors: 
+    weaponsOnStart: 
+    armorOnStart: 
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    icnons:
+    - {fileID: 343837128, guid: 80bf7422b81352546a188c10b2fbd9c8, type: 3}
+  - name: "\u0420\u0430\u0437\u0431\u043E\u0439\u043D\u0438\u043A-\u041B\u0443\u0447\u043D\u0438\u043A"
+    mercenaryClass: 10
+    minStartHp: 15
+    maxStartHp: 18
+    minStartBaseDamage: 9
+    maxStartBaseDamage: 11
+    minBaseDamageOffset: 4
+    maxBaseDamageOffset: 6
+    minBaseCriticalStrikeChance: 6
+    maxBaseCriticalStrikeChance: 12
+    minBaseProtection: 2
+    maxBaseProtection: 4
+    minBaseProtectionOffset: 1
+    maxBaseProtectionOffset: 2
+    minBaseEvasionChance: 8
+    maxBaseEvasionChance: 10
+    minPrice: 12
+    maxPrice: 18
+    sutableWeapons: 
+    sutableArmors: 
+    weaponsOnStart: 
+    armorOnStart: 
+    skills:
+    - {fileID: 11400000, guid: 969829b870ebd774682b5f9be4c9e6e0, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    icnons:
+    - {fileID: -1961764721, guid: 80bf7422b81352546a188c10b2fbd9c8, type: 3}
+  - name: "\u0413\u0430\u0440\u043F\u0438\u044F"
+    mercenaryClass: 11
+    minStartHp: 30
+    maxStartHp: 45
+    minStartBaseDamage: 13
+    maxStartBaseDamage: 16
+    minBaseDamageOffset: 7
+    maxBaseDamageOffset: 9
+    minBaseCriticalStrikeChance: 8
+    maxBaseCriticalStrikeChance: 12
+    minBaseProtection: 4
+    maxBaseProtection: 8
+    minBaseProtectionOffset: 3
+    maxBaseProtectionOffset: 4
+    minBaseEvasionChance: 10
+    maxBaseEvasionChance: 15
+    minPrice: 15
+    maxPrice: 30
+    sutableWeapons: 
+    sutableArmors: 
+    weaponsOnStart: 
+    armorOnStart: 
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    - {fileID: 11400000, guid: e133a0f3a4b6cf14c9c4d41240117a7d, type: 2}
+    icnons:
+    - {fileID: 1438164305, guid: 0b523c49c769a50469fe8dd7824b9ccb, type: 3}
+  - name: "\u0414\u0443\u0445 \u0438\u0437 \u043A\u043E\u0441\u0442\u0440\u0430"
+    mercenaryClass: 12
+    minStartHp: 65
+    maxStartHp: 75
+    minStartBaseDamage: 15
+    maxStartBaseDamage: 20
+    minBaseDamageOffset: 5
+    maxBaseDamageOffset: 7
+    minBaseCriticalStrikeChance: 10
+    maxBaseCriticalStrikeChance: 15
+    minBaseProtection: 9
+    maxBaseProtection: 15
+    minBaseProtectionOffset: 5
+    maxBaseProtectionOffset: 8
+    minBaseEvasionChance: 20
+    maxBaseEvasionChance: 25
+    minPrice: 0
+    maxPrice: 0
+    sutableWeapons: 
+    sutableArmors: 
+    weaponsOnStart: 
+    armorOnStart: 
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    - {fileID: 11400000, guid: 273753d2452a0e442878f4c2c3d1123c, type: 2}
+    icnons:
+    - {fileID: -790621056, guid: 2b66f55ef712a2044ac49427796c64b1, type: 3}
+  - name: "\u0416\u0438\u0432\u043E\u0435 \u043E\u0431\u043B\u0430\u043A\u043E \u043F\u044B\u043B\u0438"
+    mercenaryClass: 13
+    minStartHp: 15
+    maxStartHp: 20
+    minStartBaseDamage: 10
+    maxStartBaseDamage: 12
+    minBaseDamageOffset: 2
+    maxBaseDamageOffset: 3
+    minBaseCriticalStrikeChance: 3
+    maxBaseCriticalStrikeChance: 5
+    minBaseProtection: 1
+    maxBaseProtection: 2
+    minBaseProtectionOffset: 0
+    maxBaseProtectionOffset: 1
+    minBaseEvasionChance: 5
+    maxBaseEvasionChance: 10
+    minPrice: 0
+    maxPrice: 0
+    sutableWeapons: 
+    sutableArmors: 
+    weaponsOnStart: 
+    armorOnStart: 
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    icnons:
+    - {fileID: -357216484, guid: 2b66f55ef712a2044ac49427796c64b1, type: 3}
+  - name: "\u0412\u0430\u043C\u043F\u0438\u0440"
+    mercenaryClass: 14
+    minStartHp: 110
+    maxStartHp: 150
+    minStartBaseDamage: 20
+    maxStartBaseDamage: 25
+    minBaseDamageOffset: 5
+    maxBaseDamageOffset: 8
+    minBaseCriticalStrikeChance: 5
+    maxBaseCriticalStrikeChance: 10
+    minBaseProtection: 7
+    maxBaseProtection: 14
+    minBaseProtectionOffset: 4
+    maxBaseProtectionOffset: 5
+    minBaseEvasionChance: 3
+    maxBaseEvasionChance: 8
+    minPrice: 40
+    maxPrice: 60
+    sutableWeapons: 
+    sutableArmors: 
+    weaponsOnStart: 
+    armorOnStart: 
+    skills:
+    - {fileID: 11400000, guid: 9e8a03a1bdbd9604584dc98ed584704c, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    - {fileID: 11400000, guid: c758ad06d8e86d44db2530b03e2c99c5, type: 2}
+    - {fileID: 11400000, guid: fae03b306a35a71418500182da958c1e, type: 2}
+    icnons:
+    - {fileID: -1368747702, guid: 1d62e5a78698c39419e93a3d5e997173, type: 3}
+  - name: "\u0413\u0443\u043B\u044C"
+    mercenaryClass: 15
+    minStartHp: 20
+    maxStartHp: 30
+    minStartBaseDamage: 10
+    maxStartBaseDamage: 16
+    minBaseDamageOffset: 5
+    maxBaseDamageOffset: 7
+    minBaseCriticalStrikeChance: 5
+    maxBaseCriticalStrikeChance: 10
+    minBaseProtection: 2
+    maxBaseProtection: 4
+    minBaseProtectionOffset: 1
+    maxBaseProtectionOffset: 2
+    minBaseEvasionChance: 3
+    maxBaseEvasionChance: 8
+    minPrice: 5
+    maxPrice: 10
+    sutableWeapons: 
+    sutableArmors: 
+    weaponsOnStart: 
+    armorOnStart: 
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    icnons:
+    - {fileID: 1499686779, guid: 1d62e5a78698c39419e93a3d5e997173, type: 3}
+  - name: "\u0421\u043A\u0435\u043B\u0435\u0442"
+    mercenaryClass: 16
+    minStartHp: 25
+    maxStartHp: 35
+    minStartBaseDamage: 14
+    maxStartBaseDamage: 16
+    minBaseDamageOffset: 4
+    maxBaseDamageOffset: 6
+    minBaseCriticalStrikeChance: 5
+    maxBaseCriticalStrikeChance: 10
+    minBaseProtection: 3
+    maxBaseProtection: 5
+    minBaseProtectionOffset: 1
+    maxBaseProtectionOffset: 2
+    minBaseEvasionChance: 8
+    maxBaseEvasionChance: 12
+    minPrice: 1
+    maxPrice: 3
+    sutableWeapons: 
+    sutableArmors: 
+    weaponsOnStart: 
+    armorOnStart: 
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    icnons:
+    - {fileID: 1635482261, guid: 2b66f55ef712a2044ac49427796c64b1, type: 3}
+  - name: "\u0422\u0440\u043E\u043B\u043B\u044C"
+    mercenaryClass: 17
+    minStartHp: 60
+    maxStartHp: 75
+    minStartBaseDamage: 15
+    maxStartBaseDamage: 18
+    minBaseDamageOffset: 8
+    maxBaseDamageOffset: 10
+    minBaseCriticalStrikeChance: 5
+    maxBaseCriticalStrikeChance: 10
+    minBaseProtection: 6
+    maxBaseProtection: 8
+    minBaseProtectionOffset: 3
+    maxBaseProtectionOffset: 5
+    minBaseEvasionChance: 3
+    maxBaseEvasionChance: 5
+    minPrice: 5
+    maxPrice: 10
+    sutableWeapons: 
+    sutableArmors: 
+    weaponsOnStart: 
+    armorOnStart: 
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    icnons:
+    - {fileID: -870656009, guid: 2b66f55ef712a2044ac49427796c64b1, type: 3}
+  - name: "\u0413\u0440\u0438\u0444\u043E\u043D"
+    mercenaryClass: 18
+    minStartHp: 50
+    maxStartHp: 60
+    minStartBaseDamage: 19
+    maxStartBaseDamage: 22
+    minBaseDamageOffset: 9
+    maxBaseDamageOffset: 10
+    minBaseCriticalStrikeChance: 8
+    maxBaseCriticalStrikeChance: 15
+    minBaseProtection: 6
+    maxBaseProtection: 8
+    minBaseProtectionOffset: 3
+    maxBaseProtectionOffset: 5
+    minBaseEvasionChance: 8
+    maxBaseEvasionChance: 12
+    minPrice: 0
+    maxPrice: 0
+    sutableWeapons: 
+    sutableArmors: 
+    weaponsOnStart: 
+    armorOnStart: 
+    skills:
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    icnons:
+    - {fileID: -844312361, guid: 6d0841a4afddc374f9393db50e7772c2, type: 3}
+  - name: "\u041B\u0438\u0447"
+    mercenaryClass: 19
+    minStartHp: 480
+    maxStartHp: 485
+    minStartBaseDamage: 45
+    maxStartBaseDamage: 48
+    minBaseDamageOffset: 9
+    maxBaseDamageOffset: 10
+    minBaseCriticalStrikeChance: 5
+    maxBaseCriticalStrikeChance: 10
+    minBaseProtection: 8
+    maxBaseProtection: 13
+    minBaseProtectionOffset: 5
+    maxBaseProtectionOffset: 7
+    minBaseEvasionChance: 3
+    maxBaseEvasionChance: 8
+    minPrice: 40
+    maxPrice: 60
+    sutableWeapons: 
+    sutableArmors: 
+    weaponsOnStart: 
+    armorOnStart: 
+    skills:
+    - {fileID: 11400000, guid: 9fcac49b1d7ba3d4bbd2929766305169, type: 2}
+    - {fileID: 11400000, guid: e3f97e20071165348b8ac6f885b3f13a, type: 2}
+    - {fileID: 11400000, guid: 548f14dc85a7be24ebb3befc62d2ade3, type: 2}
+    - {fileID: 11400000, guid: 32f3b59131fe4344894d31b0a151346b, type: 2}
+    icnons:
+    - {fileID: -749890317, guid: 6d0841a4afddc374f9393db50e7772c2, type: 3}
+  effects:
+  - {fileID: 11400000, guid: bc38a698afc9dfc429e77c09b9018ae1, type: 2}
+  - {fileID: 11400000, guid: 0e478b4b8eb8c5a4ba5d819de1d6181c, type: 2}
+  - {fileID: 11400000, guid: ac64d228379c5a842ab8d488af630764, type: 2}
+  - {fileID: 11400000, guid: fccd7438b080860429d435ddcf7c7bd9, type: 2}
+  - {fileID: 11400000, guid: 238be8998791cba4fbae8c2d73223f1d, type: 2}
+  - {fileID: 11400000, guid: c8faa6905f94b224a99c92f597c9ca59, type: 2}
+  - {fileID: 11400000, guid: 1359fde5d2a11b744bdccb71c835c123, type: 2}
+  - {fileID: 11400000, guid: 6efaee08dd0863641bbce75ba1e51672, type: 2}
+  - {fileID: 11400000, guid: c8a879e1df25c5442ba5993c3dd6d3ae, type: 2}
+  - {fileID: 11400000, guid: e5f6e606d4c7ae64f9b3b6205e6c202a, type: 2}
+  - {fileID: 11400000, guid: 154e599d3d395ef4d9e8211f26bab1a9, type: 2}
