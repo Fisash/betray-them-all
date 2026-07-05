@@ -14,5 +14,5 @@ battle_turn_context_t battle_system_next_turn(battle_state_t *state,
 battle_skill_use_context_t 
         battle_system_get_skill_context(battle_state_t *state, 
                                   const battle_unit_t *active, 
-                                         const skill_t *skill);
+                                        const skill_t *skill);
 #endif

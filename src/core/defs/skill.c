@@ -4,7 +4,7 @@
 #include "core/defs/unit_templates.h"
 
 
-int is_skill_target_class_require_choice(skill_target_class_t t)
+int skill_is_target_class_require_choice(skill_target_class_t t)
 {
     return (t == SKILL_TARGET_ENEMY_UNIT ||
             t == SKILL_TARGET_ANY_UNIT   ||

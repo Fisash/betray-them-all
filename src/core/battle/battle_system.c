@@ -95,12 +95,14 @@ battle_turn_context_t battle_system_next_turn(battle_state_t *state,
     return result;
 }
 
-static void fill_unit_targets(battle_skill_use_context_t *context, 
-                                   battle_unit_t units[MAX_UNITS],
-                                                  uint8_t offset)
+static void add_valid_unit_targets(battle_skill_use_context_t *c, 
+                                  battle_unit_t units[MAX_UNITS])
 {
     for(int i = 0; i < MAX_UNITS; i++)
-        context->available_targets.units[offset+i] = &units[i];
+    {
+        if(battle_unit_is_alive(&units[i]))
+            c->available_targets.units[c->target_count++] = &units[i];
+    }
 }
 
 static void fill_enemies_and_allies(battle_state_t *state, uint8_t side, 
@@ -129,24 +131,24 @@ battle_skill_use_context_t
     battle_unit_t *my_enemies, *my_allies;
     fill_enemies_and_allies(state, active->side, &my_enemies, &my_allies);
 
-    if(is_skill_target_class_require_choice(skill->target_class))
+    if(skill_is_target_class_require_choice(skill->target_class))
     {
-        if(skill->target_class == SKILL_TARGET_ENEMY_UNIT)
-            fill_unit_targets(&result, my_enemies, 0);
-        if(skill->target_class == SKILL_TARGET_ALLY_UNIT)
-            fill_unit_targets(&result, my_allies, 0);
-        if(skill->target_class == SKILL_TARGET_ANY_UNIT)
+        switch(skill->target_class)
         {
-            fill_unit_targets(&result, my_enemies, 0);
-            fill_unit_targets(&result, my_allies, MAX_UNITS);
+            case SKILL_TARGET_ENEMY_UNIT:
+                add_valid_unit_targets(&result, my_enemies);
+                break;
+            case SKILL_TARGET_ALLY_UNIT:
+                add_valid_unit_targets(&result, my_allies);
+                break;
+            case SKILL_TARGET_ANY_UNIT:
+                add_valid_unit_targets(&result, my_enemies);
+                add_valid_unit_targets(&result, my_allies);
+                break;
+            default:
+                break;
         }
     }
 
     return result;
 }
-
-/*
-void battle_system_select_target(battle_state_t *state, skill_t *skill)
-{
-
-}*/

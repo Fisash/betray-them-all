@@ -44,7 +44,7 @@ struct skill_s {
     uint64_t unit_template_tags_group_mask;
 };
 
-int is_skill_target_class_require_choice(skill_target_class_t t);
+int skill_is_target_class_require_choice(skill_target_class_t t);
 
 void skills_load(skill_t skills[]);
 
