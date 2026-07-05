@@ -92,16 +92,6 @@ static void output_event_info(const event_t *event, uint8_t answer_count)
     putc('\n', stdout);
 }
 
-static int choose_digit(uint8_t min, uint8_t max)
-{
-    int input;
-    for(;;) 
-    {
-        input = getc(stdin);
-        if (input >= '0'+min && input <= '0'+max) 
-            return input-'0';
-    }
-}
 
 static void cli_active_event(int16_t *active_event_id, battle_state_t *battle, 
                                       squad_t *squad, const game_info_t *info)
@@ -110,7 +100,7 @@ static void cli_active_event(int16_t *active_event_id, battle_state_t *battle,
 
     int answer_count = event_get_answer_count(active);
     output_event_info(active, answer_count);
-    int answer_index = choose_digit(1, answer_count)-1;
+    int answer_index = cli_choose_digit(1, answer_count)-1;
 
     event_answer_handle_context_t context = {active, answer_index, 
                                              battle, squad, info};

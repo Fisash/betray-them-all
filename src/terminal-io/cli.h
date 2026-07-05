@@ -15,4 +15,5 @@ typedef struct {
 } command;
 
 void cli_run(game_state_t *game_state, const game_info_t *game_info);
+
 #endif

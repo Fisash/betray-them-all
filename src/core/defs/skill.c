@@ -4,6 +4,13 @@
 #include "core/defs/unit_templates.h"
 
 
+int is_skill_target_class_require_choice(skill_target_class_t t)
+{
+    return (t == SKILL_TARGET_ENEMY_UNIT ||
+            t == SKILL_TARGET_ANY_UNIT   ||
+            t == SKILL_TARGET_ANY_UNIT);            
+}
+
 static void skill_init(skill_t *skill,const char *name, 
         const char *description, skill_target_class_t target_class,
                       unit_stats_t req_stats, skill_t *req_learned, 

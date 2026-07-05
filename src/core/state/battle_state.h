@@ -39,13 +39,15 @@ typedef struct {
 
 typedef struct {
     battle_unit_t *active_unit;
+    uint8_t skill_count;
     const skill_t *available_skills[MAX_TURN_SKILL_COUNT];
 } battle_turn_context_t;
 
 typedef struct {
     const skill_t *skill;
+    uint8_t target_count;
     union {
-        battle_unit_t *units[MAX_UNITS];
+        battle_unit_t *units[MAX_UNITS*2];
     } available_targets;
 } battle_skill_use_context_t;
 
