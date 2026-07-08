@@ -7,7 +7,7 @@
 int skill_is_target_class_require_choice(skill_target_class_t t)
 {
     return (t == SKILL_TARGET_ENEMY_UNIT ||
-            t == SKILL_TARGET_ANY_UNIT   ||
+            t == SKILL_TARGET_ALLY_UNIT  ||
             t == SKILL_TARGET_ANY_UNIT);            
 }
 

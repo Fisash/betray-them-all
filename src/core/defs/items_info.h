@@ -86,6 +86,8 @@ typedef enum {
 
 } item_id;
 
+char scale_get_rank_view(scale_rank_t rank);
+
 uint16_t scale_param(uint16_t source, scaling_group_t scalings, 
                                            unit_stats_t stats);
 

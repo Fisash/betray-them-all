@@ -20,6 +20,52 @@ static void draw(char *framebuffer, draw_frame_context_t *context)
     terminal_view_stdout_framebuffer(framebuffer);
 }
 
+static void fill_scalings_view(char out[], scaling_group_t s)
+{
+    out[0] = scale_get_rank_view(s.strength);
+    out[1] = scale_get_rank_view(s.agility);
+    out[2] = scale_get_rank_view(s.will);
+    out[3] = scale_get_rank_view(s.intelligence);
+    out[4] = 0;
+}
+
+static void print_unit_info(unit_t *unit, const item_info_t items[],
+                                  const unit_template_t templates[])
+{
+    printf("Name: %s, (%s)\n", unit->name, 
+       templates[unit->template_id].name);
+    printf("HP: %d/%d\n", unit->hp, unit->max_hp);
+    printf("STR: %d\nAGL: %d\nWIL: %d\nINT: %d\n", 
+        unit->stats.strength, unit->stats.agility, 
+        unit->stats.will,unit->stats.intelligence);
+
+    char damage_scalings[5], crit_scalings[5];
+    const item_info_t *weapon = &items[unit->weapon.id];
+    fill_scalings_view(damage_scalings, 
+                       weapon->props.weapon.damage.scalings);
+    fill_scalings_view(crit_scalings, 
+                       weapon->props.weapon.crit.scalings);
+    printf("Weapon: %s - %d(%d) damage (%s),"
+                        "%d(%d) crit (%s)\n",
+        weapon->title, unit->weapon.props.weapon.damage, 
+        unit_get_damage(unit, items), damage_scalings,
+        unit->weapon.props.weapon.crit, 
+        unit_get_crit(unit, items), crit_scalings);
+
+    char protection_scalings[5], mobility_scalings[5];
+    const item_info_t *armor = &items[unit->armor.id];
+    fill_scalings_view(protection_scalings, 
+                       armor->props.armor.protection.scalings);
+    fill_scalings_view(mobility_scalings, 
+                       armor->props.armor.mobility.scalings);
+    printf("Armor: %s - %d(%d) protection (%s),"
+                        "%d(%d) mobility (%s)\n",
+        armor->title, unit->armor.props.armor.protection, 
+        unit_get_protection(unit, items), protection_scalings,
+        unit->armor.props.armor.mobility, 
+        unit_get_mobility(unit, items), mobility_scalings);
+}
+
 static void interpret_unit_info(command *cmd, squad_t *squad, 
                            const unit_template_t templates[],
                               const item_info_t items_info[])
@@ -35,16 +81,7 @@ static void interpret_unit_info(command *cmd, squad_t *squad,
     {
         unit_t *unit = &squad->units[unit_id-1];
         if(unit->is_alive)
-        {
-            const unit_template_t *t = &templates[unit->template_id];
-            printf("Name: %s (%s)\nhp: %d/%d\nSTR: %d\nAGL: %d\nWIL: "
-                                "%d\nINT: %d\nArmor: %s\nWeapon: %s\n",
-                         unit->name, t->name, unit->hp, unit->max_hp, 
-                         unit->stats.strength, unit->stats.agility, 
-                         unit->stats.will, unit->stats.intelligence, 
-                         items_info[unit->armor.id].title,
-                         items_info[unit->weapon.id].title);
-        }
+            print_unit_info(unit, items_info, templates);
     }
 }
 

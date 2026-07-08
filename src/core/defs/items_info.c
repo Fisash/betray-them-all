@@ -2,6 +2,21 @@
 
 #include "core/defs/items_info.h"
 
+char scale_get_rank_view(scale_rank_t rank)
+{
+    switch(rank)
+    {
+        case SCALE_N: return '-';
+        case SCALE_E: return 'E';
+        case SCALE_D: return 'D';
+        case SCALE_C: return 'C';
+        case SCALE_B: return 'B';
+        case SCALE_A: return 'A';
+        case SCALE_S: return 'S';
+        default:      return '-';
+    }
+}
+
 static float get_scale_multiplier(scale_rank_t rank)
 {
     switch(rank)
@@ -23,17 +38,17 @@ static float get_stat_scale_profit(scale_rank_t rank, uint16_t stat)
 }
 
 uint16_t scale_param(uint16_t source, scaling_group_t scalings, 
-                                           unit_stats_t stats)
+                                            unit_stats_t stats)
 {
     float bonus = 1;
     bonus += get_stat_scale_profit(scalings.strength, 
-                                      stats.strength);
+                                     stats.strength);
     bonus += get_stat_scale_profit(scalings.agility, 
-                                      stats.agility);
+                                     stats.agility);
     bonus += get_stat_scale_profit(scalings.will, 
-                                      stats.will);
+                                     stats.will);
     bonus += get_stat_scale_profit(scalings.intelligence, 
-                                      stats.intelligence);
+                                     stats.intelligence);
 
     return (uint16_t)(source * bonus);
 }

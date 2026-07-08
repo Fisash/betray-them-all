@@ -130,7 +130,7 @@ void cli_battle_run(battle_state_t *battle, const game_info_t *info)
     battle_skill_execution_report_t report;
 
     battle_unit_t *target = NULL;
-    int is_caster_player;
+    int is_player_turn;
     const skill_t *skill = NULL;
     skill_id_t skill_id;
 
@@ -139,11 +139,11 @@ void cli_battle_run(battle_state_t *battle, const game_info_t *info)
         draw_state(battle);
         turn_context = battle_system_next_turn(battle, info->skills, 
                                               info->unit_templates);
-        is_caster_player = turn_context.active_unit->side == IS_PLAYER;
+        is_player_turn = turn_context.active_unit->side == IS_PLAYER;
 
         notification_turn_started(&turn_context, battle->round_num);
 
-        skill = is_caster_player                     ? 
+        skill = is_player_turn                       ?
                 cli_select_skill(&turn_context)      : 
                 battle_bot_select_skill(&turn_context, 
                      SELECTING_RANDOM_NOT_SKIP_SKILL);
@@ -152,7 +152,7 @@ void cli_battle_run(battle_state_t *battle, const game_info_t *info)
         {
             skill_use_context = battle_system_get_skill_context(battle, 
                                       turn_context.active_unit, skill);
-            target = is_caster_player                           ? 
+            target = is_player_turn                             ?
                      cli_select_target(&skill_use_context)      :
                      battle_bot_select_target(&skill_use_context,
                                        SELECTING_LESS_HP_TARGET);
@@ -165,9 +165,7 @@ void cli_battle_run(battle_state_t *battle, const game_info_t *info)
         notification_turn_result(&report);
     }
     
-    if(battle->status == BATTLE_STATUS_WON)
-        puts("You won!\n");
-    else
+    if(battle->status == BATTLE_STATUS_LOST)
     {
         puts("You lost!\n");
         exit(0);
