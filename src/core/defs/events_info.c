@@ -4,7 +4,8 @@
 
 static void answers_clear(event_answer_t *answers)
 {
-    for(int i = 0; i < EVENT_MAX_ANSWERS; i++)
+    int i;
+    for(i = 0; i < EVENT_MAX_ANSWERS; i++)
         answers[i].is_valid = 0;
 }
 

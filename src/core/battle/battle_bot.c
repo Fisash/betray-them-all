@@ -37,7 +37,8 @@ static battle_unit_t
 {
     battle_unit_t *result, *current;
     result = context->available_targets.units[0];
-    for (int i = 0; i < context->target_count; i++)
+    int i;
+    for (i = 0; i < context->target_count; i++)
     {
         current = context->available_targets.units[i];
         if(current->unit->hp < result->unit->hp)

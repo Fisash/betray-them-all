@@ -1,6 +1,6 @@
 #include "core/defs/skills_mask.h"
 
-int skills_mask_is_include_bit(const skills_mask_t mask, skill_id id)
+int skills_mask_is_include_bit(const skills_mask_t mask, skill_id_t id)
 {
     int word_c = id / BITS_PER_WORD;
     int bit_c = id % BITS_PER_WORD;
@@ -10,7 +10,7 @@ int skills_mask_is_include_bit(const skills_mask_t mask, skill_id id)
     return (word & bit_mask) != 0;
 }
 
-void skills_mask_set_bit(skills_mask_t mask, skill_id id)
+void skills_mask_set_bit(skills_mask_t mask, skill_id_t id)
 {
     int word_c = id / BITS_PER_WORD;
     int bit_c = id % BITS_PER_WORD;
@@ -20,7 +20,7 @@ void skills_mask_set_bit(skills_mask_t mask, skill_id id)
     mask[word_c] |= bit_mask;
 }
 
-void skills_mask_clear_bit(skills_mask_t mask, skill_id id)
+void skills_mask_clear_bit(skills_mask_t mask, skill_id_t id)
 {
     int word_c = id / BITS_PER_WORD;
     int bit_c = id % BITS_PER_WORD;

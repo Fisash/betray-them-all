@@ -8,10 +8,10 @@
 
 typedef uint64_t skills_mask_t[LEARNED_SKILL_WORDS];
 
-int skills_mask_is_include_bit(const skills_mask_t mask, skill_id id);
+int skills_mask_is_include_bit(const skills_mask_t mask, skill_id_t id);
 
-void skills_mask_set_bit(skills_mask_t mask, skill_id id);
+void skills_mask_set_bit(skills_mask_t mask, skill_id_t id);
 
-void skills_mask_clear_bit(skills_mask_t mask, skill_id id);
+void skills_mask_clear_bit(skills_mask_t mask, skill_id_t id);
 
 #endif

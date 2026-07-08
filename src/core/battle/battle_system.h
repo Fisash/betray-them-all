@@ -15,4 +15,10 @@ battle_skill_use_context_t
         battle_system_get_skill_context(battle_state_t *state, 
                                   const battle_unit_t *active, 
                                         const skill_t *skill);
+battle_skill_execution_report_t 
+       battle_system_execute_skill(battle_state_t *state,
+                                   battle_unit_t *caster,
+                                     skill_id_t skill_id,
+                                   battle_unit_t *target);
+
 #endif

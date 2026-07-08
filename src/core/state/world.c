@@ -7,13 +7,15 @@
 
 static void cell_list_init(cell_t **list)
 {
-    for(int i = 0; i < CELL_LIST_SIZE; i++)
+    int i;
+    for(i = 0; i < CELL_LIST_SIZE; i++)
         list[i] = NULL;
 }
 
 void world_cell_list_add(cell_t** list, cell_t *cell)
 {
-    for(int i = 0; i < CELL_LIST_SIZE; i++)
+    int i;
+    for(i = 0; i < CELL_LIST_SIZE; i++)
     {
         if(list[i] == NULL)
         {

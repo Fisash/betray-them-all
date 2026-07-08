@@ -87,7 +87,8 @@ static void output_event_info(const event_t *event, uint8_t answer_count)
 {
     puts(event->title);
     puts(event->message);
-    for(int i = 0; i < answer_count; i++)
+    int i;
+    for(i = 0; i < answer_count; i++)
        printf("%d. %s", i+1, event->answers[i].text);
     putc('\n', stdout);
 }

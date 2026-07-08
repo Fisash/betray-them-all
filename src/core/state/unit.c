@@ -3,9 +3,41 @@
 
 #include "core/state/unit.h"
 
-static uint16_t get_between_value(uint16_t min, uint16_t max)
+uint16_t unit_get_damage(unit_t *unit, const item_info_t items[])
 {
-    return min + rand() % (max - min + 1);
+   scaling_group_t scalings = 
+                   items[unit->weapon.id].props.weapon.damage.scalings;
+   return scale_param(unit->weapon.props.weapon.damage, 
+                                              scalings,
+                                          unit->stats);
+}
+
+uint16_t unit_get_crit(unit_t *unit, const item_info_t items[])
+{
+   scaling_group_t scalings = 
+                   items[unit->weapon.id].props.weapon.crit.scalings;
+   return scale_param(unit->weapon.props.weapon.crit, 
+                                            scalings,
+                                        unit->stats);
+}
+
+uint16_t unit_get_protection(unit_t *unit, const item_info_t items[])
+{
+
+   scaling_group_t scalings = 
+                   items[unit->armor.id].props.armor.protection.scalings;
+   return scale_param(unit->armor.props.armor.protection, 
+                                                scalings,
+                                            unit->stats);
+}
+
+uint16_t unit_get_mobility(unit_t *unit, const item_info_t items[])
+{
+   scaling_group_t scalings = 
+                   items[unit->armor.id].props.armor.mobility.scalings;
+   return scale_param(unit->armor.props.armor.mobility, 
+                                              scalings,
+                                          unit->stats);
 }
 
 void unit_init(unit_t *unit, const char *name, unit_template_id id, 
@@ -49,12 +81,12 @@ void unit_fill_available_skills(skills_mask_t out, const unit_t *unit,
                                     const unit_template_t templates[])
 {
     const skill_t *skill;
-    int is_ok_weapon, is_ok_stats, is_ok_tags;
+    int is_ok_weapon, is_ok_stats, is_ok_tags, i;
 
     uint64_t unit_tags = templates[unit->template_id].tags_mask;
 
     memcpy(out, unit->learned, sizeof(skills_mask_t));
-    for(int i = 0; i < SKILL_COUNT; i++)
+    for(i = 0; i < SKILL_COUNT; i++)
     {
         skill = &skills[i];
 

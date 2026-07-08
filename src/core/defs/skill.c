@@ -43,6 +43,15 @@ int skill_is_compatible_with_unit_template(const skill_t *skill,
     return ((skill->unit_template_tags_group_mask & template_tags) != 0);
 }
 
+skill_id_t skill_get_id(const skill_t *skill, const skill_t all_skills[])
+{
+    skill_id_t i;
+    for(i = 0; i < SKILL_COUNT; i++)
+        if(all_skills+i == skill)
+            return i;
+    return SKILL_SKIP_TURN;
+}
+
 void skills_load(skill_t skills[])
 {
     unit_stats_t req_stats;

@@ -4,7 +4,7 @@ DEBUG   ?= 0
 OPT      = -Os
 STRIP_FLAG = -s
 
-CFLAGS   = -Wall -Wextra -std=c11 $(OPT) -MMD -MP \
+CFLAGS   = -Wall -Wextra -std=c89 $(OPT) -MMD -MP \
            -fno-asynchronous-unwind-tables -fno-ident \
            -ffunction-sections -fdata-sections
 

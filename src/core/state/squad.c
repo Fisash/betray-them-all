@@ -20,7 +20,8 @@ int squad_add_item(squad_t *squad, item_t *item)
     if(item->id == ITEM_NONE)
         return -1;
 
-    for(int i = 0; i < MAX_ITEMS; i++)
+    int i;
+    for(i = 0; i < MAX_ITEMS; i++)
     {
         if(squad->inventory[i].id == ITEM_NONE)
         {
@@ -36,7 +37,8 @@ int squad_add_unit(squad_t *squad, unit_t *unit)
     if(!unit->is_alive)
         return 1;
 
-    for(int i = 0; i < MAX_UNITS; i++)
+    int i;
+    for(i = 0; i < MAX_UNITS; i++)
     {
         if(!squad->units[i].is_alive)
         {

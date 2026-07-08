@@ -27,6 +27,7 @@ typedef struct {
 
 typedef struct {
     battle_status_t status;
+    uint8_t round_num;
 
     battle_unit_t player_units[MAX_UNITS];
     uint8_t player_unit_count;
@@ -35,6 +36,10 @@ typedef struct {
     uint8_t enemy_unit_count;
 
     unit_t enemy_storage[MAX_UNITS];
+
+    const skill_t *all_skills;
+    const item_info_t *all_items;
+    const unit_template_t *all_templates;
 } battle_state_t;
 
 typedef struct {
@@ -52,32 +57,36 @@ typedef struct {
 } battle_skill_use_context_t;
 
 typedef enum {
-    BATTLE_RESULT_TAKING_DAMAGE,
-    BATTLE_RESULT_HEALING,
-    BATTLE_RESULT_TARGET_EVASION
-} battle_action_result_type_t;
+    BATTLE_EVENT_TAKING_DAMAGE,
+    BATTLE_EVENT_HEALING,
+    BATTLE_EVENT_TARGET_EVASION
+} battle_event_type_t;
 
 typedef struct {
-    battle_action_result_type_t type;
+    battle_event_type_t type;
     battle_unit_t *target;
     int hp_change;
     uint8_t is_target_died;
-} battle_action_result_t;
+} battle_event_report_t;
 
 typedef struct {
-    battle_unit_t *actor;
+    battle_unit_t *caster;
     const skill_t *skill;
+    uint8_t is_crit;
     uint8_t target_count;
-    battle_action_result_t results[MAX_UNITS*2];
+    battle_event_report_t events[MAX_UNITS*2];
     uint8_t is_actor_died;
-} battle_action_report_t;
+} battle_skill_execution_report_t;
 
 int battle_unit_is_alive(battle_unit_t *b);
 
 battle_unit_t *battle_state_get_faction_units(battle_state_t *state, 
                                                       int is_player);
 
-void battle_state_init(battle_state_t *b, squad_t *squad);
+void battle_state_init(battle_state_t *b, squad_t *squad, 
+                   const skill_t all_skills[SKILL_COUNT],
+                   const item_info_t all_items[ALL_ITEMS_COUNT],
+                   const unit_template_t all_templates[UNIT_TEMP_COUNT]);
 
 int battle_state_add_enemy(battle_state_t *b, const unit_t *enemy);
 

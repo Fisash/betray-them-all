@@ -27,7 +27,7 @@ typedef enum {
     SKILL_USUAL_STABBING,
     SKILL_MAUL,
     SKILL_COUNT 
-} skill_id;
+} skill_id_t;
 
 typedef struct skill_s skill_t; 
 struct skill_s {
@@ -45,6 +45,8 @@ struct skill_s {
 };
 
 int skill_is_target_class_require_choice(skill_target_class_t t);
+
+skill_id_t skill_get_id(const skill_t *skill, const skill_t all_skills[]);
 
 void skills_load(skill_t skills[]);
 

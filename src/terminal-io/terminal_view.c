@@ -38,7 +38,8 @@ static char get_cell_view(char id)
 
 static void view_cells_id(char *buf_ptr, size_t size)
 {
-    for(size_t i = 0; i < size; i++)
+    size_t i;
+    for(i = 0; i < size; i++)
         buf_ptr[i] = get_cell_view(buf_ptr[i]); 
 }
 
@@ -72,7 +73,7 @@ static void draw_str(char **cursor_ptr, const char* str)
 static void draw_int(char **cursor_ptr, int value)
 {
     char buf[12];
-    snprintf(buf, sizeof(buf), "%d", value);
+    sprintf(buf, "%d", value);
     draw_str(cursor_ptr, (const char*)&buf);
 }
 
@@ -128,9 +129,10 @@ static void draw_unit_info(char **cursor_ptr, unit_t *unit)
 
 static void draw_squad_units(char *framebuffer, unit_t units[])
 {
-    int unit_id = 0;
     char *cursor;
-    for(int i = 0; i < MAX_UNITS; i++)
+    int i, unit_id;
+    unit_id = 0;
+    for(i = 0; i < MAX_UNITS; i++)
     {
         if(!units[i].is_alive)
             continue;
@@ -146,9 +148,10 @@ static void draw_squad_units(char *framebuffer, unit_t units[])
 static void draw_squad_inventory(char *framebuffer, item_t inventory[],
                                         const item_info_t items_info[])
 {
-    int item_slot_id = 0;
     char *cursor;
-    for(int i = 0; i < MAX_ITEMS; i++)
+    int i, item_slot_id;
+    item_slot_id = 0;
+    for(i = 0; i < MAX_ITEMS; i++)
     {
         if(inventory[i].id == ITEM_NONE)
             continue;
