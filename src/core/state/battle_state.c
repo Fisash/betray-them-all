@@ -38,6 +38,7 @@ void battle_state_init(battle_state_t *b, squad_t *squad,
     }
 
     memset(b->enemy_storage, 0, sizeof(b->enemy_storage));
+    b->round_num = 1;
     b->status = BATTLE_STATUS_ACTIVE;
     b->all_skills = all_skills;
     b->all_items = all_items;

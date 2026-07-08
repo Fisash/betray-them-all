@@ -1,13 +1,10 @@
 #include <stdlib.h>
-
 #include "core/battle/battle_system.h"
+#include "core/battle/battle_mechanics.h"
 
 #ifdef DEBUG
 #include <stdio.h>
 #endif
-
-#define MAX_EVASION 0.95f
-#define PARITY_EVASION 0.1f
 
 static int is_unit_able_to_turn(const battle_unit_t *b)
 {
@@ -159,84 +156,6 @@ battle_skill_use_context_t
     return result;
 }
 
-static float calc_target_evasion(battle_unit_t *attacker, 
-                                   battle_unit_t *target,
-                               const item_info_t items[])
-{
-    uint16_t attacker_mobility, target_mobility;
-    float evasion, ratio;
-
-    attacker_mobility = unit_get_mobility(attacker->unit, items);
-    target_mobility = unit_get_mobility(target->unit, items);
-
-    if(attacker_mobility <= 0)
-        return MAX_EVASION;
-    ratio = (float)attacker_mobility/ 
-            (float)target_mobility; 
-    evasion = (ratio*ratio) * PARITY_EVASION;
-
-    if(evasion > MAX_EVASION)
-        evasion = MAX_EVASION;
-    return evasion;
-}
-
-static int check_target_evasion(battle_unit_t *attacker,
-                                  battle_unit_t *target,
-                               const item_info_t items[])
-{
-    float evasion_chance = calc_target_evasion(attacker, target, items);
-    float random_value = (float)rand() / (float)RAND_MAX;
-    return (random_value < evasion_chance);
-}
-
-static int check_crit(battle_unit_t *attacker, 
-                     const item_info_t items[])
-{
-    float crit_chance = (float)(unit_get_crit(attacker->unit, items)/100);
-    if (crit_chance > 0.95f)
-        crit_chance = 0.95f;
-    float random_value = (float)rand() / (float)RAND_MAX;
-    return (random_value < crit_chance);
-}
-
-static void apply_damage(battle_unit_t *target, uint16_t raw_damage,
-                                      battle_event_report_t *report, 
-                                          const item_info_t items[])
-{
-    uint16_t target_protection = unit_get_protection(target->unit, items);
-
-    uint16_t taken_damage = (raw_damage > target_protection) ?
-                            (raw_damage - target_protection) : 0;
-    report->hp_change = taken_damage;
-    if(target->unit->hp > taken_damage)
-        target->unit->hp -= taken_damage;
-    else
-    {
-        target->unit->is_alive = 0;
-        report->is_target_died = 1;
-    }
-}
-
-static battle_event_report_t execute_attack(float damage_scale,
-                                       battle_unit_t *attacker,
-                                         battle_unit_t *target,
-                                     const item_info_t items[])
-{
-    battle_event_report_t report = {0};
-    report.target = target;
-    if(check_target_evasion(attacker, target, items))
-    {
-        report.type = BATTLE_EVENT_TARGET_EVASION;
-        return report;
-    }
-     
-    report.type = BATTLE_EVENT_TAKING_DAMAGE;
-
-    uint16_t raw_damage = damage_scale * 
-                          unit_get_damage(attacker->unit, items);
-    apply_damage(target, raw_damage, &report, items);
-    return report;
-}
 
 static void add_event_report(battle_skill_execution_report_t *out, 
                                      battle_event_report_t report)
@@ -287,7 +206,7 @@ battle_skill_execution_report_t
     report.caster = caster;
 
     float damage_scale = 1.0f;
-    if(check_crit(caster, state->all_items))
+    if(battle_mechanics_check_crit(caster, state->all_items))
     {
         damage_scale = 2.0f;
         report.is_crit = 1;
@@ -302,8 +221,9 @@ battle_skill_execution_report_t
         case SKILL_USUAL_SLASH:
         case SKILL_USUAL_STABBING:
         case SKILL_MAUL:
-            battle_event_report_t attack_report = execute_attack(damage_scale, 
-                                            caster, target, state->all_items);
+            battle_event_report_t attack_report = 
+                    battle_mechanics_execute_attack(damage_scale, 
+                               caster, target, state->all_items);
             add_event_report(&report, attack_report);
             break;
         default:
