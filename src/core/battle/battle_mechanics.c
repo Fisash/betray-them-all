@@ -2,7 +2,7 @@
 
 #include "core/battle/battle_mechanics.h"
 
-float battle_mechanics_calc_evasion(battle_unit_t *attacker, 
+static float battle_mechanics_calc_evasion(battle_unit_t *attacker, 
                                       battle_unit_t *target,
                                   const item_info_t items[])
 {
@@ -37,8 +37,8 @@ int battle_mechanics_check_crit(battle_unit_t *attacker,
                               const item_info_t items[])
 {
     float crit_chance = (float)(unit_get_crit(attacker->unit, items)/100);
-    if (crit_chance > 0.95f)
-        crit_chance = 0.95f;
+    if (crit_chance > MAX_CRIT)
+        crit_chance = MAX_CRIT;
     float random_value = (float)rand() / (float)RAND_MAX;
     return (random_value < crit_chance);
 }

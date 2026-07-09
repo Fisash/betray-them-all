@@ -75,9 +75,20 @@ static void battle_system_next_round(battle_state_t *state)
     {
         side = (pass == 0) ? state->player_units : state->enemy_units;
         for(i = 0; i < MAX_UNITS; i++)
-            side[i].action_points = START_ACTION_POINTS;
+            if(battle_unit_is_alive(&side[i]))
+                side[i].action_points = unit_get_mobility(side[i].unit, 
+                                                     state->all_items);
     }
 
+}
+
+static int is_active_unit_able_to_useful_turn(const battle_state_t *state,
+                                           const battle_turn_context_t *c)
+{
+    const battle_unit_t *active = c->active_unit;
+    if(!c || !c->active_unit) return 0;
+    uint16_t max_ap = unit_get_mobility(active->unit, state->all_items);
+    return (c->skill_count > 1 || active->action_points == max_ap);
 }
 
 battle_turn_context_t battle_system_next_turn(battle_state_t *state, 
@@ -94,6 +105,12 @@ battle_turn_context_t battle_system_next_turn(battle_state_t *state,
     }
     result.active_unit = active;
     fill_unit_available_skills(&result, all_skills, templates);
+
+    if(!is_active_unit_able_to_useful_turn(state, &result))
+    {
+        active->action_points = 0;
+        return battle_system_next_turn(state, all_skills, templates);
+    }
     return result;
 }
 

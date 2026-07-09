@@ -110,7 +110,7 @@ void items_info_load(item_info_t items[])
 
     param_spec_init(&protection, 2, 2,
                     SCALE_N, SCALE_N, SCALE_N, SCALE_N);
-    param_spec_init(&mobility, 10, 12,
+    param_spec_init(&mobility, 10, 11,
                     SCALE_N, SCALE_A, SCALE_N, SCALE_N);
     init_armor(&items[ARMOR_FABRIC],  "Fabric armor",
                        "Light armor from fabric", protection, mobility);

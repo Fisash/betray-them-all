@@ -23,6 +23,9 @@ void battle_state_init(battle_state_t *b, squad_t *squad,
     b->player_unit_count = 0;
     b->enemy_unit_count = 0;
 
+    memset(b->player_units, 0, sizeof(b->player_units));
+    memset(b->enemy_units, 0, sizeof(b->enemy_units));
+
     unit_t *unit;
     battle_unit_t *battle_unit;
     int i;

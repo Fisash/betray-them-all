@@ -6,6 +6,8 @@
 #include "core/battle/battle_system.h"
 #include "core/battle/battle_bot.h"
 
+#define FIGHT_STATE_SPLITER "-----------------"
+
 int cli_choose_digit(uint8_t min, uint8_t max)
 {
     int input;
@@ -36,11 +38,13 @@ static void draw_units(battle_unit_t b_units[])
 
 static void draw_state(battle_state_t *battle)
 {
-    puts("Your units:\n");
+    puts(FIGHT_STATE_SPLITER);
+    puts("Your units:");
     draw_units(battle->player_units);
-    puts("-----------------");
-    puts("Enemy units:\n");
+    putc('\n', stdout);
+    puts("Enemy units:");
     draw_units(battle->enemy_units);
+    puts(FIGHT_STATE_SPLITER);
 }
 
 static void draw_turn_skill_list(battle_turn_context_t *c)

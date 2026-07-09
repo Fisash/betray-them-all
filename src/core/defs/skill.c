@@ -66,17 +66,17 @@ void skills_load(skill_t skills[])
     skill_init(&skills[SKILL_USUAL_SLASH], 
                "Usual slash", "Base damage", 
                SKILL_TARGET_ENEMY_UNIT, req_stats, ROOT_SKILL, 
-               10, NATURE_WEAPON_GROUP, (uint64_t)1<<UNIT_TAG_HUMAN);
+               8, NATURE_WEAPON_GROUP, (uint64_t)1<<UNIT_TAG_HUMAN);
 
     unit_stats_init(&req_stats, 0, 10, 0, 0);
     skill_init(&skills[SKILL_USUAL_STABBING], 
                "Usual stabbing", "Base damage",
                SKILL_TARGET_ENEMY_UNIT, req_stats, ROOT_SKILL, 
-               10, NATURE_WEAPON_GROUP, (uint64_t)1<<UNIT_TAG_HUMAN);
+               8, NATURE_WEAPON_GROUP, (uint64_t)1<<UNIT_TAG_HUMAN);
 
     unit_stats_init(&req_stats, 5, 5, 0, 0);
     skill_init(&skills[SKILL_MAUL], 
                "Maul", "Maul",
                SKILL_TARGET_ENEMY_UNIT, req_stats, ROOT_SKILL, 
-               10, NATURE_WEAPON_GROUP, (uint64_t)1<<UNIT_TAG_ANIMAL);
+               8, NATURE_WEAPON_GROUP, (uint64_t)1<<UNIT_TAG_ANIMAL);
 }
