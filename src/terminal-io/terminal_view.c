@@ -21,17 +21,20 @@ static char get_cell_view(char id)
 {
     switch (id)
     {
-        case 1:
-            return CELL_VALUE1;
+        case CELL_TYPE_MEADOW:
+            return CELL_VIEW_MEADOW;
             break;
-        case 2:
-            return CELL_VALUE2;
+        case CELL_TYPE_FOREST:
+            return CELL_VIEW_FOREST;
             break;
-        case 3:
-            return CELL_VALUE3;
+        case CELL_TYPE_MOUNTAIN:
+            return CELL_VIEW_MOUNTAIN;
+            break;
+        case CELL_TYPE_VILLAGE:
+            return CELL_VIEW_VILLAGE;
             break;
         default:
-            return CELL_VALUE_DEFAULT;
+            return CELL_VIEW_DEFAULT;
             break;
     }
 }
@@ -45,7 +48,7 @@ static void view_cells_id(char *buf_ptr, size_t size)
 
 void terminal_view_init_framebuffer(char *framebuffer_ptr)
 {
-    memset(framebuffer_ptr, CELL_VALUE_DEFAULT, FRAME_WIDTH*FRAME_HEIGHT);
+    memset(framebuffer_ptr, CELL_VIEW_DEFAULT, FRAME_WIDTH*FRAME_HEIGHT);
 }
 
 /* get offset from framebuffer by row and column*/
@@ -114,7 +117,7 @@ static void draw_player(char *framebuffer, squad_t *squad)
 {
     char *cursor = get_cursor(framebuffer,squad->pos_x+WORLD_OFFSET_X, 
                                           squad->pos_y+WORLD_OFFSET_Y);
-    *cursor = SQUAD_CELL_VALUE;
+    *cursor = CELL_VIEW_SQUAD;
 }
 
 
@@ -182,7 +185,7 @@ void draw_squad_cell_info(char **cursor_ptr, draw_frame_context_t *context)
     cell_t *cell = world_queries_get_squad_cell(context->squad, 
                                                 context->world);
 
-    const cell_info_t *info = get_cell_info(cell, context->cells_info);
+    const cell_info_t *info = &context->cells_info[cell->type_id];
 
     draw_str(cursor_ptr, info->title); 
     draw_char(cursor_ptr, '(');

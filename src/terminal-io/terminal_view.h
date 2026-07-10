@@ -12,13 +12,13 @@
 #define WORLD_OFFSET_X 1
 #define WORLD_OFFSET_Y 1
 
-#define CELL_VALUE1 '-'
-#define CELL_VALUE2 '!'
-#define CELL_VALUE3 '^'
+#define CELL_VIEW_MEADOW '-'
+#define CELL_VIEW_FOREST '!'
+#define CELL_VIEW_MOUNTAIN '^'
+#define CELL_VIEW_VILLAGE 'v'
+#define CELL_VIEW_SQUAD 'p'
 
-#define SQUAD_CELL_VALUE 'p'
-
-#define CELL_VALUE_DEFAULT '#'
+#define CELL_VIEW_DEFAULT '#'
 
 typedef struct {
     world_t *world;

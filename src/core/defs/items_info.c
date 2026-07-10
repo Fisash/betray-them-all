@@ -144,7 +144,7 @@ void items_info_load(item_info_t items[])
     init_weapon(&items[WEAPON_FISTS], "Fists",
                        "Bare hands", damage, crit);
 
-    param_spec_init(&damage, 6, 6,
+    param_spec_init(&damage, 5, 5,
                     SCALE_A, SCALE_D, SCALE_N, SCALE_N);
     param_spec_init(&crit, 6, 6,
                     SCALE_B, SCALE_E, SCALE_N, SCALE_N);

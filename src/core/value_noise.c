@@ -40,11 +40,10 @@ double value_noise_octave(uint32_t x, uint32_t y,
 
 double value_noise(uint32_t x, uint32_t y, uint32_t seed)
 {
-    double o9 = value_noise_octave(x, y, 9, seed);
-    double o8 = value_noise_octave(x, y, 8, seed);
+    double o5 = value_noise_octave(x, y, 5, seed);
     double o4 = value_noise_octave(x, y, 4, seed);
     double o3 = value_noise_octave(x, y, 3, seed);
     double o2 = value_noise_octave(x, y, 2, seed);
 
-    return (o9+o8+o4+o3+o2)/5;
+    return (o5+o4+o3+o2)/4;
 }

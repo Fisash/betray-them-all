@@ -2,14 +2,17 @@
 #define WORLD_H
 
 #include <stdint.h>
+#include "core/defs/cell_info.h"
 
 #define WORLD_WIDTH 54
 #define WORLD_HEIGHT 23
 
 #define CELL_LIST_SIZE 128
 
+#define VILLAGE_COUNT 8
+
 typedef struct {
-    uint8_t type_id; 
+    cell_type_id_t type_id; 
     uint8_t days_until_update;
 } cell_t;
 
@@ -18,6 +21,8 @@ void world_cell_list_add(cell_t** list, cell_t *cell);
 typedef struct {
     cell_t cells[WORLD_HEIGHT][WORLD_WIDTH]; 
     cell_t *event_cd_cells[CELL_LIST_SIZE];
+
+    uint8_t village_count;
 } world_t;
 
 void world_generate(world_t *world);

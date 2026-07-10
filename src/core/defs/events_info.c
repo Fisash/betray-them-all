@@ -21,7 +21,7 @@ static void answer_init(event_answer_t *answer, const char *text,
 static void calculate_weight_sums(events_info_t *events_info)
 {
     uint16_t *sums_array = events_info->cell_type_weight_sums;
-    memset(sums_array, 0, sizeof(uint16_t)*CELLS_TYPE_COUNT);
+    memset(sums_array, 0, sizeof(uint16_t)*CELL_TYPE_COUNT);
 
     event_t *event;
     int event_i, cell_type_i;
@@ -29,7 +29,7 @@ static void calculate_weight_sums(events_info_t *events_info)
     for (event_i = 0; event_i < EVENT_COUNT; event_i++)
     {
         event = &events_info->events[event_i];
-        for(cell_type_i = 1; cell_type_i < CELLS_TYPE_COUNT; cell_type_i++)
+        for(cell_type_i = 1; cell_type_i < CELL_TYPE_COUNT; cell_type_i++)
         {
             type_mask = (uint64_t)1<<cell_type_i;
             if(event->tags & type_mask)

@@ -8,7 +8,7 @@
 #include "core/defs/skill.h"
 
 typedef struct {
-    cell_info_t cells_info[CELLS_TYPE_COUNT];
+    cell_info_t cells_info[CELL_TYPE_COUNT];
     events_info_t events_info;
     item_info_t items[ALL_ITEMS_COUNT];
     unit_template_t unit_templates[UNIT_TEMP_COUNT];
