@@ -1,6 +1,8 @@
 #ifndef CELL_INFO_H
 #define CELL_INFO_H
 
+#include <stdint.h>
+
 #define CELL_INFO_NAME_BUF_SIZE 32
 #define CELL_INFO_DESCRIPTION_BUF_SIZE 128
 
@@ -16,6 +18,7 @@ typedef enum {
 typedef struct {
     char title[CELL_INFO_NAME_BUF_SIZE];
     char description[CELL_INFO_DESCRIPTION_BUF_SIZE];
+    uint8_t exploring_cd;
 } cell_info_t;
 
 void cells_info_load(cell_info_t cells[]);

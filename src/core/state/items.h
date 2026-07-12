@@ -16,6 +16,7 @@ typedef struct {
 
 typedef struct {
     item_id id;
+    uint16_t cost;
     union {
         weapon_props_t weapon;
         armor_props_t armor;

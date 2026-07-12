@@ -4,6 +4,7 @@
 #include <math.h>
 
 #include "core/state/world.h"
+#include "core/state/item_storage.h"
 #include "core/value_noise.h"
 
 void world_cell_list_add(cell_t** list, cell_t *cell)
@@ -36,7 +37,7 @@ static void cell_generate_terrain(int x, int y, world_t *world,
     world->cells[y][x].days_until_update = 0;
 }
 
-static void cell_generate_village(world_t *world)
+static void cell_generate_village(world_t *world, const item_info_t items[])
 {
     cell_t *cell;
     int x = rand() % WORLD_WIDTH;
@@ -45,11 +46,17 @@ static void cell_generate_village(world_t *world)
     cell = &(world->cells[y][x]);
     if(cell->type_id == CELL_TYPE_VILLAGE)
     {
-        cell_generate_village(world);
+        cell_generate_village(world, items);
         return;
     }
+
     cell->type_id = CELL_TYPE_VILLAGE;
-    world->village_count++;
+
+    cell->data_index = world->village_count++;
+    village_t *village = &(world->villages[cell->data_index]);
+
+    shop_init(&village->shop, 100, 1.5f, 1.0f);
+    shop_generate_village_items(&village->shop, items);
 }
 
 /* todo: reading user`s input seed, not only random generated seed*/
@@ -59,7 +66,7 @@ static uint32_t get_world_seed()
     return rand() % UINT32_MAX;
 }
 
-void world_generate(world_t *world)
+void world_generate(world_t *world, const item_info_t items[])
 {
     uint32_t seed = get_world_seed();
     srand(seed);
@@ -73,9 +80,8 @@ void world_generate(world_t *world)
             cell_generate_terrain(x, y, world, seed);
     }
     
-    for(i = 0; i < VILLAGE_COUNT; i++)
-        cell_generate_village(world);
-
+    for(i = 0; i < VILLAGE_MAX_COUNT; i++)
+        cell_generate_village(world, items);
 }
 
 void world_fill_cells_id_buffer(world_t *world, char *buffer)

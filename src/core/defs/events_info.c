@@ -102,5 +102,20 @@ void events_info_load(events_info_t *load_ptr)
         5,
         answers);
 
+    /*EVENT_VILLAGE_MAIN*/
+    answers_clear((event_answer_t*)&answers);
+    answer_init(&answers[0], "Go to shop", 
+                          ACTION_OPEN_VILLAGE_SHOP,
+                          EVENT_NONE);
+    answer_init(&answers[1], "Leaving the village", 
+                          ACTION_NONE,
+                          EVENT_NONE);
+    event_init(&load_ptr->events[EVENT_VILLAGE_MAIN], 
+        "Village", 
+        "Our squad is on the main village street. Where should we go?",  
+        (uint64_t)1<<TAG_VILLAGE, 
+        10,
+        answers);
+
     calculate_weight_sums(load_ptr);
 }

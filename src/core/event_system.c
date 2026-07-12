@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "core/event_system.h"
+#include "core/world_queries.h"
 
 static void start_forest_animals_battle(battle_state_t *b, 
                     squad_t *squad, const game_info_t *info)
@@ -14,13 +15,30 @@ static void start_forest_animals_battle(battle_state_t *b,
     battle_state_add_enemy(b, &wolf1);
 }
 
-void event_system_handle_answer(event_answer_handle_context_t c)
+static void open_village_shop(shop_t **active_shop, 
+                    squad_t *squad, world_t *world)
 {
-    const event_answer_t *answer = &c.event->answers[c.answer_index];
+    cell_t *squad_cell = world_queries_get_squad_cell(squad, world);
+    if(squad_cell->type_id != CELL_TYPE_VILLAGE)
+        return;
+    *active_shop = &(world->villages[squad_cell->data_index].shop);
+}
+
+void event_system_handle_answer(int answer_index, game_state_t *state, 
+                                              const game_info_t *info)
+{
+    const event_t *active = 
+                  &info->events_info.events[state->active_event_id];
+    const event_answer_t *answer = &(active->answers[answer_index]);
     switch(answer->action_id)
     {
+        case ACTION_OPEN_VILLAGE_SHOP:
+            open_village_shop(&state->active_shop, &state->squad, 
+                                                   &state->world);
+            break;
         case ACTION_START_ANIMALS_BATTLE:
-            start_forest_animals_battle(c.battle_state, c.squad, c.info);
+            start_forest_animals_battle(&state->battle, 
+                                  &state->squad, info);
             break;
         case ACTION_NONE:
         default:

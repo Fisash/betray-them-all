@@ -11,6 +11,7 @@
 /*action IDs for anwers action*/
 typedef enum {
     ACTION_NONE = 0,
+    ACTION_OPEN_VILLAGE_SHOP,
     ACTION_START_ANIMALS_BATTLE
 } event_action_t;
 
@@ -21,6 +22,7 @@ typedef enum {
     EVENT_TEST_FOREST,
     EVENT_FOREST_ANIMALS,
     EVENT_TEST_MOUNTAIN,
+    EVENT_VILLAGE_MAIN,
     EVENT_COUNT
 } event_id_t;
 

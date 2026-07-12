@@ -27,15 +27,14 @@ static void give_start_units(squad_t *squad, const game_info_t *info)
 
 void game_state_init(game_state_t *game_state, const game_info_t *info)
 {
-    game_state->days = 1;
+    memset(game_state, 0, sizeof(game_state_t));
 
-    world_generate(&(game_state->world));
+    game_state->days = 1;
+    world_generate(&(game_state->world), info->items);
 
     squad_t* squad = &(game_state->squad);
     squad_init(squad, 1, 5, 100);
     give_start_units(squad, info);
     give_start_items(squad, info);
-
     game_state->active_event_id = EVENT_NONE;
-    memset(&game_state->battle, 0, sizeof(battle_state_t));
 }

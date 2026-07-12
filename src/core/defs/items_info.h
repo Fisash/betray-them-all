@@ -52,6 +52,7 @@ typedef struct {
     item_type_t type;
     char title[ITEM_TITLE_BUF];
     char description[ITEM_DESCRIPTION_BUF]; 
+    uint16_t cost;
     union {
         weapon_info_props_t weapon;
         armor_info_props_t armor;
@@ -77,6 +78,8 @@ typedef enum {
     WEAPON_HUMMER,
     WEAPON_SPEAR,
     WEAPON_HALBERD,
+
+    ITEM_PROVISION_BAG,
 
     ITEM_MALACHITE,
     ITEM_AMETHYST,

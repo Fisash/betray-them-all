@@ -6,9 +6,10 @@
 #include "core/defs/cell_info.h"
 
 /*event tags (number of bit for tags bit mask*/
-#define TAG_MEADOW 1
-#define TAG_FOREST 2
-#define TAG_MOUNTAIN 3
+#define TAG_MEADOW CELL_TYPE_MEADOW
+#define TAG_FOREST CELL_TYPE_FOREST
+#define TAG_MOUNTAIN CELL_TYPE_MOUNTAIN
+#define TAG_VILLAGE CELL_TYPE_VILLAGE
 
 typedef struct {
     event_t events[EVENT_COUNT]; 

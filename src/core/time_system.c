@@ -30,7 +30,8 @@ void time_system_spend(squad_t *squad, world_t *world, uint16_t days,
 
     while (days > 0)
     {
-        *days_state += days--;
+        (*days_state)++;
+        days--;
         movement_try_move_squad_by_order(squad);
     }
 }

@@ -1,6 +1,7 @@
 #include <stdlib.h>
 
 #include "core/state/squad.h"
+#include "core/state/item_storage.h"
 
 #include <string.h>
 
@@ -17,19 +18,7 @@ void squad_init(squad_t *squad, uint16_t x, uint16_t y, uint16_t gold)
 
 int squad_add_item(squad_t *squad, item_t *item)
 {
-    if(item->id == ITEM_NONE)
-        return -1;
-
-    int i;
-    for(i = 0; i < MAX_ITEMS; i++)
-    {
-        if(squad->inventory[i].id == ITEM_NONE)
-        {
-            squad->inventory[i] = *item;
-            return 0;
-        }
-    }
-    return 1;
+    return item_storage_add(squad->inventory, MAX_ITEMS, item);
 }
 
 int squad_add_unit(squad_t *squad, unit_t *unit)

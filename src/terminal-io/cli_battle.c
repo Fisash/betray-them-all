@@ -2,22 +2,12 @@
 #include <stdlib.h>
 
 #include "terminal-io/cli_battle.h"
+#include "terminal-io/cli_base.h"
 
 #include "core/battle/battle_system.h"
 #include "core/battle/battle_bot.h"
 
 #define FIGHT_STATE_SPLITER "-----------------"
-
-int cli_choose_digit(uint8_t min, uint8_t max)
-{
-    int input;
-    for(;;) 
-    {
-        input = getc(stdin);
-        if (input >= '0'+min && input <= '0'+max) 
-            return input-'0';
-    }
-}
 
 static void draw_units(battle_unit_t b_units[])
 {
@@ -78,7 +68,7 @@ static const skill_t *cli_select_skill(battle_turn_context_t *c)
 {
     int selected_index;
     draw_turn_skill_list(c);
-    selected_index = cli_choose_digit(1, c->skill_count)-1;
+    selected_index = cli_base_choose_number(1, c->skill_count)-1;
     return c->available_skills[selected_index];
 }
 
@@ -86,7 +76,7 @@ static battle_unit_t *cli_select_target(battle_skill_use_context_t *c)
 {
     int selected_index;
     draw_skill_use_target_list(c);
-    selected_index = cli_choose_digit(1, c->target_count)-1;
+    selected_index = cli_base_choose_number(1, c->target_count)-1;
     return c->available_targets.units[selected_index];
 }
 

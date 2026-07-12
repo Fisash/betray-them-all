@@ -2,17 +2,17 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "terminal-io/cli.h"
-
+#include "terminal-io/cli_main.h"
+#include "terminal-io/cli_base.h"
 #include "terminal-io/terminal_view.h"
 #include "terminal-io/cli_battle.h"
+#include "terminal-io/cli_shop.h"
 
 #include "core/time_system.h"
 #include "core/exploring_system.h"
 #include "core/event_system.h"
 #include "core/squad_movement.h"
 
-static const char *args_spliter = " \n";
 
 static void draw(char *framebuffer, draw_frame_context_t *context)
 {
@@ -126,25 +126,22 @@ static void output_event_info(const event_t *event, uint8_t answer_count)
     puts(event->message);
     int i;
     for(i = 0; i < answer_count; i++)
-       printf("%d. %s", i+1, event->answers[i].text);
-    putc('\n', stdout);
+       printf("%d. %s\n", i+1, event->answers[i].text);
+    putc('>', stdout);
 }
 
 
-static void cli_active_event(int16_t *active_event_id, battle_state_t *battle, 
-                                      squad_t *squad, const game_info_t *info)
+static void cli_active_event(game_state_t *state, const game_info_t *info)
 {
-    const event_t *active = &info->events_info.events[*active_event_id];
-
+    const event_t *active = 
+                  &info->events_info.events[state->active_event_id];
     int answer_count = event_get_answer_count(active);
     output_event_info(active, answer_count);
-    int answer_index = cli_choose_digit(1, answer_count)-1;
+    int answer_index = cli_base_choose_number(1, answer_count)-1;
 
-    event_answer_handle_context_t context = {active, answer_index, 
-                                             battle, squad, info};
-    event_system_handle_answer(context);
+    event_system_handle_answer(answer_index, state, info);
 
-    *active_event_id = EVENT_NONE;
+    state->active_event_id = EVENT_NONE;
 }
 
 static void interpret_command(command *cmd, game_state_t *game_state,
@@ -167,7 +164,8 @@ static void interpret_command(command *cmd, game_state_t *game_state,
        exploring_system_explore_squad_cell(&game_state->squad, 
                           &game_state->world, 
                           &game_info->events_info, 
-                          &game_state->active_event_id);
+                          &game_state->active_event_id,
+                          game_info->cells_info);
         *need_redraw = 1;
     }
 
@@ -188,16 +186,11 @@ static void interpret_command(command *cmd, game_state_t *game_state,
     }
 }
 
-/* fill command struct by they ptr and input buffer ptr */
-static void parse_command(char *input_buf, command *cmd)
+static int has_pending_actions(const game_state_t *state)
 {
-    cmd->argc = 0;
-    char* current_token = strtok(input_buf, args_spliter);
-    while (current_token != NULL && cmd->argc < MAX_AGRC)
-    {
-        cmd->argv[cmd->argc++] = current_token;
-        current_token = strtok(NULL, args_spliter);
-    }
+    return (state->battle.status == BATTLE_STATUS_ACTIVE ||
+            state->active_event_id != EVENT_NONE         ||
+            state->active_shop != NULL                   );
 }
 
 void cli_run(game_state_t *game_state, const game_info_t *game_info)
@@ -214,16 +207,26 @@ void cli_run(game_state_t *game_state, const game_info_t *game_info)
     char input_buf[INPUT_BUF_SIZE];
     command cmd;
     int need_redraw = 0;
-    while(fgets(input_buf, INPUT_BUF_SIZE, stdin) != NULL)
+    for(;;)
     {
-        parse_command((char*)input_buf, &cmd);
-        interpret_command(&cmd, game_state, game_info, &need_redraw);        
-        if(game_state->battle.status == BATTLE_STATUS_ACTIVE)
-            cli_battle_run(&game_state->battle, game_info);
+        cmd = cli_base_input_command(input_buf);
 
-        if(game_state->active_event_id  != EVENT_NONE)
-            cli_active_event(&game_state->active_event_id, &game_state->battle, 
-                                            &game_state->squad, game_info);
+        interpret_command(&cmd, game_state, game_info, &need_redraw);        
+
+        while (has_pending_actions(game_state))
+        {
+            if(game_state->battle.status == BATTLE_STATUS_ACTIVE)
+                cli_battle_run(&game_state->battle, game_info);
+    
+            if(game_state->active_event_id  != EVENT_NONE)
+                cli_active_event(game_state, game_info);
+    
+            if(game_state->active_shop != NULL)
+                cli_shop_run(&game_state->active_shop, &game_state->squad, 
+                                                        game_info->items);
+        }
+             
+
         if(need_redraw)
         {
             draw_context.days = game_state->days;
