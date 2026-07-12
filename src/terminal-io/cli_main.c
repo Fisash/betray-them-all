@@ -218,12 +218,12 @@ void cli_run(game_state_t *game_state, const game_info_t *game_info)
             if(game_state->battle.status == BATTLE_STATUS_ACTIVE)
                 cli_battle_run(&game_state->battle, game_info);
     
-            if(game_state->active_event_id  != EVENT_NONE)
-                cli_active_event(game_state, game_info);
-    
             if(game_state->active_shop != NULL)
                 cli_shop_run(&game_state->active_shop, &game_state->squad, 
                                                         game_info->items);
+
+            if(game_state->active_event_id  != EVENT_NONE)
+                cli_active_event(game_state, game_info);
         }
              
 

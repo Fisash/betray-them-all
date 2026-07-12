@@ -8,13 +8,17 @@
 typedef struct {
     item_t items[SHOP_MAX_ITEMS_COUNT];
     uint16_t gold;
-    float selling_price_multiplier;
-    float buying_price_multiplier;
+    float sell_multiplier;
+    float buy_multiplier;
 } shop_t;
 
 void shop_init(shop_t *shop, uint16_t gold, 
-            float selling_price_multiplier,
-            float buying_price_multiplier);
+                     float sell_multiplier,
+                     float buy_multiplier);
+
+item_t *shop_get_item_by_num(shop_t *shop, uint8_t num);
+
+uint16_t shop_get_sell_price(shop_t *shop, item_t *item);
 
 uint16_t shop_get_buy_price(shop_t *shop, item_t *item);
 

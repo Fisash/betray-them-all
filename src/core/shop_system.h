@@ -11,7 +11,10 @@ typedef enum {
     SHOP_TRANSACTION_INSUFFCIENT_SPACE
 } shop_transaction_status_t;
 
-shop_transaction_status_t shop_system_try_buy_item_by_squad(shop_t *shop, 
-                                     uint8_t slot_index, squad_t *squad);
+shop_transaction_status_t shop_system_try_buy_item(shop_t *shop, 
+                                   item_t *item, squad_t *squad);
+
+shop_transaction_status_t shop_system_try_sell_item(shop_t *shop, 
+                                    item_t *item, squad_t *squad);
 
 #endif

@@ -21,6 +21,11 @@ int squad_add_item(squad_t *squad, item_t *item)
     return item_storage_add(squad->inventory, MAX_ITEMS, item);
 }
 
+item_t *squad_get_item_by_num(squad_t *squad, uint8_t num)
+{
+    return item_storage_get_item(squad->inventory, MAX_ITEMS, (num-1));
+}
+
 int squad_add_unit(squad_t *squad, unit_t *unit)
 {
     if(!unit->is_alive)

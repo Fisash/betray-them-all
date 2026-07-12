@@ -12,40 +12,84 @@ static void draw_shop_items(shop_t *shop, const item_info_t info[])
     uint8_t i, item_count;
     item_t *item;
 
-    puts("Goods for sale:");
+    puts("Shop goods:");
     for(i = 0, item_count = 0; i < SHOP_MAX_ITEMS_COUNT; i++)
     {
         item = &shop->items[i];
         if(!item || item->id == ITEM_NONE)
             continue;
 
-        printf("%d. %s (%d gold)\n", (++item_count), 
-                               info[item->id].title, 
-                    shop_get_buy_price(shop, item));
+        printf("%d. %s (price: %d g.)\n", (++item_count), 
+                                    info[item->id].title, 
+                        shop_get_sell_price(shop, item));
+    }
+}
+
+static void draw_squad_items(squad_t *squad, shop_t *shop, 
+                                 const item_info_t info[])
+{
+    uint8_t i, item_count;
+    item_t *item;
+
+    puts("Squad goods:");
+    for(i = 0, item_count = 0; i < MAX_ITEMS; i++)
+    {
+        item = &squad->inventory[i];
+        if(!item || item->id == ITEM_NONE)
+            continue;
+
+        printf("%d. %s (price: %d g.)\n", (++item_count), 
+                                    info[item->id].title, 
+                         shop_get_buy_price(shop, item));
     }
 }
 
 static void cli_try_buy(command *cmd, shop_t *shop, squad_t *squad)
 {
-     
     shop_transaction_status_t status;
-    uint8_t slot_index = (uint8_t)atoi(cmd->argv[1]);
-    status = shop_system_try_buy_item_by_squad(shop, slot_index, squad);
+
+    uint8_t num = (uint8_t)atoi(cmd->argv[1]);
+    item_t *item = shop_get_item_by_num(shop, num);
+    status = shop_system_try_buy_item(shop, item, squad);
+
     switch (status)
     {
         case SHOP_TRANSACTION_OK:
-            printf("The purchase is complited! Squad gold:%d\n",
-                                                    squad->gold);
+            puts("The squad bought this item!");
             break;
         case SHOP_TRANSACTION_INSUFFCIENT_GOLD:
-            printf("No enough gold (squad only has %d)\n",
-                                             squad->gold);
+            puts("Squad doesn`t have enough gold!");
             break;
         case SHOP_TRANSACTION_INCORRECT_ITEM:
             puts("Incorrect item selection");
             break;
         case SHOP_TRANSACTION_INSUFFCIENT_SPACE:
-            puts("No free space from inventory");
+            puts("There is no free space in squad`s inventory");
+            break;
+    }
+}
+
+static void cli_try_sell(command *cmd, shop_t *shop, squad_t *squad)
+{
+    shop_transaction_status_t status;
+
+    uint8_t num = (uint8_t)atoi(cmd->argv[1]);
+    item_t *item = squad_get_item_by_num(squad, num);
+    status = shop_system_try_sell_item(shop, item, squad);
+
+    switch (status)
+    {
+        case SHOP_TRANSACTION_OK:
+            puts("The squad sold this item to a merchant!");
+            break;
+        case SHOP_TRANSACTION_INSUFFCIENT_GOLD:
+            puts("The merchant doesn`t have enough gold to buy this good from us");
+            break;
+        case SHOP_TRANSACTION_INCORRECT_ITEM:
+            puts("Incorrect item selection");
+            break;
+        case SHOP_TRANSACTION_INSUFFCIENT_SPACE:
+            puts("The merchant doesn`t have enough space to store this good");
             break;
     }
 }
@@ -57,16 +101,25 @@ void cli_shop_run(shop_t **active_shop, squad_t *squad,
     command cmd;
     for(;;)
     {
+        printf("Squad gold: %d\n", squad->gold);
         draw_shop_items(*active_shop, info); 
         cmd = cli_base_input_command(input_buf);
 
-        if(strcmp(cmd.argv[0], "leave") == 0)
+        if((strcmp(cmd.argv[0], "leave") == 0) || 
+           (strcmp(cmd.argv[0], "quit") == 0)  ||
+           (strcmp(cmd.argv[0], "q") == 0)      )
         {
             *active_shop = NULL;
             break;
         }
 
+        if(strcmp(cmd.argv[0], "inv") == 0)
+            draw_squad_items(squad, *active_shop, info);
+
         if(strcmp(cmd.argv[0], "buy") == 0 && cmd.argc > 1)
             cli_try_buy(&cmd, *active_shop, squad);
+
+        if(strcmp(cmd.argv[0], "sell") == 0 && cmd.argc > 1)
+            cli_try_sell(&cmd, *active_shop, squad);
     }
 }

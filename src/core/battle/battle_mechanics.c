@@ -77,8 +77,10 @@ battle_event_report_t battle_mechanics_execute_attack(float damage_scale,
      
     report.type = BATTLE_EVENT_TAKING_DAMAGE;
 
-    uint16_t raw_damage = damage_scale * 
-                          unit_get_damage(attacker->unit, items);
+    uint16_t raw_damage = 
+             1 + (rand() % unit_get_damage(attacker->unit, items));
+    raw_damage *= damage_scale;
+      
     battle_mechanics_apply_damage(target, raw_damage, &report, items);
     return report;
 }

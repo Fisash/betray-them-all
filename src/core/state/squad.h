@@ -30,6 +30,7 @@ typedef struct {
 void squad_init(squad_t *squad, uint16_t x, uint16_t y, uint16_t gold);
 
 int squad_add_item(squad_t *sqiad, item_t *item);
+item_t *squad_get_item_by_num(squad_t *squad, uint8_t num);
 
 int squad_add_unit(squad_t *squad, unit_t *unit);
 

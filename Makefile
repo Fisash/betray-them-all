@@ -13,7 +13,7 @@ LDFLAGS  = -lm -Wl,--gc-sections $(STRIP_FLAG)
 ifeq ($(DEBUG), 1)
     OPT        = -O0 -g
     STRIP_FLAG = 
-    CFLAGS     = -Wall -Wextra -std=c11 $(OPT) -MMD -MP -DDEBUG
+    CFLAGS     = -Wall -Wextra -std=c89 $(OPT) -MMD -MP -DDEBUG
     LDFLAGS    = -lm
 endif
 

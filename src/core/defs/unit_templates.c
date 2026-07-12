@@ -54,8 +54,8 @@ void unit_templates_load(unit_template_t templates[])
     t = &templates[WOLF];
     strcpy(t->name, "Wolf");
     t->hp_min=8; t->hp_max = 10;
-    unit_stats_init(&t->min_stats_value, 6, 10, 3, 1);
-    unit_stats_init(&t->max_stats_value, 7, 11, 5, 3);
+    unit_stats_init(&t->min_stats_value, 7, 10, 3, 1);
+    unit_stats_init(&t->max_stats_value, 10, 11, 5, 3);
     t->tags_mask = (uint64_t)1<<UNIT_TAG_ANIMAL;
     set_start_equipment(t, ARMOR_NUDE, WEAPON_CLAW);
     memcpy(t->initial_learned, animal_base_learnings, sizeof(skills_mask_t));
