@@ -2,11 +2,11 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "terminal-io/cli_main.h"
-#include "terminal-io/cli_base.h"
-#include "terminal-io/terminal_view.h"
-#include "terminal-io/cli_battle.h"
-#include "terminal-io/cli_shop.h"
+#include "cli/cli_main.h"
+#include "cli/cli_base.h"
+#include "cli/terminal_view.h"
+#include "cli/cli_battle.h"
+#include "cli/cli_shop.h"
 
 #include "core/time_system.h"
 #include "core/exploring_system.h"
@@ -85,6 +85,8 @@ static void print_unit_info(unit_t *unit, const item_info_t items[],
 {
     printf("Name: %s, (%s)\n", unit->name, 
        templates[unit->template_id].name);
+    printf("LVL: %d. EXP: %d/%d\n", unit->level, unit->exp, 
+                                 unit->exp_for_next_level);
     printf("HP: %d/%d\n", unit->hp, unit->max_hp);
     printf("STR: %d\nAGL: %d\nWIL: %d\nINT: %d\n", 
         unit->stats.strength, unit->stats.agility, 
@@ -94,6 +96,9 @@ static void print_unit_info(unit_t *unit, const item_info_t items[],
     print_item_info(&unit->weapon, items, unit);
     printf("Armor: ");
     print_item_info(&unit->armor, items, unit);
+    if(unit->unspent_stat_points > 0)
+        printf("Unspent stat leveling points: %d", 
+                       unit->unspent_stat_points);
 }
 
 static void interpret_unit_info(command *cmd, squad_t *squad, 
@@ -216,6 +221,38 @@ static void interpret_equip(command *cmd, squad_t *squad)
 
 }
 
+/* command improve*/
+void interpret_unit_improve(command *cmd, squad_t *squad)
+{
+    if(cmd->argc < 3)
+    {
+        puts("Identify unit and stat like this:"
+             "improve [squad unit number] [str/agl/wil/int]");
+        return;
+    }
+
+    int status;
+    stat_selection_t stat;
+    uint8_t unit_num;
+
+    unit_num = atoi(cmd->argv[1]);
+    unit_t *unit = squad_get_unit_by_num(squad, unit_num);
+
+    if(strcmp(cmd->argv[2], "str") == 0)
+        stat = STRENGTH;
+    else if(strcmp(cmd->argv[2], "agl") == 0)
+        stat = AGILITY;
+    else if(strcmp(cmd->argv[2], "wil") == 0)
+        stat = WILL;
+    else if(strcmp(cmd->argv[2], "int") == 0)
+        stat = INTELLIGENCE;
+    else
+        return;
+
+    status = unit_apply_stat_point(unit, stat);
+    puts((status == 0) ? "Stat improved!" : "No points");
+}
+
 /* command mov*/
 static void interpret_move(command *cmd, squad_t *squad)
 {
@@ -308,6 +345,12 @@ static void interpret_command(command *cmd, game_state_t *game_state,
     if(strcmp(cmd->argv[0], "unequip") == 0)
     {
         interpret_unequip(cmd, &game_state->squad);
+        *need_redraw = 0;
+    }
+
+    if(strcmp(cmd->argv[0], "improve") == 0)
+    {
+        interpret_unit_improve(cmd, &game_state->squad);
         *need_redraw = 0;
     }
 

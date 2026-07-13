@@ -38,6 +38,7 @@ void unit_templates_load(unit_template_t templates[])
     unit_stats_init(&t->min_stats_value, 13, 8, 10, 10);
     unit_stats_init(&t->max_stats_value, 14, 9, 12, 10);
     t->tags_mask = (uint64_t)1<<UNIT_TAG_HUMAN;
+    t->base_exp_reward = 75;
     set_start_equipment(t, ARMOR_FABRIC, WEAPON_SHORT_SWORD);
     memcpy(t->initial_learned, human_base_learnings, sizeof(skills_mask_t));
 
@@ -47,6 +48,7 @@ void unit_templates_load(unit_template_t templates[])
     unit_stats_init(&t->min_stats_value, 8, 14, 9, 10);
     unit_stats_init(&t->max_stats_value, 9, 15, 10, 10);
     t->tags_mask = (uint64_t)1<<UNIT_TAG_HUMAN;
+    t->base_exp_reward = 75;
     set_start_equipment(t, ARMOR_FABRIC, WEAPON_DAGGER);
     memcpy(t->initial_learned, human_base_learnings, sizeof(skills_mask_t));
 
@@ -57,6 +59,7 @@ void unit_templates_load(unit_template_t templates[])
     unit_stats_init(&t->min_stats_value, 7, 10, 3, 1);
     unit_stats_init(&t->max_stats_value, 10, 11, 5, 3);
     t->tags_mask = (uint64_t)1<<UNIT_TAG_ANIMAL;
+    t->base_exp_reward = 50;
     set_start_equipment(t, ARMOR_NUDE, WEAPON_CLAW);
     memcpy(t->initial_learned, animal_base_learnings, sizeof(skills_mask_t));
 }

@@ -3,6 +3,8 @@
 
 #include "core/state/unit.h"
 
+#define LEVEL_UP_EXP_MULTIPLIER 1.3f
+
 uint16_t unit_get_damage(unit_t *unit, const item_info_t items[])
 {
    scaling_group_t scalings = 
@@ -41,8 +43,8 @@ uint16_t unit_get_mobility(unit_t *unit, const item_info_t items[])
 }
 
 void unit_init(unit_t *unit, const char *name, unit_template_id id, 
-                                  const unit_template_t templates[],
-                                  const item_info_t items_info[])
+                                 const unit_template_t templates[],
+                                    const item_info_t items_info[])
 {
     unit->is_alive = 1;
     unit->template_id = id;
@@ -69,6 +71,8 @@ void unit_init(unit_t *unit, const char *name, unit_template_id id,
     item_init(&unit->weapon, items_info, t->weapon_item_id);
     item_init(&unit->armor, items_info, t->armor_item_id);
 
+    unit->exp_reward = t->base_exp_reward;
+    unit->unspent_stat_points = 0;
     unit->exp = 0;
     unit->exp_for_next_level = 100;
     unit->level = 1;
@@ -95,9 +99,40 @@ void unit_fill_available_skills(skills_mask_t out, const unit_t *unit,
         is_ok_stats = unit_stats_is_eligible(&unit->stats, 
                                     &skills[i].req_stats);
         is_ok_tags = skill_is_compatible_with_unit_template(skill,
-                                                        unit_tags);
+                                                       unit_tags);
 
         if(!(is_ok_weapon && is_ok_stats && is_ok_tags))
             skills_mask_clear_bit(out, i);
     }
+}
+
+void unit_add_exp(unit_t *unit, uint16_t exp)
+{
+    unit->exp += exp;
+    while(unit->exp >= unit->exp_for_next_level)
+    {
+        unit->level++;
+        unit->unspent_stat_points++;
+        unit->exp -= unit->exp_for_next_level;
+        unit->exp_for_next_level *= LEVEL_UP_EXP_MULTIPLIER;
+    }
+}
+
+int unit_apply_stat_point(unit_t *unit, stat_selection_t s)
+{
+    uint16_t *stat;
+    uint16_t hp_increase;
+
+    if(unit->unspent_stat_points <= 0)
+        return 1;
+
+    stat = unit_stats_get_stat(&unit->stats, s);
+    if(!stat)
+        return 1;
+
+    (*stat)++;
+    hp_increase = (s == STRENGTH || s == WILL) ? 2 : 1;
+    unit->max_hp += hp_increase;
+    unit->unspent_stat_points--;
+    return 0;
 }

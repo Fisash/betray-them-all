@@ -45,7 +45,7 @@ int battle_mechanics_check_evasion(battle_unit_t *attacker,
 int battle_mechanics_check_crit(battle_unit_t *attacker, 
                               const item_info_t items[])
 {
-    float crit_chance = (float)(unit_get_crit(attacker->unit, items)/100);
+    float crit_chance = (float)unit_get_crit(attacker->unit, items) / 100.0f;
     if (crit_chance > MAX_CRIT)
         crit_chance = MAX_CRIT;
     float random_value = (float)rand() / (float)RAND_MAX;

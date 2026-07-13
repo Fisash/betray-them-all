@@ -29,17 +29,17 @@ typedef struct {
 } draw_frame_context_t;
 
 void draw_context_init(draw_frame_context_t *context, world_t *world, 
-                       squad_t *squad, const cell_info_t cells_info[], 
-                             const item_info_t items_info[], int days);
+                      squad_t *squad, const cell_info_t cells_info[], 
+                           const item_info_t items_info[], int days);
 
 void terminal_view_init_framebuffer(char* framebuffer_ptr);
 
 
 void terminal_view_update_framebuffer(char *framebuffer, 
-                           draw_frame_context_t *context);
+                         draw_frame_context_t *context);
 
 void terminal_view_redraw(char *framebuffer, 
-               draw_frame_context_t *context);
+             draw_frame_context_t *context);
 
 void terminal_view_stdout_framebuffer(char *framebuffer);
 

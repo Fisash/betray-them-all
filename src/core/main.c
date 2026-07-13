@@ -1,4 +1,4 @@
-#include "terminal-io/cli_main.h"
+#include "cli/cli_main.h"
 
 #include "core/state/game_state.h"
 #include "core/defs/game_info.h"

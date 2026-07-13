@@ -192,24 +192,11 @@ static int is_any_alive_unit(battle_unit_t units[MAX_UNITS])
 static void update_battle_state(battle_state_t *state)
 {
     if(!is_any_alive_unit(state->player_units))
-    {
         state->status = BATTLE_STATUS_LOST;
-        return;
-    }
-   
-    if(!is_any_alive_unit(state->enemy_units))
+    else if(!is_any_alive_unit(state->enemy_units))
         state->status = BATTLE_STATUS_WON;
     else
         state->status = BATTLE_STATUS_ACTIVE;
-}
-
-static int is_any_unit_died_after_execute(battle_skill_execution_report_t *r)
-{
-    int i;
-    for(i = 0; i < r->target_count; i++)
-        if(r->events[i].is_target_died)
-            return 1;
-    return 0;
 }
 
 battle_skill_execution_report_t 
@@ -247,7 +234,21 @@ battle_skill_execution_report_t
             break;
     }
 
-    if(is_any_unit_died_after_execute(&report))
+    battle_event_report_t *event;
+    int is_any_target_died, i, exp_reward;
+    for(i = 0, is_any_target_died = 0; i < report.target_count; i++)
+    {
+        event = &report.events[i];
+        if(event->is_target_died)
+        {
+            exp_reward = event->target->unit->exp_reward;
+            unit_add_exp(caster->unit, exp_reward);
+            is_any_target_died = 1;
+
+        }
+    }
+
+    if(is_any_target_died || report.is_actor_died)
         update_battle_state(state);
 
     return report;

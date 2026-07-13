@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "terminal-io/cli_base.h"
+#include "cli/cli_base.h"
 
 static void parse_command(char *input_buf, command *cmd)
 {

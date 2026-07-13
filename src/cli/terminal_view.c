@@ -2,13 +2,13 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "terminal-io/terminal_view.h"
+#include "cli/terminal_view.h"
 
 #include "core/world_queries.h"
 
 void draw_context_init(draw_frame_context_t *context, world_t *world, 
-                       squad_t *squad, const cell_info_t cells_info[], 
-                             const item_info_t items_info[], int days)
+                      squad_t *squad, const cell_info_t cells_info[], 
+                            const item_info_t items_info[], int days)
 {
     context->world = world;
     context->squad = squad;
@@ -81,7 +81,7 @@ static void draw_int(char **cursor_ptr, int value)
 }
 
 static void draw_rect(char **cursor_ptr, const char *rect,
-                       uint16_t rect_width, uint16_t rect_height)
+                uint16_t rect_width, uint16_t rect_height)
 {
     char *start_cursor = *cursor_ptr;
     int x, y;
@@ -116,7 +116,7 @@ static void draw_world(char *framebuffer, world_t *world)
 static void draw_player(char *framebuffer, squad_t *squad)
 {
     char *cursor = get_cursor(framebuffer,squad->pos_x+WORLD_OFFSET_X, 
-                                          squad->pos_y+WORLD_OFFSET_Y);
+                                         squad->pos_y+WORLD_OFFSET_Y);
     *cursor = CELL_VIEW_SQUAD;
 }
 
@@ -166,6 +166,7 @@ static void draw_squad_inventory(char *framebuffer, item_t inventory[],
         item_slot_id++;
     }
 }
+
 static void draw_squad(char *framebuffer, squad_t *squad, 
                           const item_info_t items_info[])
 {
@@ -183,7 +184,7 @@ void draw_squad_cell_info(char **cursor_ptr, draw_frame_context_t *context)
 {
 
     cell_t *cell = world_queries_get_squad_cell(context->squad, 
-                                                context->world);
+                                               context->world);
 
     const cell_info_t *info = &context->cells_info[cell->type_id];
 
@@ -202,7 +203,7 @@ void draw_squad_cell_info(char **cursor_ptr, draw_frame_context_t *context)
 }
 
 void terminal_view_update_framebuffer(char *framebuffer, 
-                           draw_frame_context_t *context)
+                          draw_frame_context_t *context)
 
 {
     draw_world(framebuffer, context->world);
@@ -229,7 +230,7 @@ void terminal_view_update_framebuffer(char *framebuffer,
 
 
 void terminal_view_redraw(char *framebuffer, 
-               draw_frame_context_t *context)
+              draw_frame_context_t *context)
 {
     terminal_view_init_framebuffer(framebuffer);
     terminal_view_update_framebuffer(framebuffer, context);

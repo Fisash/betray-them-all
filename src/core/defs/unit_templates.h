@@ -32,6 +32,8 @@ typedef struct {
     item_id armor_item_id;
     item_id weapon_item_id;
 
+    uint16_t base_exp_reward;
+
     skills_mask_t initial_learned;
 } unit_template_t;
 
