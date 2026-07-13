@@ -141,6 +141,81 @@ static void interpret_info(command *cmd, squad_t *squad,
 }
 
 
+/* command unequip*/
+static void interpret_unequip(command *cmd, squad_t *squad)
+{
+    if(cmd->argc < 3)
+    {
+        puts("Identify unit and equipment type like this:"
+             "unequip [squad unit number] [weapon/armor]");
+        return;
+    }
+    uint8_t unit_num;
+    item_type_t equipment_type = ITEM_TYPE_GENERIC;
+    squad_unit_unequip_status_t result;
+
+    unit_num = atoi(cmd->argv[1]);
+    if(strcmp(cmd->argv[2], "weapon") == 0)
+        equipment_type = ITEM_TYPE_WEAPON;
+    else if(strcmp(cmd->argv[2], "armor") == 0)
+        equipment_type = ITEM_TYPE_ARMOR;
+
+    result = squad_unit_unequip(squad, unit_num, equipment_type);
+
+    switch(result)
+    {
+        case SQUAD_UNIT_UNEQUIP_OK:
+            puts("Item unequiped!");
+            break;
+        case SQUAD_UNIT_UNEQUIP_INVALID_UNIT:
+            puts("Invalid unit");
+            break;
+        case SQUAD_UNIT_UNEQUIP_INVALID_TYPE:
+            puts("Invalid equipment type");
+            break;
+        case SQUAD_UNIT_UNEQUIP_ALREADY_REMOVED:
+            puts("Unit does no have this type equipment");
+            break;
+        default:
+            break;
+    }
+}
+
+/* command equip*/
+static void interpret_equip(command *cmd, squad_t *squad)
+{
+    if(cmd->argc < 3)
+    {
+        puts("Identify unit and item like this:"
+             "equip [squad unit number] [squad item number]");
+        return;
+    }
+    uint8_t unit_num, item_num;
+    squad_unit_equip_status_t result;
+
+    unit_num = atoi(cmd->argv[1]);
+    item_num = atoi(cmd->argv[2]);
+
+    item_t *item = squad_get_item_by_num(squad, item_num);
+    result = squad_unit_equip(squad, unit_num, item);
+
+    switch(result)
+    {
+        case SQUAD_UNIT_EQUIP_OK:
+            puts("Item equiped!");
+            break;
+        case SQUAD_UNIT_EQUIP_INVALID_UNIT:
+            puts("Invalid unit");
+            break;
+        case SQUAD_UNIT_EQUIP_INVALID_ITEM:
+            puts("Invalid item");
+            break;
+        default:
+            break;
+    }
+
+}
+
 /* command mov*/
 static void interpret_move(command *cmd, squad_t *squad)
 {
@@ -191,31 +266,30 @@ static void cli_active_event(game_state_t *state, const game_info_t *info)
 static void interpret_command(command *cmd, game_state_t *game_state,
                       const game_info_t *game_info, int *need_redraw)
 {
-    if(strcmp(cmd->argv[0], "exit") == 0)
-        exit(0);
+    if((strcmp(cmd->argv[0], "exit") == 0) ||
+       (strcmp(cmd->argv[0], "quit") == 0) ||
+       (strcmp(cmd->argv[0], "q") == 0))
+            exit(0);
 
-    if(strcmp(cmd->argv[0], "mov") == 0 && cmd->argc > 1)
+    *need_redraw = 1;
+
+    if((strcmp(cmd->argv[0], "mov") == 0 || 
+       (strcmp(cmd->argv[0], "m") == 0)) &&
+                          cmd->argc > 1)
     {
         interpret_move(cmd, &game_state->squad);
         time_system_spend(game_state, 1);
-        *need_redraw = 1;
     }
 
     if(strcmp(cmd->argv[0], "explore") == 0)
-    {
        exploring_system_explore_squad_cell(&game_state->squad, 
                           &game_state->world, 
                           &game_info->events_info, 
                           &game_state->active_event_id,
                           game_info->cells_info);
-        *need_redraw = 1;
-    }
 
     if(strcmp(cmd->argv[0], "next") == 0)
-    {
         time_system_spend(game_state, 1);
-        *need_redraw = 1;
-    }
 
     if(strcmp(cmd->argv[0], "info") == 0)
     {
@@ -224,6 +298,19 @@ static void interpret_command(command *cmd, game_state_t *game_state,
                       (const item_info_t*)&game_info->items);
         *need_redraw = 0;
     }
+
+    if(strcmp(cmd->argv[0], "equip") == 0)
+    {
+        interpret_equip(cmd, &game_state->squad);
+        *need_redraw = 0;
+    }
+
+    if(strcmp(cmd->argv[0], "unequip") == 0)
+    {
+        interpret_unequip(cmd, &game_state->squad);
+        *need_redraw = 0;
+    }
+
 }
 
 static int has_pending_actions(const game_state_t *state)

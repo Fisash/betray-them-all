@@ -96,10 +96,22 @@ squad_unit_equip_status_t
     if(!unit)
         return SQUAD_UNIT_EQUIP_INVALID_UNIT;
 
-    int status = unit_try_set_equip(unit, item, squad->items_info);
-    if(status != 0)
-        return SQUAD_UNIT_EQUIP_INVALID_ITEM;
+    item_t *equipment;
+    switch(squad->items_info[item->id].type)
+    {
+        case ITEM_TYPE_WEAPON:
+            equipment = &unit->weapon;
+            break;
+        case ITEM_TYPE_ARMOR:
+            equipment = &unit->armor;
+            break;
+        default:
+            return SQUAD_UNIT_EQUIP_INVALID_ITEM;
+    }
 
+    if(!items_info_is_nature_equip(equipment->id))
+        squad_add_item(squad, equipment);
+    *equipment = *item;
     item->id = ITEM_NONE;
     return SQUAD_UNIT_EQUIP_OK;
 }

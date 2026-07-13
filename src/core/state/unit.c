@@ -40,25 +40,6 @@ uint16_t unit_get_mobility(unit_t *unit, const item_info_t items[])
                                           unit->stats);
 }
 
-int unit_try_set_equip(unit_t *unit, item_t *item, 
-                         const item_info_t info[])
-{
-    int status = 0;
-    switch(info[item->id].type)
-    {
-        case ITEM_TYPE_WEAPON:
-            unit->weapon = *item;
-            break;
-        case ITEM_TYPE_ARMOR:
-            unit->armor = *item;
-            break;
-        default:
-            status = 1;
-            break;
-    }
-    return status;
-}
-
 void unit_init(unit_t *unit, const char *name, unit_template_id id, 
                                   const unit_template_t templates[],
                                   const item_info_t items_info[])
