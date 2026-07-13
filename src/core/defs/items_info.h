@@ -93,6 +93,8 @@ typedef enum {
 
 } item_id;
 
+int items_info_is_nature_equip(item_id id);
+
 char scale_get_rank_view(scale_rank_t rank);
 
 uint16_t scale_param(uint16_t source, scaling_group_t scalings, 

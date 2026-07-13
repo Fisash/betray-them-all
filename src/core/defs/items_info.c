@@ -2,6 +2,14 @@
 
 #include "core/defs/items_info.h"
 
+int items_info_is_nature_equip(item_id id)
+{
+    return (id == ITEM_NONE    ||
+            id == WEAPON_FISTS ||
+            id == WEAPON_CLAW  ||
+            id == ARMOR_NUDE   );
+}
+
 char scale_get_rank_view(scale_rank_t rank)
 {
     switch(rank)

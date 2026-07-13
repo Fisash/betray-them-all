@@ -32,6 +32,19 @@ typedef struct {
     const item_info_t *items_info;
 } squad_t;
 
+typedef enum {
+    SQUAD_UNIT_EQUIP_OK,
+    SQUAD_UNIT_EQUIP_INVALID_UNIT,
+    SQUAD_UNIT_EQUIP_INVALID_ITEM
+} squad_unit_equip_status_t;
+
+typedef enum {
+    SQUAD_UNIT_UNEQUIP_OK,
+    SQUAD_UNIT_UNEQUIP_INVALID_UNIT,
+    SQUAD_UNIT_UNEQUIP_INVALID_TYPE,
+    SQUAD_UNIT_UNEQUIP_ALREADY_REMOVED
+} squad_unit_unequip_status_t;
+
 void squad_init(squad_t *squad, uint16_t x, uint16_t y, 
                        const item_info_t items_info[]);
 
@@ -44,5 +57,11 @@ unit_t *squad_get_unit_by_num(squad_t *squad, uint8_t num);
 int squad_add_unit(squad_t *squad, unit_t *unit);
 
 void squad_consume_day_provision(squad_t *squad);
+
+squad_unit_equip_status_t 
+    squad_unit_equip(squad_t *squad, uint8_t unit_num, item_t *item);
+
+squad_unit_unequip_status_t
+    squad_unit_unequip(squad_t *squad, uint8_t unit_num, item_type_t type);
 
 #endif

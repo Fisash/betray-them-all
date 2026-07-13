@@ -20,13 +20,64 @@ static void draw(char *framebuffer, draw_frame_context_t *context)
     terminal_view_stdout_framebuffer(framebuffer);
 }
 
-static void fill_scalings_view(char out[], scaling_group_t s)
+static void print_stat_with_scaling(const char *label, int base_value,
+                      int real_value, const scaling_group_t *scalings,
+                                                     int is_show_real)
 {
-    out[0] = scale_get_rank_view(s.strength);
-    out[1] = scale_get_rank_view(s.agility);
-    out[2] = scale_get_rank_view(s.will);
-    out[3] = scale_get_rank_view(s.intelligence);
-    out[4] = 0;
+    if(is_show_real)
+        printf("%s: %d(%d) (%c%c%c%c)", label, base_value, real_value, 
+                                 scale_get_rank_view(scalings->strength),
+                                  scale_get_rank_view(scalings->agility),
+                                     scale_get_rank_view(scalings->will),
+                            scale_get_rank_view(scalings->intelligence));
+    else
+        printf("%s: %d (%c%c%c%c)", label, base_value, 
+                 scale_get_rank_view(scalings->strength),
+                  scale_get_rank_view(scalings->agility),
+                     scale_get_rank_view(scalings->will),
+            scale_get_rank_view(scalings->intelligence));
+}
+                                    
+static void print_item_info(const item_t *item, const item_info_t info[],
+                                                            unit_t *unit)
+{
+    const item_info_t *item_info = &info[item->id];
+    printf("%s (cost: %d) - ", item_info->title, item->cost);
+    switch(item_info->type)
+    {
+        case ITEM_TYPE_WEAPON:
+            int base_damage = item->props.weapon.damage;
+            int real_damage = unit ? unit_get_damage(unit, info) : 0;
+            print_stat_with_scaling("Damage", base_damage, real_damage,
+                              &item_info->props.weapon.damage.scalings, 
+                                                         unit != NULL);
+            putc(' ', stdout);
+            int base_crit = item->props.weapon.crit;
+            int real_crit = unit ? unit_get_crit(unit, info) : 0;
+            print_stat_with_scaling("Crit", base_crit, real_crit,
+                          &item_info->props.weapon.crit.scalings, 
+                                                   unit != NULL);
+            break; 
+        case ITEM_TYPE_ARMOR:
+            int base_protection = item->props.armor.protection;
+            int real_protection = unit ? unit_get_protection(unit, info) : 0;
+            print_stat_with_scaling("Protection", base_protection, 
+                                                  real_protection,
+                      &item_info->props.armor.protection.scalings, 
+                                                    unit != NULL);
+
+            putc(' ', stdout);
+            int base_mobility = item->props.armor.mobility;
+            int real_mobility = unit ? unit_get_mobility(unit, info) : 0;
+            print_stat_with_scaling("Mobility", base_mobility, 
+                                                real_mobility,
+                    &item_info->props.armor.mobility.scalings, 
+                                                unit != NULL);
+            break; 
+        default:
+            break;
+    }
+    printf("\n");
 }
 
 static void print_unit_info(unit_t *unit, const item_info_t items[],
@@ -39,31 +90,10 @@ static void print_unit_info(unit_t *unit, const item_info_t items[],
         unit->stats.strength, unit->stats.agility, 
         unit->stats.will,unit->stats.intelligence);
 
-    char damage_scalings[5], crit_scalings[5];
-    const item_info_t *weapon = &items[unit->weapon.id];
-    fill_scalings_view(damage_scalings, 
-                       weapon->props.weapon.damage.scalings);
-    fill_scalings_view(crit_scalings, 
-                       weapon->props.weapon.crit.scalings);
-    printf("Weapon: %s - %d(%d) damage (%s),"
-                        "%d(%d) crit (%s)\n",
-        weapon->title, unit->weapon.props.weapon.damage, 
-        unit_get_damage(unit, items), damage_scalings,
-        unit->weapon.props.weapon.crit, 
-        unit_get_crit(unit, items), crit_scalings);
-
-    char protection_scalings[5], mobility_scalings[5];
-    const item_info_t *armor = &items[unit->armor.id];
-    fill_scalings_view(protection_scalings, 
-                       armor->props.armor.protection.scalings);
-    fill_scalings_view(mobility_scalings, 
-                       armor->props.armor.mobility.scalings);
-    printf("Armor: %s - %d(%d) protection (%s),"
-                        "%d(%d) mobility (%s)\n",
-        armor->title, unit->armor.props.armor.protection, 
-        unit_get_protection(unit, items), protection_scalings,
-        unit->armor.props.armor.mobility, 
-        unit_get_mobility(unit, items), mobility_scalings);
+    printf("Weapon: ");
+    print_item_info(&unit->weapon, items, unit);
+    printf("Armor: ");
+    print_item_info(&unit->armor, items, unit);
 }
 
 static void interpret_unit_info(command *cmd, squad_t *squad, 
@@ -82,6 +112,20 @@ static void interpret_unit_info(command *cmd, squad_t *squad,
         print_unit_info(unit, items_info, templates);
 }
 
+static void interpret_item_info(command *cmd, squad_t *squad, 
+                              const item_info_t items_info[])
+{
+    if(cmd->argc < 3) 
+    {
+        puts("Identify item to put info");
+        return;
+    }
+    
+    uint8_t item_num = atoi(cmd->argv[2]);
+    item_t *item = squad_get_item_by_num(squad, item_num);
+    if(item && item->id != ITEM_NONE)
+        print_item_info(item, items_info, NULL);
+}
 /* command info*/
 static void interpret_info(command *cmd, squad_t *squad, 
                            const unit_template_t templates[],
@@ -91,6 +135,9 @@ static void interpret_info(command *cmd, squad_t *squad,
 
     if(strcmp(cmd->argv[1], "unit") == 0)
         interpret_unit_info(cmd, squad, templates, items_info); 
+
+    if(strcmp(cmd->argv[1], "item") == 0)
+        interpret_item_info(cmd, squad, items_info);
 }
 
 

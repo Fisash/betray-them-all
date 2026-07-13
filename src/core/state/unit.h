@@ -29,6 +29,9 @@ uint16_t unit_get_crit(unit_t *unit, const item_info_t items[]);
 uint16_t unit_get_protection(unit_t *unit, const item_info_t items[]);
 uint16_t unit_get_mobility(unit_t *unit, const item_info_t items[]);
 
+int unit_try_set_equip(unit_t *unit, item_t *item, 
+                        const item_info_t info[]);
+
 void unit_init(unit_t *unit, const char *name, unit_template_id id, 
                                   const unit_template_t templates[],
                                   const item_info_t items_info[]);

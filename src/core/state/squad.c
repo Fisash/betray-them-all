@@ -88,3 +88,49 @@ void squad_consume_day_provision(squad_t *squad)
             unit->hp++;
     }
 }
+
+squad_unit_equip_status_t 
+    squad_unit_equip(squad_t *squad, uint8_t unit_num, item_t *item)
+{
+    unit_t *unit = squad_get_unit_by_num(squad, unit_num);
+    if(!unit)
+        return SQUAD_UNIT_EQUIP_INVALID_UNIT;
+
+    int status = unit_try_set_equip(unit, item, squad->items_info);
+    if(status != 0)
+        return SQUAD_UNIT_EQUIP_INVALID_ITEM;
+
+    item->id = ITEM_NONE;
+    return SQUAD_UNIT_EQUIP_OK;
+}
+
+squad_unit_unequip_status_t
+    squad_unit_unequip(squad_t *squad, uint8_t unit_num, item_type_t type)
+{
+    unit_t *unit = squad_get_unit_by_num(squad, unit_num);
+    if(!unit)
+        return SQUAD_UNIT_UNEQUIP_INVALID_UNIT;
+
+    item_id nature_replacement;
+    item_t *equipment;
+    switch(type)
+    {
+        case ITEM_TYPE_ARMOR:
+            equipment = &unit->armor;
+            nature_replacement = ARMOR_NUDE;
+            break;
+        case ITEM_TYPE_WEAPON:
+            equipment = &unit->weapon;
+            nature_replacement = WEAPON_FISTS;
+            break;
+        default:
+            return SQUAD_UNIT_UNEQUIP_INVALID_TYPE;
+    }
+
+    if(items_info_is_nature_equip(equipment->id))
+        return SQUAD_UNIT_UNEQUIP_ALREADY_REMOVED;
+
+    squad_add_item(squad, equipment);
+    item_init(equipment, squad->items_info, nature_replacement);
+    return SQUAD_UNIT_UNEQUIP_OK;
+}
