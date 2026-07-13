@@ -15,6 +15,8 @@ typedef struct {
     shop_t *active_shop;
     int16_t active_event_id;
     uint16_t days;
+
+    uint8_t is_over;
 } game_state_t;
 
 void game_state_init(game_state_t *game_state, const game_info_t *info);

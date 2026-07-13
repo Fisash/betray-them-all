@@ -23,11 +23,11 @@ static float get_scale_multiplier(scale_rank_t rank)
     {
         case SCALE_N: return 0.0f;
         case SCALE_E: return 1.0f;
-        case SCALE_D: return 1.4f;
-        case SCALE_C: return 1.8f;
-        case SCALE_B: return 2.2f;
-        case SCALE_A: return 2.8f;
-        case SCALE_S: return 4.0f;
+        case SCALE_D: return 1.5f;
+        case SCALE_C: return 2.0f;
+        case SCALE_B: return 2.8f;
+        case SCALE_A: return 3.5f;
+        case SCALE_S: return 5.0f;
         default:      return 0.0f;
     }
 }
@@ -84,6 +84,15 @@ static void init_weapon(item_info_t *weapon, const char *title,
 
     weapon->props.weapon.damage = damage;
     weapon->props.weapon.crit = crit;
+}
+
+static void init_provision(item_info_t *provision, const char *title,
+                              const char *description, uint16_t cost, 
+                                    uint8_t provision_increase_value)
+{
+    init_item(provision, title, description, cost);
+    provision->type = ITEM_TYPE_PROVISION;
+    provision->props.provision_increase_value = provision_increase_value;
 }
 
 static void param_spec_init(param_spec_t *param, uint16_t min, uint16_t max,
@@ -156,21 +165,21 @@ void items_info_load(item_info_t items[])
         "Sharp animal claws", damage, crit);
 
     param_spec_init(&damage, 6, 7,
-                    SCALE_C, SCALE_D, SCALE_N, SCALE_N);
+                    SCALE_B, SCALE_D, SCALE_N, SCALE_N);
     param_spec_init(&crit, 5, 5,
                     SCALE_D, SCALE_N, SCALE_N, SCALE_N);
     init_weapon(&items[WEAPON_SHORT_SWORD], "Short sword",
         "Small but light-weight sword", damage, crit);
 
     param_spec_init(&damage, 9, 10,
-                    SCALE_C, SCALE_D, SCALE_N, SCALE_N);
+                    SCALE_B, SCALE_D, SCALE_N, SCALE_N);
     param_spec_init(&crit, 5, 5,
                     SCALE_D, SCALE_N, SCALE_N, SCALE_N);
     init_weapon(&items[WEAPON_SWORD], "Sword",
         "Standart size and damage sword", damage, crit);
 
     param_spec_init(&damage, 4, 5,
-                    SCALE_B, SCALE_A, SCALE_N, SCALE_N);
+                    SCALE_C, SCALE_B, SCALE_N, SCALE_N);
     param_spec_init(&crit, 10, 10,
                     SCALE_B, SCALE_B, SCALE_N, SCALE_N);
     init_weapon(&items[WEAPON_DAGGER], "Dagger",
@@ -204,10 +213,11 @@ void items_info_load(item_info_t items[])
     init_weapon(&items[WEAPON_HALBERD], "Halberd",
         "Powerful roal halberd", damage, crit);
 
-    /*other items*/
-    init_item(&items[ITEM_PROVISION_BAG], "Provision bag", 
-                  "Increases provision points by 15", 10);
+    /*provision*/
+    init_provision(&items[ITEM_PROVISION_BAG], "Provision bag",
+                   "Increases provision points by 15", 10, 15);
 
+    /*other items*/
     init_item(&items[ITEM_MALACHITE], "Malachite", "Basic gemstone", 30);
     init_item(&items[ITEM_AMETHYST],  "Amethyst",  "Medium gemstone", 50);
     init_item(&items[ITEM_RUBY],      "Ruby",      "Expensive gemstone", 100);

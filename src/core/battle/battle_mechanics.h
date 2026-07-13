@@ -3,10 +3,11 @@
 
 #include "core/state/battle_state.h"
 
-#define MAX_EVASION 0.95f
 #define MAX_CRIT 0.95f
-#define PARITY_EVASION 0.1f
 
+#define MAX_EVASION 0.95f
+#define PARITY_EVASION 0.125f
+#define EVASION_C (1.0f/(1.0f-PARITY_EVASION)-1.0f)
 
 int battle_mechanics_check_evasion(battle_unit_t *attacker,
                                      battle_unit_t *target,

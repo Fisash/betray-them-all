@@ -32,7 +32,7 @@ static void draw_squad_items(squad_t *squad, shop_t *shop,
     item_t *item;
 
     puts("Squad goods:");
-    for(i = 0, item_count = 0; i < MAX_ITEMS; i++)
+    for(i = 0, item_count = 0; i < SQUAD_MAX_ITEMS; i++)
     {
         item = &squad->inventory[i];
         if(!item || item->id == ITEM_NONE)

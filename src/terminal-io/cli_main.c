@@ -72,17 +72,14 @@ static void interpret_unit_info(command *cmd, squad_t *squad,
 {
     if(cmd->argc < 3) 
     {
-      puts("Identify unit to put info");
-      return;
+        puts("Identify unit to put info");
+        return;
     }
     
-    int unit_id = atoi(cmd->argv[2]);
-    if(unit_id > 0 && unit_id <= MAX_UNITS)
-    {
-        unit_t *unit = &squad->units[unit_id-1];
-        if(unit->is_alive)
-            print_unit_info(unit, items_info, templates);
-    }
+    uint8_t unit_num = atoi(cmd->argv[2]);
+    unit_t *unit = squad_get_unit_by_num(squad, unit_num);
+    if(unit && unit->is_alive)
+        print_unit_info(unit, items_info, templates);
 }
 
 /* command info*/
@@ -153,9 +150,7 @@ static void interpret_command(command *cmd, game_state_t *game_state,
     if(strcmp(cmd->argv[0], "mov") == 0 && cmd->argc > 1)
     {
         interpret_move(cmd, &game_state->squad);
-        time_system_spend(&game_state->squad, 
-                          &game_state->world,
-                        1, &game_state->days);
+        time_system_spend(game_state, 1);
         *need_redraw = 1;
     }
 
@@ -171,9 +166,7 @@ static void interpret_command(command *cmd, game_state_t *game_state,
 
     if(strcmp(cmd->argv[0], "next") == 0)
     {
-        time_system_spend(&game_state->squad, 
-                          &game_state->world,
-                        1, &game_state->days);
+        time_system_spend(game_state, 1);
         *need_redraw = 1;
     }
 
@@ -191,6 +184,15 @@ static int has_pending_actions(const game_state_t *state)
     return (state->battle.status == BATTLE_STATUS_ACTIVE ||
             state->active_event_id != EVENT_NONE         ||
             state->active_shop != NULL                   );
+}
+
+void check_game_status(const game_state_t *state)
+{
+    if(state->is_over)
+    {
+        puts("You lost!");
+        exit(0);
+    }
 }
 
 void cli_run(game_state_t *game_state, const game_info_t *game_info)
@@ -212,6 +214,7 @@ void cli_run(game_state_t *game_state, const game_info_t *game_info)
         cmd = cli_base_input_command(input_buf);
 
         interpret_command(&cmd, game_state, game_info, &need_redraw);        
+        check_game_status(game_state);
 
         while (has_pending_actions(game_state))
         {

@@ -135,7 +135,7 @@ static void draw_squad_units(char *framebuffer, unit_t units[])
     char *cursor;
     int i, unit_id;
     unit_id = 0;
-    for(i = 0; i < MAX_UNITS; i++)
+    for(i = 0; i < SQUAD_MAX_UNITS; i++)
     {
         if(!units[i].is_alive)
             continue;
@@ -154,7 +154,7 @@ static void draw_squad_inventory(char *framebuffer, item_t inventory[],
     char *cursor;
     int i, item_slot_id;
     item_slot_id = 0;
-    for(i = 0; i < MAX_ITEMS; i++)
+    for(i = 0; i < SQUAD_MAX_ITEMS; i++)
     {
         if(inventory[i].id == ITEM_NONE)
             continue;
@@ -207,11 +207,14 @@ void terminal_view_update_framebuffer(char *framebuffer,
 {
     draw_world(framebuffer, context->world);
 
-    int gold = context->squad->gold;
+    uint16_t gold = context->squad->gold;
+    uint16_t provision = context->squad->provision;
 
     char *cursor = get_cursor(framebuffer, 0, 0);
     draw_str(&cursor, "gold: ");
     draw_int(&cursor, gold);
+    draw_str(&cursor, " provision: ");
+    draw_int(&cursor, provision);
     draw_str(&cursor, "  day: ");
     draw_int(&cursor, context->days);
 

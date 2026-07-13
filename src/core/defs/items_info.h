@@ -7,6 +7,8 @@
 #define ITEM_TITLE_BUF 64
 #define ITEM_DESCRIPTION_BUF 128
 
+#define PROVISION_INCREASE_VALUE 15
+
 #define MAX_STAT_VALUE 100
 
 typedef enum {
@@ -45,7 +47,8 @@ typedef struct {
 typedef enum {
     ITEM_TYPE_GENERIC,
     ITEM_TYPE_WEAPON,
-    ITEM_TYPE_ARMOR
+    ITEM_TYPE_ARMOR,
+    ITEM_TYPE_PROVISION
 } item_type_t;
 
 typedef struct {
@@ -56,6 +59,7 @@ typedef struct {
     union {
         weapon_info_props_t weapon;
         armor_info_props_t armor;
+        uint8_t provision_increase_value;
     } props;
 } item_info_t;
 

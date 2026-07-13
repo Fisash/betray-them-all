@@ -1,10 +1,15 @@
 #include <stdlib.h>
+#include <math.h>
 
 #include "core/battle/battle_mechanics.h"
 
+#ifdef DEBUG
+#include <stdio.h>
+#endif
+
 static float battle_mechanics_calc_evasion(battle_unit_t *attacker, 
-                                      battle_unit_t *target,
-                                  const item_info_t items[])
+                                             battle_unit_t *target,
+                                         const item_info_t items[])
 {
     uint16_t attacker_mobility, target_mobility;
     float evasion, ratio;
@@ -14,12 +19,16 @@ static float battle_mechanics_calc_evasion(battle_unit_t *attacker,
 
     if(attacker_mobility <= 0)
         return MAX_EVASION;
-    ratio = (float)attacker_mobility/ 
-            (float)target_mobility; 
-    evasion = (ratio*ratio) * PARITY_EVASION;
-
+    ratio = (float)target_mobility/ (float)attacker_mobility;
+    evasion = 1.0f - 1.0f/(1.0f + EVASION_C*pow(ratio, 3));
+    
     if(evasion > MAX_EVASION)
         evasion = MAX_EVASION;
+
+#ifdef DEBUG
+    printf("[DEBUG]A:%d T:%d; evasion chance: %f (ratio: %f)\n", 
+            attacker_mobility, target_mobility, evasion, ratio);
+#endif
     return evasion;
 }
 

@@ -33,7 +33,7 @@ void game_state_init(game_state_t *game_state, const game_info_t *info)
     world_generate(&(game_state->world), info->items);
 
     squad_t* squad = &(game_state->squad);
-    squad_init(squad, 1, 5, 100);
+    squad_init(squad, 1, 5, info->items);
     give_start_units(squad, info);
     give_start_items(squad, info);
     game_state->active_event_id = EVENT_NONE;

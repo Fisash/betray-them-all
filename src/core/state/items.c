@@ -43,7 +43,6 @@ void item_init(item_t *item, const item_info_t info[], item_id id)
 
             item->cost += (protection + mobility);
             break;
-        case ITEM_TYPE_GENERIC:
         default:
             break;
     }

@@ -23,15 +23,18 @@ static void tick_world_cooldowns(cell_t **cd_list, uint16_t days)
     }
 }
 
-void time_system_spend(squad_t *squad, world_t *world, uint16_t days, 
-                                                uint16_t *days_state)
+void time_system_spend(game_state_t *state, uint16_t days)
 {
-    tick_world_cooldowns(world->event_cd_cells, days);
+    tick_world_cooldowns(state->world.event_cd_cells, days);
 
     while (days > 0)
     {
-        (*days_state)++;
+        state->days++;
         days--;
-        movement_try_move_squad_by_order(squad);
+        movement_try_move_squad_by_order(&state->squad);
+
+        squad_consume_day_provision(&state->squad);
+        if(state->squad.provision == 0)
+            state->is_over = 1;
     }
 }
