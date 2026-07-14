@@ -41,7 +41,7 @@ void item_init(item_t *item, const item_info_t info[], item_id id)
                                  item_info->props.armor.mobility.max);
             item->props.armor.mobility = mobility;
 
-            item->cost += (protection + mobility);
+            item->cost += (protection*3 + mobility);
             break;
         default:
             break;

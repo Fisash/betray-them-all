@@ -32,9 +32,24 @@ uint16_t shop_get_buy_price(shop_t *shop, item_t *item)
 void shop_generate_village_items(shop_t *shop, const item_info_t info[])
 {
     item_t provision;
-    item_init(&provision, info, ITEM_PROVISION_BAG);
-
+    item_id id;
     int i;
+
+    item_init(&provision, info, ITEM_PROVISION_BAG);
     for(i = 0; i < (5 + rand() % 5); i++)
         item_storage_add(shop->items, SHOP_MAX_ITEMS_COUNT, &provision);
+
+    for(i = 0; i < (2 + rand() % 3); i++)
+    {
+        id = items_info_get_rand_weapon_id();
+        item_storage_add_by_item_id(shop->items, 
+                SHOP_MAX_ITEMS_COUNT, info, id);
+    }
+
+    for(i = 0; i < (2 + rand() % 3); i++)
+    {
+        id = items_info_get_rand_armor_id();
+        item_storage_add_by_item_id(shop->items, 
+                SHOP_MAX_ITEMS_COUNT, info, id);
+    }
 }

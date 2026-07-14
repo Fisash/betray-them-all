@@ -20,66 +20,6 @@ static void draw(char *framebuffer, draw_frame_context_t *context)
     terminal_view_stdout_framebuffer(framebuffer);
 }
 
-static void print_stat_with_scaling(const char *label, int base_value,
-                      int real_value, const scaling_group_t *scalings,
-                                                     int is_show_real)
-{
-    if(is_show_real)
-        printf("%s: %d(%d) (%c%c%c%c)", label, base_value, real_value, 
-                                 scale_get_rank_view(scalings->strength),
-                                  scale_get_rank_view(scalings->agility),
-                                     scale_get_rank_view(scalings->will),
-                            scale_get_rank_view(scalings->intelligence));
-    else
-        printf("%s: %d (%c%c%c%c)", label, base_value, 
-                 scale_get_rank_view(scalings->strength),
-                  scale_get_rank_view(scalings->agility),
-                     scale_get_rank_view(scalings->will),
-            scale_get_rank_view(scalings->intelligence));
-}
-                                    
-static void print_item_info(const item_t *item, const item_info_t info[],
-                                                            unit_t *unit)
-{
-    const item_info_t *item_info = &info[item->id];
-    printf("%s (cost: %d) - ", item_info->title, item->cost);
-    switch(item_info->type)
-    {
-        case ITEM_TYPE_WEAPON:
-            int base_damage = item->props.weapon.damage;
-            int real_damage = unit ? unit_get_damage(unit, info) : 0;
-            print_stat_with_scaling("Damage", base_damage, real_damage,
-                              &item_info->props.weapon.damage.scalings, 
-                                                         unit != NULL);
-            putc(' ', stdout);
-            int base_crit = item->props.weapon.crit;
-            int real_crit = unit ? unit_get_crit(unit, info) : 0;
-            print_stat_with_scaling("Crit", base_crit, real_crit,
-                          &item_info->props.weapon.crit.scalings, 
-                                                   unit != NULL);
-            break; 
-        case ITEM_TYPE_ARMOR:
-            int base_protection = item->props.armor.protection;
-            int real_protection = unit ? unit_get_protection(unit, info) : 0;
-            print_stat_with_scaling("Protection", base_protection, 
-                                                  real_protection,
-                      &item_info->props.armor.protection.scalings, 
-                                                    unit != NULL);
-
-            putc(' ', stdout);
-            int base_mobility = item->props.armor.mobility;
-            int real_mobility = unit ? unit_get_mobility(unit, info) : 0;
-            print_stat_with_scaling("Mobility", base_mobility, 
-                                                real_mobility,
-                    &item_info->props.armor.mobility.scalings, 
-                                                unit != NULL);
-            break; 
-        default:
-            break;
-    }
-    printf("\n");
-}
-
 static void print_unit_info(unit_t *unit, const item_info_t items[],
                                   const unit_template_t templates[])
 {
@@ -101,7 +41,7 @@ static void print_unit_info(unit_t *unit, const item_info_t items[],
                        unit->unspent_stat_points);
 }
 
-static void interpret_unit_info(command *cmd, squad_t *squad, 
+static void interpret_unit_info(command_t *cmd, squad_t *squad, 
                            const unit_template_t templates[],
                               const item_info_t items_info[])
 {
@@ -117,7 +57,7 @@ static void interpret_unit_info(command *cmd, squad_t *squad,
         print_unit_info(unit, items_info, templates);
 }
 
-static void interpret_item_info(command *cmd, squad_t *squad, 
+static void interpret_item_info(command_t *cmd, squad_t *squad, 
                               const item_info_t items_info[])
 {
     if(cmd->argc < 3) 
@@ -131,8 +71,8 @@ static void interpret_item_info(command *cmd, squad_t *squad,
     if(item && item->id != ITEM_NONE)
         print_item_info(item, items_info, NULL);
 }
-/* command info*/
-static void interpret_info(command *cmd, squad_t *squad, 
+/* command_t info*/
+static void interpret_info(command_t *cmd, squad_t *squad, 
                            const unit_template_t templates[],
                               const item_info_t items_info[])
 {
@@ -147,7 +87,7 @@ static void interpret_info(command *cmd, squad_t *squad,
 
 
 /* command unequip*/
-static void interpret_unequip(command *cmd, squad_t *squad)
+static void interpret_unequip(command_t *cmd, squad_t *squad)
 {
     if(cmd->argc < 3)
     {
@@ -187,7 +127,7 @@ static void interpret_unequip(command *cmd, squad_t *squad)
 }
 
 /* command equip*/
-static void interpret_equip(command *cmd, squad_t *squad)
+static void interpret_equip(command_t *cmd, squad_t *squad)
 {
     if(cmd->argc < 3)
     {
@@ -222,7 +162,7 @@ static void interpret_equip(command *cmd, squad_t *squad)
 }
 
 /* command improve*/
-void interpret_unit_improve(command *cmd, squad_t *squad)
+void interpret_unit_improve(command_t *cmd, squad_t *squad)
 {
     if(cmd->argc < 3)
     {
@@ -254,7 +194,7 @@ void interpret_unit_improve(command *cmd, squad_t *squad)
 }
 
 /* command mov*/
-static void interpret_move(command *cmd, squad_t *squad)
+static void interpret_move(command_t *cmd, squad_t *squad)
 {
     switch (*cmd->argv[1])
     {
@@ -300,7 +240,7 @@ static void cli_active_event(game_state_t *state, const game_info_t *info)
     state->active_event_id = EVENT_NONE;
 }
 
-static void interpret_command(command *cmd, game_state_t *game_state,
+static void interpret_command(command_t *cmd, game_state_t *game_state,
                       const game_info_t *game_info, int *need_redraw)
 {
     if((strcmp(cmd->argv[0], "exit") == 0) ||
@@ -384,7 +324,7 @@ void cli_run(game_state_t *game_state, const game_info_t *game_info)
     draw((char*)framebuffer, &draw_context);
 
     char input_buf[INPUT_BUF_SIZE];
-    command cmd;
+    command_t cmd;
     int need_redraw = 0;
     for(;;)
     {

@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <string.h>
 
 #include "core/defs/items_info.h"
@@ -113,6 +114,18 @@ static void param_spec_init(param_spec_t *param, uint16_t min, uint16_t max,
     param->scalings.agility = agi;
     param->scalings.will = wil;
     param->scalings.intelligence = inte;
+}
+
+item_id items_info_get_rand_weapon_id()
+{
+    return (WEAPON_REAL_FIRST + rand() % 
+        (WEAPON_REAL_LAST - WEAPON_REAL_FIRST + 1));
+}
+
+item_id items_info_get_rand_armor_id()
+{
+    return (ARMOR_REAL_FIRST + rand() % 
+        (ARMOR_REAL_LAST - ARMOR_REAL_FIRST + 1));
 }
 
 void items_info_load(item_info_t items[])

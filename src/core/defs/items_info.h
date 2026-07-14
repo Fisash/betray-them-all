@@ -67,21 +67,26 @@ typedef enum {
     ITEM_NONE = 0,
 
     ARMOR_NUDE,    /*nature armor*/
-    ARMOR_FABRIC,
+
+    ARMOR_REAL_FIRST,
+    ARMOR_FABRIC = ARMOR_REAL_FIRST,
     ARMOR_LEATHER,
     ARMOR_IRON,
     ARMOR_SHELL,
+    ARMOR_REAL_LAST = ARMOR_SHELL,
 
     WEAPON_FISTS,  /* nature human weapon*/
     WEAPON_CLAW,   /* nature animal weapon*/
 
-    WEAPON_SHORT_SWORD,
+    WEAPON_REAL_FIRST,
+    WEAPON_SHORT_SWORD = WEAPON_REAL_FIRST,
     WEAPON_SWORD,
     WEAPON_DAGGER,
     WEAPON_MACE,
     WEAPON_HUMMER,
     WEAPON_SPEAR,
     WEAPON_HALBERD,
+    WEAPON_REAL_LAST = WEAPON_HALBERD,
 
     ITEM_PROVISION_BAG,
 
@@ -99,6 +104,10 @@ char scale_get_rank_view(scale_rank_t rank);
 
 uint16_t scale_param(uint16_t source, scaling_group_t scalings, 
                                            unit_stats_t stats);
+
+item_id items_info_get_rand_weapon_id();
+
+item_id items_info_get_rand_armor_id();
 
 void items_info_load(item_info_t items[]);
 

@@ -44,7 +44,7 @@ static void draw_squad_items(squad_t *squad, shop_t *shop,
     }
 }
 
-static void cli_try_buy(command *cmd, shop_t *shop, squad_t *squad)
+static void cli_try_buy(command_t *cmd, shop_t *shop, squad_t *squad)
 {
     shop_transaction_status_t status;
 
@@ -69,7 +69,7 @@ static void cli_try_buy(command *cmd, shop_t *shop, squad_t *squad)
     }
 }
 
-static void cli_try_sell(command *cmd, shop_t *shop, squad_t *squad)
+static void cli_try_sell(command_t *cmd, shop_t *shop, squad_t *squad)
 {
     shop_transaction_status_t status;
 
@@ -94,15 +94,35 @@ static void cli_try_sell(command *cmd, shop_t *shop, squad_t *squad)
     }
 }
 
+static void cli_item_info(command_t *cmd, shop_t *shop,
+                        const item_info_t items_info[])
+{
+    if(cmd->argc < 2) 
+    {
+        puts("Identify merchant`s item to put info");
+        return;
+    }
+    
+    uint8_t item_num = atoi(cmd->argv[1]);
+    item_t *item = shop_get_item_by_num(shop, item_num);
+    if(item && item->id != ITEM_NONE)
+        print_item_info(item, items_info, NULL);
+}
+
 void cli_shop_run(shop_t **active_shop, squad_t *squad, 
                               const item_info_t info[])
 {
+    int is_need_draw_shop_items = 1;
     char input_buf[INPUT_BUF_SIZE];
-    command cmd;
+    command_t cmd;
     for(;;)
     {
-        printf("Squad gold: %d\n", squad->gold);
-        draw_shop_items(*active_shop, info); 
+        if(is_need_draw_shop_items)
+        {
+            printf("Squad gold: %d\n", squad->gold);
+            draw_shop_items(*active_shop, info); 
+        }
+
         cmd = cli_base_input_command(input_buf);
 
         if((strcmp(cmd.argv[0], "leave") == 0) || 
@@ -113,13 +133,24 @@ void cli_shop_run(shop_t **active_shop, squad_t *squad,
             break;
         }
 
+        is_need_draw_shop_items = 0;
+
         if(strcmp(cmd.argv[0], "inv") == 0)
             draw_squad_items(squad, *active_shop, info);
 
         if(strcmp(cmd.argv[0], "buy") == 0 && cmd.argc > 1)
+        {
             cli_try_buy(&cmd, *active_shop, squad);
+            is_need_draw_shop_items = 1;
+        }
 
         if(strcmp(cmd.argv[0], "sell") == 0 && cmd.argc > 1)
+        {
             cli_try_sell(&cmd, *active_shop, squad);
+            is_need_draw_shop_items = 1;
+        }
+
+        if(strcmp(cmd.argv[0], "info") == 0 && cmd.argc > 1)
+            cli_item_info(&cmd, *active_shop, info);
     }
 }
