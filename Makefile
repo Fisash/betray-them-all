@@ -17,6 +17,11 @@ ifeq ($(DEBUG), 1)
     LDFLAGS    = -lm
 endif
 
+# Проверяем, передан ли аргумент MODE, и добавляем его как -DMODE
+ifdef MODE
+    CFLAGS += -D$(MODE)
+endif
+
 IFLAGS   = -Isrc
 SRCDIR   = src
 BUILDDIR = build
