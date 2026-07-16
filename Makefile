@@ -1,52 +1,79 @@
-CC       = gcc
-DEBUG   ?= 0
-
-OPT      = -Os
+CC = gcc
+OPT = -O2
 STRIP_FLAG = -s
 
-CFLAGS   = -Wall -Wextra -std=c89 $(OPT) -MMD -MP \
-           -fno-asynchronous-unwind-tables -fno-ident \
-           -ffunction-sections -fdata-sections
+CFLAGS = -Wall -Wextra -std=c89 -MMD -MP \
+         -fno-asynchronous-unwind-tables -fno-ident \
+         -ffunction-sections -fdata-sections
 
-LDFLAGS  = -lm -Wl,--gc-sections $(STRIP_FLAG)
-
-ifeq ($(DEBUG), 1)
-    OPT        = -O0 -g
-    STRIP_FLAG = 
-    CFLAGS     = -Wall -Wextra -std=c89 $(OPT) -MMD -MP -DDEBUG
-    LDFLAGS    = -lm
+ifdef DEBUG
+OPT = -O0
+STRIP_FLAG =
+CFLAGS += -g -DDEBUG
 endif
 
-# Проверяем, передан ли аргумент MODE, и добавляем его как -DMODE
-ifdef MODE
-    CFLAGS += -D$(MODE)
-endif
+CFLAGS += $(OPT) -Isrc
+LDFLAGS = -lm -Wl,--gc-sections $(STRIP_FLAG)
 
-IFLAGS   = -Isrc
 SRCDIR   = src
 BUILDDIR = build
 
-SOURCES  = $(shell find $(SRCDIR) -name "*.c")
-SRC_SUBDIRS = $(shell find $(SRCDIR) -type d)
-vpath %.c $(SRC_SUBDIRS)
+CORE_SRC = $(shell find $(SRCDIR)/core -name '*c')
+CORE_OBJ = $(patsubst $(SRCDIR)/core/%.c,$(BUILDDIR)/core/%.o,$(CORE_SRC))
 
-OBJECTS  = $(patsubst $(SRCDIR)/%.c, $(BUILDDIR)/%.o, $(SOURCES))
-DEPS     = $(OBJECTS:.o=.d)
+GUI_FRONTEND_SRC = $(wildcard $(SRCDIR)/gui/gui-frontend/*.c)
+GUI_FRONTEND_OBJ = $(patsubst $(SRCDIR)/gui/gui-frontend/%.c,$(BUILDDIR)/gui/frontend/%.o,$(GUI_FRONTEND_SRC))
 
-TARGET   = main
+CLI_SRC = $(wildcard $(SRCDIR)/cli/*.c)
+CLI_OBJ = $(patsubst $(SRCDIR)/cli/%.c,$(BUILDDIR)/cli/%.o,$(CLI_SRC))
+MAIN_CLI_OBJ = $(BUILDDIR)/cli/main.o
 
-.PHONY: all clean
+XLIB_PORT_SRC = $(wildcard $(SRCDIR)/gui/xlib-port/*.c)
+XLIB_PORT_OBJ = $(patsubst $(SRCDIR)/gui/xlib-port/%.c,$(BUILDDIR)/xlib/port/%.o,$(XLIB_PORT_SRC))
+MAIN_XLIB_OBJ = $(BUILDDIR)/xlib/main.o
 
-all: $(TARGET)
+$(CORE_OBJ): $(BUILDDIR)/core/%.o: $(SRCDIR)/core/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(TARGET): $(OBJECTS)
-	$(CC) $^ $(LDFLAGS) -o $@
+$(GUI_FRONTEND_OBJ): $(BUILDDIR)/gui/frontend/%.o: $(SRCDIR)/gui/gui-frontend/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(BUILDDIR)/%.o: %.c
-	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@
+$(CLI_OBJ): CFLAGS += -DCLI
+$(CLI_OBJ): $(BUILDDIR)/cli/%.o: $(SRCDIR)/cli/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-clean:
-	rm -rf $(BUILDDIR) $(TARGET)
+$(MAIN_CLI_OBJ): CFLAGS += -DCLI
+$(MAIN_CLI_OBJ): $(SRCDIR)/main.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
 
+$(XLIB_PORT_OBJ): CFLAGS += -DXLIB
+$(XLIB_PORT_OBJ): $(BUILDDIR)/xlib/port/%.o: $(SRCDIR)/gui/xlib-port/%.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(MAIN_XLIB_OBJ): CFLAGS += -DXLIB
+$(MAIN_XLIB_OBJ): $(SRCDIR)/main.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+DEPS = $(CORE_OBJ:.o=.d) $(GUI_FRONTEND_OBJ:.o=.d) \
+       $(CLI_OBJ:.o=.d) $(MAIN_CLI_OBJ:.o=.d) \
+       $(XLIB_PORT_OBJ:.o=.d) $(MAIN_XLIB_OBJ:.o=.d)
 -include $(DEPS)
+
+.PHONY: core gui cli xlib
+
+core: $(CORE_OBJ)            
+
+gui: $(GUI_FRONTEND_OBJ)    
+
+cli: $(CORE_OBJ) $(CLI_OBJ) $(MAIN_CLI_OBJ)
+	$(CC) $(LDFLAGS) $^ -o $@
+
+xlib: LDFLAGS += -lX11
+xlib: $(CORE_OBJ) $(GUI_FRONTEND_OBJ) $(XLIB_PORT_OBJ) $(MAIN_XLIB_OBJ)
+	  $(CC) $(LDFLAGS) $^ -o $@
