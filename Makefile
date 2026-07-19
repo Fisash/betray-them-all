@@ -21,7 +21,7 @@ BUILDDIR = build
 CORE_SRC = $(shell find $(SRCDIR)/core -name '*c')
 CORE_OBJ = $(patsubst $(SRCDIR)/core/%.c,$(BUILDDIR)/core/%.o,$(CORE_SRC))
 
-GUI_FRONTEND_SRC = $(wildcard $(SRCDIR)/gui/gui-frontend/*.c)
+GUI_FRONTEND_SRC = $(shell find $(SRCDIR)/gui/gui-frontend/ -name '*.c')
 GUI_FRONTEND_OBJ = $(patsubst $(SRCDIR)/gui/gui-frontend/%.c,$(BUILDDIR)/gui/frontend/%.o,$(GUI_FRONTEND_SRC))
 
 CLI_SRC = $(wildcard $(SRCDIR)/cli/*.c)

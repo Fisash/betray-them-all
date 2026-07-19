@@ -22,6 +22,6 @@ for y in range(height):
         pixel32 = (a << 24) | (r << 16) | (g << 8) | b
         row_pixels.append(f"0x{pixel32:08X}")
     print(", ".join(row_pixels))
-    print("},\n" if y < height - 1 else "}\n")
+    print("    },\n" if y < height - 1 else "    }\n")
 
 print("};\n")
