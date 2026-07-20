@@ -1,6 +1,6 @@
 #include "gui/gui-frontend/res/font_bitmaps.h"
 
-const unsigned char font_console_8x8[FONT_CHAR_COUNT][FONT_BYTE_PER_CHAR] = {
+const unsigned char font_console_8x8[128][8] = {
     {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
     {0x7E, 0x81, 0xA5, 0x81, 0x9D, 0xB9, 0x81, 0x7E},
     {0x7E, 0xFF, 0xDB, 0xFF, 0xE3, 0xC7, 0xFF, 0x7E},
@@ -131,10 +131,26 @@ const unsigned char font_console_8x8[FONT_CHAR_COUNT][FONT_BYTE_PER_CHAR] = {
     {0x00, 0x10, 0x38, 0x6C, 0xC6, 0xC6, 0xFE, 0x00}
 };
 
-int font_console_8x8_mask(char c, uint8_t x, uint8_t y)
+void fonts_load(font_t fonts[])
 {
-    if(x > 7 || y > 7)
+    font_t *f;
+
+    f = &fonts[FONT_CONSOLE];
+    f->char_pixel_width = 8;
+    f->char_pixel_height = 8;
+    f->bytes_per_row = 1;
+    f->is_extended_ascii = 0;
+    f->data = &font_console_8x8[0][0];
+}
+
+int font_is_fill_char_pixel(const font_t *font, char c, 
+                                  uint8_t x, uint8_t y)
+{
+    if(x > font->char_pixel_width || y > font->char_pixel_height)
         return 0;
-    unsigned char char_mask_row = font_console_8x8[(unsigned char)c][y];
-    return ((char_mask_row & (0x80 >> x)) != 0);
+
+    uint16_t bytes_per_char = font->bytes_per_row*font->char_pixel_height;
+    const unsigned char char_row_mask = 
+          *(font->data + (unsigned char)c*bytes_per_char + y);
+    return ((char_row_mask & (0x80 >> x)) != 0);
 }

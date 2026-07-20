@@ -1,25 +1,8 @@
 #include "gui/gui-frontend/res/sprites.h"
 
-const uint32_t sprite_pallete[16] = {
-    0xDDCF99,
-    0xCCA87B,
-    0xB97A60,
-    0x9C524E,
-    0x774251,
-    0x4B3D44,
-    0x4E5463,
-    0x5B7D73,
-    0x8E9F7D,
-    0x645355,
-    0x8C7C79,
-    0xA99C8D,
-    0x7D7B62,
-    0xAAA25D,
-    0x846D59,
-    0xA88A5E
-};
+#define SPRITE_4BIT_HEIGHT 8
 
-const unsigned char sprite_cell_meadow[CELL_SPRITE_H][CELL_SPRITE_W] = {
+static const unsigned char sprite_cell_meadow[][SPRITE_4BIT_HEIGHT] = {
     { 0xAA, 0xAA, 0xAE, 0xE9, 0xEE, 0xEE, 0x9E, 0xEA },
     { 0xA7, 0xEA, 0xEE, 0xEE, 0xAA, 0xEA, 0xEE, 0xEE },
     { 0xA7, 0xEE, 0xEE, 0xCE, 0xCE, 0xAA, 0xEA, 0xEE },
@@ -38,7 +21,7 @@ const unsigned char sprite_cell_meadow[CELL_SPRITE_H][CELL_SPRITE_W] = {
     { 0xAA, 0xAA, 0xAE, 0x9A, 0xCE, 0xEC, 0xEE, 0xA9 }
 };
 
-const unsigned char sprite_cell_forest[CELL_SPRITE_H][CELL_SPRITE_W] = {
+static const unsigned char sprite_cell_forest[][SPRITE_4BIT_HEIGHT] = {
     { 0xC7, 0xAA, 0xAE, 0xE9, 0x7E, 0xEE, 0x9E, 0x7C },
     { 0x67, 0xEC, 0xCE, 0xE7, 0x7C, 0xE6, 0xEE, 0x7E },
     { 0x76, 0xC6, 0x7C, 0xC6, 0x7E, 0xC6, 0xEC, 0x76 },
@@ -57,7 +40,7 @@ const unsigned char sprite_cell_forest[CELL_SPRITE_H][CELL_SPRITE_W] = {
     { 0xCA, 0xAC, 0x4E, 0x9A, 0x4E, 0x93, 0xCE, 0xA9 }
 };
 
-const unsigned char sprite_cell_mountain[CELL_SPRITE_H][CELL_SPRITE_W] = {
+static const unsigned char sprite_cell_mountain[][SPRITE_4BIT_HEIGHT] = {
     { 0xAA, 0x69, 0xB9, 0x65, 0x96, 0xB5, 0x66, 0xE6 },
     { 0xAE, 0x56, 0xBB, 0xB6, 0x59, 0xBB, 0x65, 0x65 },
     { 0x6E, 0x6B, 0xAB, 0xBA, 0xB5, 0xA9, 0xA6, 0x59 },
@@ -76,7 +59,7 @@ const unsigned char sprite_cell_mountain[CELL_SPRITE_H][CELL_SPRITE_W] = {
     { 0xAA, 0x94, 0x55, 0x65, 0x56, 0x65, 0xE6, 0xA9 }
 };
 
-const unsigned char sprite_cell_village[CELL_SPRITE_H][CELL_SPRITE_W] = {
+static const unsigned char sprite_cell_village[][SPRITE_4BIT_HEIGHT] = {
     { 0xAA, 0x8A, 0xA8, 0xE9, 0xEE, 0xEE, 0x87, 0xEA },
     { 0xA7, 0x88, 0xE8, 0xEE, 0x22, 0x22, 0x55, 0xE2 },
     { 0xA7, 0x78, 0xE7, 0x1E, 0x11, 0x51, 0x44, 0x25 },
@@ -95,12 +78,58 @@ const unsigned char sprite_cell_village[CELL_SPRITE_H][CELL_SPRITE_W] = {
     { 0xAA, 0xAA, 0xAE, 0x9A, 0xCE, 0xEC, 0xEE, 0xA4 }
 };
 
-uint32_t sprite_color(const unsigned char *sprite, int x, int y)
+static void sprite_fill_size(sprite_t *s, uint16_t pixel_width, 
+                                          uint16_t pixel_height)
 {
+    switch(s->indexing)
+    {
+        case INDEX_BY_4BIT:
+            s->height = pixel_height;
+            s->width = pixel_width/2;
+            break;
+        default:
+            break;
+    } 
+}
+
+void sprites_load(sprite_t sprites[], pallete_t palletes[])
+{
+    sprite_t *s;
+    
+    s = &sprites[SPRITE_CELL_MEADOW];
+    s->pallete = &palletes[PALLETE_MAIN];
+    s->indexing = INDEX_BY_4BIT;
+    sprite_fill_size(s, SPRITE_CELL_W, SPRITE_CELL_H);
+    s->pixels = &sprite_cell_meadow[0][0];
+     
+    s = &sprites[SPRITE_CELL_FOREST];
+    s->pallete = &palletes[PALLETE_MAIN];
+    s->indexing = INDEX_BY_4BIT;
+    sprite_fill_size(s, SPRITE_CELL_W, SPRITE_CELL_H);
+    s->pixels = &sprite_cell_forest[0][0];
+
+    s = &sprites[SPRITE_CELL_MOUNTAIN];
+    s->pallete = &palletes[PALLETE_MAIN];
+    s->indexing = INDEX_BY_4BIT;
+    sprite_fill_size(s, SPRITE_CELL_W, SPRITE_CELL_H);
+    s->pixels = &sprite_cell_mountain[0][0];
+
+    s = &sprites[SPRITE_CELL_VILLAGE];
+    s->pallete = &palletes[PALLETE_MAIN];
+    s->indexing = INDEX_BY_4BIT;
+    sprite_fill_size(s, SPRITE_CELL_W, SPRITE_CELL_H);
+    s->pixels = &sprite_cell_village[0][0];
+}
+
+uint32_t sprite_get_color(const sprite_t *sprite, int x, int y)
+{
+    if(sprite->indexing != INDEX_BY_4BIT)
+        return 0;
+
     int byte_in_row_index = x / 2;
     int is_low = (x % 2) == 0;
-    unsigned char byte = *(sprite + y*8 + byte_in_row_index);
+    unsigned char byte = *(sprite->pixels + y*8 + byte_in_row_index);
     int color_index = is_low ? (byte & 0x0F) : ((byte >> 4) & 0x0F);
 
-    return sprite_pallete[color_index];
+    return sprite->pallete->data[color_index];
 }

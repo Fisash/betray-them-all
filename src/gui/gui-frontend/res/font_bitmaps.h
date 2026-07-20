@@ -1,14 +1,24 @@
 #ifndef FONT_BITMAPS_H
 #define FONT_BITMAPS_H
 
-#define FONT_BYTE_PER_CHAR 8
-#define FONT_CHAR_COUNT 128
-
 #include <stdint.h>
 
-extern const unsigned char 
-       font_console_8x8[FONT_CHAR_COUNT][FONT_BYTE_PER_CHAR];
+typedef enum {
+    FONT_CONSOLE,
+    FONT_COUNT
+} font_id_t;
 
-int font_console_8x8_mask(char c, uint8_t x, uint8_t y);
+typedef struct {
+    uint8_t char_pixel_width;
+    uint8_t char_pixel_height;
+    uint8_t bytes_per_row;
+    int is_extended_ascii;
+    const unsigned char *data;
+} font_t;
+
+void fonts_load(font_t fonts[]);
+
+int font_is_fill_char_pixel(const font_t *font, char c, 
+                                 uint8_t x, uint8_t y);
 
 #endif

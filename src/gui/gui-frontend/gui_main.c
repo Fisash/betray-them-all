@@ -6,8 +6,12 @@
 
 #include "gui/gui-frontend/gui_main.h"
 #include "gui/gui-frontend/camera.h"
+
 #include "gui/gui-frontend/render/world_renderer.h"
 #include "gui/gui-frontend/render/text_renderer.h"
+
+#include "gui/gui-frontend/res/game_resources.h"
+
 
 #define START_WIDTH 800
 #define START_HEIGHT 480
@@ -65,6 +69,9 @@ static void gui_process_input(platform_interface_t *platform,
 void gui_run(platform_interface_t *platform, game_state_t* game_state, 
                                          const game_info_t *game_info)
 {
+    game_resources_t resources;
+    game_resources_load(&resources);
+
     frame_buffer_t fb;
     frame_buffer_init(&fb, START_WIDTH, START_HEIGHT);
 
@@ -74,13 +81,19 @@ void gui_run(platform_interface_t *platform, game_state_t* game_state,
     camera_t cam;
     camera_init(&cam);
 
+    text_renderer_t text_renderer;
+    text_renderer_init(&text_renderer, &fb, 
+                       &resources.fonts[FONT_CONSOLE], 
+                       2, 0, 0xFFFFFFU, 0x000000U);
+
     for(;;)
     {
         gui_process_input(platform, win, 
                  &fb, &cam, game_state);
-        world_renderer_render(&fb, &cam, &game_state->world);
+        world_renderer_render(&fb, &cam, &game_state->world, resources.sprites);
 
-        text_renderer_render(&fb, "haii hello spooky", 10, 10, 3, 0);
+        text_renderer_render(&text_renderer, 
+            "haii hello spooky\nwaaaa", 10, 10);
         platform->draw_frame(win, &fb);
     }
 }

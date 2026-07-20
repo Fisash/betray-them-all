@@ -3,7 +3,7 @@ OPT = -O2
 STRIP_FLAG = -s
 
 CFLAGS = -Wall -Wextra -std=c89 -MMD -MP \
-         -fno-asynchronous-unwind-tables -fno-ident \
+         -fno-asynchronous-unwind-tables -flto -fno-ident \
          -ffunction-sections -fdata-sections
 
 ifdef DEBUG

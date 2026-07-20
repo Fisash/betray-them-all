@@ -11,6 +11,7 @@
 #define CELL_HEIGHT_PIXELS 16
 
 void world_renderer_render(frame_buffer_t *fb, const camera_t *cam, 
-                                             const world_t *world);
+                                              const world_t *world,
+                                         const sprite_t sprites[]);
 
 #endif
