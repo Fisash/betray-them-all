@@ -146,11 +146,18 @@ void fonts_load(font_t fonts[])
 int font_is_fill_char_pixel(const font_t *font, char c, 
                                   uint8_t x, uint8_t y)
 {
-    if(x > font->char_pixel_width || y > font->char_pixel_height)
+    const unsigned char *char_start;
+    uint8_t byte_offset_in_row, bytes_per_char, bit_index;
+    unsigned char target_byte;
+
+    if(x >= font->char_pixel_width || y >= font->char_pixel_height)
         return 0;
 
-    uint16_t bytes_per_char = font->bytes_per_row*font->char_pixel_height;
-    const unsigned char char_row_mask = 
-          *(font->data + (unsigned char)c*bytes_per_char + y);
-    return ((char_row_mask & (0x80 >> x)) != 0);
+    bytes_per_char = font->bytes_per_row*font->char_pixel_height;
+    char_start = font->data + ((unsigned char)c * bytes_per_char);
+    byte_offset_in_row = x / 8;
+    bit_index = x % 8;
+    target_byte = *(char_start + (y*font->bytes_per_row) + byte_offset_in_row);
+
+    return ((target_byte & (0x80 >> bit_index)) != 0);
 }

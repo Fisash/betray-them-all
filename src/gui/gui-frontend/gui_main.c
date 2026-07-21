@@ -93,7 +93,7 @@ void gui_run(platform_interface_t *platform, game_state_t* game_state,
         world_renderer_render(&fb, &cam, &game_state->world, resources.sprites);
 
         text_renderer_render(&text_renderer, 
-            "haii hello spooky\nwaaaa", 10, 10);
+            "lmao hehehe\nwaaaa", 0, 0);
         platform->draw_frame(win, &fb);
     }
 }

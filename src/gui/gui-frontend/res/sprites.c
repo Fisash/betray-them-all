@@ -2,7 +2,7 @@
 
 #define SPRITE_4BIT_HEIGHT 8
 
-static const unsigned char sprite_cell_meadow[][SPRITE_4BIT_HEIGHT] = {
+static const unsigned char cell_meadow_data[][SPRITE_4BIT_HEIGHT] = {
     { 0xAA, 0xAA, 0xAE, 0xE9, 0xEE, 0xEE, 0x9E, 0xEA },
     { 0xA7, 0xEA, 0xEE, 0xEE, 0xAA, 0xEA, 0xEE, 0xEE },
     { 0xA7, 0xEE, 0xEE, 0xCE, 0xCE, 0xAA, 0xEA, 0xEE },
@@ -21,7 +21,7 @@ static const unsigned char sprite_cell_meadow[][SPRITE_4BIT_HEIGHT] = {
     { 0xAA, 0xAA, 0xAE, 0x9A, 0xCE, 0xEC, 0xEE, 0xA9 }
 };
 
-static const unsigned char sprite_cell_forest[][SPRITE_4BIT_HEIGHT] = {
+static const unsigned char cell_forest_data[][SPRITE_4BIT_HEIGHT] = {
     { 0xC7, 0xAA, 0xAE, 0xE9, 0x7E, 0xEE, 0x9E, 0x7C },
     { 0x67, 0xEC, 0xCE, 0xE7, 0x7C, 0xE6, 0xEE, 0x7E },
     { 0x76, 0xC6, 0x7C, 0xC6, 0x7E, 0xC6, 0xEC, 0x76 },
@@ -40,7 +40,7 @@ static const unsigned char sprite_cell_forest[][SPRITE_4BIT_HEIGHT] = {
     { 0xCA, 0xAC, 0x4E, 0x9A, 0x4E, 0x93, 0xCE, 0xA9 }
 };
 
-static const unsigned char sprite_cell_mountain[][SPRITE_4BIT_HEIGHT] = {
+static const unsigned char cell_mountain_data[][SPRITE_4BIT_HEIGHT] = {
     { 0xAA, 0x69, 0xB9, 0x65, 0x96, 0xB5, 0x66, 0xE6 },
     { 0xAE, 0x56, 0xBB, 0xB6, 0x59, 0xBB, 0x65, 0x65 },
     { 0x6E, 0x6B, 0xAB, 0xBA, 0xB5, 0xA9, 0xA6, 0x59 },
@@ -59,7 +59,7 @@ static const unsigned char sprite_cell_mountain[][SPRITE_4BIT_HEIGHT] = {
     { 0xAA, 0x94, 0x55, 0x65, 0x56, 0x65, 0xE6, 0xA9 }
 };
 
-static const unsigned char sprite_cell_village[][SPRITE_4BIT_HEIGHT] = {
+static const unsigned char cell_village_data[][SPRITE_4BIT_HEIGHT] = {
     { 0xAA, 0x8A, 0xA8, 0xE9, 0xEE, 0xEE, 0x87, 0xEA },
     { 0xA7, 0x88, 0xE8, 0xEE, 0x22, 0x22, 0x55, 0xE2 },
     { 0xA7, 0x78, 0xE7, 0x1E, 0x11, 0x51, 0x44, 0x25 },
@@ -100,25 +100,25 @@ void sprites_load(sprite_t sprites[], pallete_t palletes[])
     s->pallete = &palletes[PALLETE_MAIN];
     s->indexing = INDEX_BY_4BIT;
     sprite_fill_size(s, SPRITE_CELL_W, SPRITE_CELL_H);
-    s->pixels = &sprite_cell_meadow[0][0];
+    s->pixels = &cell_meadow_data[0][0];
      
     s = &sprites[SPRITE_CELL_FOREST];
     s->pallete = &palletes[PALLETE_MAIN];
     s->indexing = INDEX_BY_4BIT;
     sprite_fill_size(s, SPRITE_CELL_W, SPRITE_CELL_H);
-    s->pixels = &sprite_cell_forest[0][0];
+    s->pixels = &cell_forest_data[0][0];
 
     s = &sprites[SPRITE_CELL_MOUNTAIN];
     s->pallete = &palletes[PALLETE_MAIN];
     s->indexing = INDEX_BY_4BIT;
     sprite_fill_size(s, SPRITE_CELL_W, SPRITE_CELL_H);
-    s->pixels = &sprite_cell_mountain[0][0];
+    s->pixels = &cell_mountain_data[0][0];
 
     s = &sprites[SPRITE_CELL_VILLAGE];
     s->pallete = &palletes[PALLETE_MAIN];
     s->indexing = INDEX_BY_4BIT;
     sprite_fill_size(s, SPRITE_CELL_W, SPRITE_CELL_H);
-    s->pixels = &sprite_cell_village[0][0];
+    s->pixels = &cell_village_data[0][0];
 }
 
 uint32_t sprite_get_color(const sprite_t *sprite, int x, int y)
