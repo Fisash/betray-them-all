@@ -12,16 +12,16 @@
 
 int main()
 {
-    game_info_t game_info;
+    struct game_info game_info;
     game_info_load(&game_info);
 
-    game_state_t game_state;
+    struct game_state game_state;
     game_state_init(&game_state, &game_info);
 
 #ifdef CLI
     cli_run(&game_state, &game_info);
 #elif defined(XLIB)
-    platform_interface_t platform;
+    struct platform_interface platform;
     xlib_init_interface(&platform);
     gui_run(&platform, &game_state, &game_info);
 #endif

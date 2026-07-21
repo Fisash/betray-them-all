@@ -3,9 +3,9 @@
 
 #include "core/state/game_state.h"
 
-static void give_start_items(squad_t *squad, const game_info_t *info)
+static void give_start_items(struct squad *squad, const struct game_info *info)
 {
-    item_t test_item, test_item2, test_weapon;
+    struct item test_item, test_item2, test_weapon;
     item_init(&test_item, info->items, ITEM_RUBY);
     item_init(&test_item2, info->items, ITEM_MALACHITE);
 
@@ -16,9 +16,9 @@ static void give_start_items(squad_t *squad, const game_info_t *info)
     squad_add_item(squad, &test_weapon);
 }
 
-static void give_start_units(squad_t *squad, const game_info_t *info)
+static void give_start_units(struct squad *squad, const struct game_info *info)
 {
-    unit_t start_unit1, start_unit2;
+    struct unit start_unit1, start_unit2;
     unit_init(&start_unit1, "fucker", WARRIOR, 
         info->unit_templates, info->items);
     unit_init(&start_unit2, "absabd", ROGUE, 
@@ -28,14 +28,14 @@ static void give_start_units(squad_t *squad, const game_info_t *info)
     squad_add_unit(squad, &start_unit2);
 }
 
-void game_state_init(game_state_t *game_state, const game_info_t *info)
+void game_state_init(struct game_state *game_state, const struct game_info *info)
 {
-    memset(game_state, 0, sizeof(game_state_t));
+    memset(game_state, 0, sizeof(struct game_state));
 
     game_state->days = 1;
     world_generate(&(game_state->world), info->items);
 
-    squad_t* squad = &(game_state->squad);
+    struct squad* squad = &(game_state->squad);
     squad_init(squad, 1, 5, info->items);
     give_start_units(squad, info);
     give_start_items(squad, info);

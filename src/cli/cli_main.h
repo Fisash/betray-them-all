@@ -6,6 +6,6 @@
 #include "core/state/game_state.h"
 #include "core/defs/game_info.h"
 
-void cli_run(game_state_t *game_state, const game_info_t *game_info);
+void cli_run(struct game_state *game_state, const struct game_info *game_info);
 
 #endif

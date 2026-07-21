@@ -7,9 +7,9 @@
 #include <stdio.h>
 #endif
 
-static float battle_mechanics_calc_evasion(battle_unit_t *attacker, 
-                                             battle_unit_t *target,
-                                         const item_info_t items[])
+static float battle_mechanics_calc_evasion(struct battle_unit *attacker, 
+                                             struct battle_unit *target,
+                                         const struct item_info items[])
 {
     uint16_t attacker_mobility, target_mobility;
     float evasion, ratio;
@@ -32,9 +32,9 @@ static float battle_mechanics_calc_evasion(battle_unit_t *attacker,
     return evasion;
 }
 
-int battle_mechanics_check_evasion(battle_unit_t *attacker,
-                                     battle_unit_t *target,
-                                 const item_info_t items[])
+int battle_mechanics_check_evasion(struct battle_unit *attacker,
+                                     struct battle_unit *target,
+                                 const struct item_info items[])
 {
     float evasion_chance = battle_mechanics_calc_evasion(attacker, 
                                                    target, items);
@@ -42,8 +42,8 @@ int battle_mechanics_check_evasion(battle_unit_t *attacker,
     return (random_value < evasion_chance);
 }
 
-int battle_mechanics_check_crit(battle_unit_t *attacker, 
-                              const item_info_t items[])
+int battle_mechanics_check_crit(struct battle_unit *attacker, 
+                              const struct item_info items[])
 {
     float crit_chance = (float)unit_get_crit(attacker->unit, items) / 100.0f;
     if (crit_chance > MAX_CRIT)
@@ -52,10 +52,10 @@ int battle_mechanics_check_crit(battle_unit_t *attacker,
     return (random_value < crit_chance);
 }
 
-void battle_mechanics_apply_damage(battle_unit_t *target, 
+void battle_mechanics_apply_damage(struct battle_unit *target, 
                                      uint16_t raw_damage,
-                           battle_event_report_t *report, 
-                               const item_info_t items[])
+                           struct battle_event_report *report, 
+                               const struct item_info items[])
 {
     uint16_t target_protection = unit_get_protection(target->unit, items);
 
@@ -71,12 +71,12 @@ void battle_mechanics_apply_damage(battle_unit_t *target,
     }
 }
 
-battle_event_report_t battle_mechanics_execute_attack(float damage_scale,
-                                                 battle_unit_t *attacker,
-                                                   battle_unit_t *target,
-                                               const item_info_t items[])
+struct battle_event_report battle_mechanics_execute_attack(float damage_scale,
+                                                 struct battle_unit *attacker,
+                                                   struct battle_unit *target,
+                                               const struct item_info items[])
 {
-    battle_event_report_t report = {0};
+    struct battle_event_report report = {0};
     report.target = target;
     if(battle_mechanics_check_evasion(attacker, target, items))
     {

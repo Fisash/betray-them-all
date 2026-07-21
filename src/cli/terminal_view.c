@@ -6,9 +6,9 @@
 
 #include "core/world_queries.h"
 
-void draw_context_init(draw_frame_context_t *context, world_t *world, 
-                      squad_t *squad, const cell_info_t cells_info[], 
-                            const item_info_t items_info[], int days)
+void draw_context_init(struct draw_frame_context *context, struct world *world, 
+                       struct squad *squad, const struct cell_info cells_info[], 
+                             const struct item_info items_info[], int days)
 {
     context->world = world;
     context->squad = squad;
@@ -81,7 +81,7 @@ static void draw_int(char **cursor_ptr, int value)
 }
 
 static void draw_rect(char **cursor_ptr, const char *rect,
-                uint16_t rect_width, uint16_t rect_height)
+                      uint16_t rect_width, uint16_t rect_height)
 {
     char *start_cursor = *cursor_ptr;
     int x, y;
@@ -100,7 +100,7 @@ static void draw_rect(char **cursor_ptr, const char *rect,
 /* in current implementation it needs specific world size
  * should make CAMERA struct for stored position and scale 
  * and rewrte for this*/
-static void draw_world(char *framebuffer, world_t *world)
+static void draw_world(char *framebuffer, struct world *world)
 {
     char world_view[WORLD_HEIGHT][WORLD_WIDTH];
     world_fill_cells_id_buffer(world, (char*)&world_view);
@@ -113,15 +113,15 @@ static void draw_world(char *framebuffer, world_t *world)
                 WORLD_WIDTH, WORLD_HEIGHT);
 }
 
-static void draw_player(char *framebuffer, squad_t *squad)
+static void draw_player(char *framebuffer, struct squad *squad)
 {
     char *cursor = get_cursor(framebuffer,squad->pos_x+WORLD_OFFSET_X, 
-                                         squad->pos_y+WORLD_OFFSET_Y);
+                                          squad->pos_y+WORLD_OFFSET_Y);
     *cursor = CELL_VIEW_SQUAD;
 }
 
 
-static void draw_unit_info(char **cursor_ptr, unit_t *unit)
+static void draw_unit_info(char **cursor_ptr, struct unit *unit)
 {
     draw_str(cursor_ptr, unit->name);
     draw_char(cursor_ptr, ':');
@@ -130,7 +130,7 @@ static void draw_unit_info(char **cursor_ptr, unit_t *unit)
     draw_int(cursor_ptr, unit->max_hp);
 }
 
-static void draw_squad_units(char *framebuffer, unit_t units[])
+static void draw_squad_units(char *framebuffer, struct unit units[])
 {
     char *cursor;
     int i, unit_id;
@@ -148,8 +148,8 @@ static void draw_squad_units(char *framebuffer, unit_t units[])
     }
 }
 
-static void draw_squad_inventory(char *framebuffer, item_t inventory[],
-                                        const item_info_t items_info[])
+static void draw_squad_inventory(char *framebuffer, struct item inventory[],
+                                        const struct item_info items_info[])
 {
     char *cursor;
     int i, item_slot_id;
@@ -167,8 +167,8 @@ static void draw_squad_inventory(char *framebuffer, item_t inventory[],
     }
 }
 
-static void draw_squad(char *framebuffer, squad_t *squad, 
-                          const item_info_t items_info[])
+static void draw_squad(char *framebuffer, struct squad *squad, 
+                          const struct item_info items_info[])
 {
     char *cursor= get_cursor(framebuffer, 60, 1);
     draw_str(&cursor, "||||SQUAD||||");
@@ -180,13 +180,13 @@ static void draw_squad(char *framebuffer, squad_t *squad,
 
 
 
-void draw_squad_cell_info(char **cursor_ptr, draw_frame_context_t *context)
+void draw_squad_cell_info(char **cursor_ptr, struct draw_frame_context *context)
 {
 
-    cell_t *cell = world_queries_get_squad_cell(context->squad, 
+    struct cell *cell = world_queries_get_squad_cell(context->squad, 
                                                context->world);
 
-    const cell_info_t *info = &context->cells_info[cell->type_id];
+    const struct cell_info *info = &context->cells_info[cell->type_id];
 
     draw_str(cursor_ptr, info->title); 
     draw_char(cursor_ptr, '(');
@@ -203,7 +203,7 @@ void draw_squad_cell_info(char **cursor_ptr, draw_frame_context_t *context)
 }
 
 void terminal_view_update_framebuffer(char *framebuffer, 
-                          draw_frame_context_t *context)
+                                      struct draw_frame_context *context)
 
 {
     draw_world(framebuffer, context->world);
@@ -230,7 +230,7 @@ void terminal_view_update_framebuffer(char *framebuffer,
 
 
 void terminal_view_redraw(char *framebuffer, 
-              draw_frame_context_t *context)
+                          struct draw_frame_context *context)
 {
     terminal_view_init_framebuffer(framebuffer);
     terminal_view_update_framebuffer(framebuffer, context);

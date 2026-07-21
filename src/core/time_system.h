@@ -3,6 +3,6 @@
 
 #include "core/state/game_state.h"
 
-void time_system_spend(game_state_t *state, uint16_t days);
+void time_system_spend(struct game_state *state, uint16_t days);
   
 #endif

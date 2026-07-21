@@ -11,7 +11,7 @@
 
 #define MAX_STAT_VALUE 100
 
-typedef enum {
+enum scale_rank {
     SCALE_N = 0,
     SCALE_E,
     SCALE_D,
@@ -19,51 +19,51 @@ typedef enum {
     SCALE_B,
     SCALE_A,
     SCALE_S
-} scale_rank_t;
+};
 
-typedef struct {
-    scale_rank_t strength;
-    scale_rank_t agility;
-    scale_rank_t will;
-    scale_rank_t intelligence;
-} scaling_group_t;
+struct scaling_group {
+    enum scale_rank strength;
+    enum scale_rank agility;
+    enum scale_rank will;
+    enum scale_rank intelligence;
+};
 
-typedef struct {
+struct param_spec {
     uint16_t min;
     uint16_t max;
-    scaling_group_t scalings;
-} param_spec_t;
+    struct scaling_group scalings;
+};
 
-typedef struct {
-    param_spec_t damage;
-    param_spec_t crit;
-} weapon_info_props_t;
+struct weapon_info_props {
+    struct param_spec damage;
+    struct param_spec crit;
+};
 
-typedef struct {
-    param_spec_t protection;
-    param_spec_t mobility;
-} armor_info_props_t;
+struct armor_info_props {
+    struct param_spec protection;
+    struct param_spec mobility;
+};
 
-typedef enum {
+enum item_type {
     ITEM_TYPE_GENERIC,
     ITEM_TYPE_WEAPON,
     ITEM_TYPE_ARMOR,
     ITEM_TYPE_PROVISION
-} item_type_t;
+};
 
-typedef struct {
-    item_type_t type;
+struct item_info {
+    enum item_type type;
     char title[ITEM_TITLE_BUF];
     char description[ITEM_DESCRIPTION_BUF]; 
     uint16_t cost;
     union {
-        weapon_info_props_t weapon;
-        armor_info_props_t armor;
+        struct weapon_info_props weapon;
+        struct armor_info_props armor;
         uint8_t provision_increase_value;
     } props;
-} item_info_t;
+};
 
-typedef enum {
+enum item_id {
     ITEM_NONE = 0,
 
     ARMOR_NUDE,    /*nature armor*/
@@ -96,19 +96,19 @@ typedef enum {
 
     ALL_ITEMS_COUNT
 
-} item_id;
+};
 
-int items_info_is_nature_equip(item_id id);
+int items_info_is_nature_equip(enum item_id id);
 
-char scale_get_rank_view(scale_rank_t rank);
+char scale_get_rank_view(enum scale_rank rank);
 
-uint16_t scale_param(uint16_t source, scaling_group_t scalings, 
-                                           unit_stats_t stats);
+uint16_t scale_param(uint16_t source, struct scaling_group scalings, 
+                                            struct unit_stats stats);
 
-item_id items_info_get_rand_weapon_id();
+enum item_id items_info_get_rand_weapon_id();
 
-item_id items_info_get_rand_armor_id();
+enum item_id items_info_get_rand_armor_id();
 
-void items_info_load(item_info_t items[]);
+void items_info_load(struct item_info items[]);
 
 #endif

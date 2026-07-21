@@ -1,8 +1,8 @@
 #include "core/shop_system.h"
 #include "core/state/item_storage.h"
 
-shop_transaction_status_t shop_system_try_buy_item(shop_t *shop, 
-                                   item_t *item, squad_t *squad)
+enum shop_transaction_status
+shop_system_try_buy_item(struct shop *shop, struct item *item, struct squad *squad)
 {
     uint16_t price;
     int adding_status;
@@ -24,8 +24,8 @@ shop_transaction_status_t shop_system_try_buy_item(shop_t *shop,
     return SHOP_TRANSACTION_OK;    
 }
 
-shop_transaction_status_t shop_system_try_sell_item(shop_t *shop, 
-                                    item_t *item, squad_t *squad)
+enum shop_transaction_status
+shop_system_try_sell_item(struct shop *shop, struct item *item, struct squad *squad)
 {
     uint16_t price;
     int adding_status;

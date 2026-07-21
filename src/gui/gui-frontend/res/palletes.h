@@ -3,20 +3,20 @@
 
 #include <stdint.h>
 
-typedef enum {
+enum pallete_indexing {
     INDEX_BY_4BIT
-} pallete_indexing_t;
+};
 
-typedef enum {
+enum pallete_id {
     PALLETE_MAIN,
     PALLETE_COUNT
-} pallete_id_t;
+};
 
-typedef struct {
+struct pallete {
     uint8_t color_count;
     const uint32_t *data;
-} pallete_t;
+};
 
-void palletes_load(pallete_t palletes[]);
+void palletes_load(struct pallete palletes[]);
 
 #endif

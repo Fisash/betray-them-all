@@ -10,8 +10,8 @@
 #define CELL_WIDTH_PIXELS 16
 #define CELL_HEIGHT_PIXELS 16
 
-void world_renderer_render(frame_buffer_t *fb, const camera_t *cam, 
-                                              const world_t *world,
-                                         const sprite_t sprites[]);
+void world_renderer_render(struct frame_buffer *fb, const struct camera *cam, 
+                                                   const struct world *world,
+                                               const struct sprite sprites[]);
 
 #endif

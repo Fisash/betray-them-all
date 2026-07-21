@@ -1,6 +1,6 @@
 #include "core/defs/game_info.h"
 
-void game_info_load(game_info_t *game_info)
+void game_info_load(struct game_info *game_info)
 {
     events_info_load(&game_info->events_info);
     cells_info_load(game_info->cells_info); 

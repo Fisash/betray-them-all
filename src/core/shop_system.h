@@ -4,17 +4,17 @@
 #include "core/state/shop.h"
 #include "core/state/squad.h"
 
-typedef enum {
+enum shop_transaction_status {
     SHOP_TRANSACTION_OK,
     SHOP_TRANSACTION_INCORRECT_ITEM,
     SHOP_TRANSACTION_INSUFFCIENT_GOLD,
     SHOP_TRANSACTION_INSUFFCIENT_SPACE
-} shop_transaction_status_t;
+};
 
-shop_transaction_status_t shop_system_try_buy_item(shop_t *shop, 
-                                   item_t *item, squad_t *squad);
+enum shop_transaction_status
+shop_system_try_buy_item(struct shop *shop, struct item *item, struct squad *squad);
 
-shop_transaction_status_t shop_system_try_sell_item(shop_t *shop, 
-                                    item_t *item, squad_t *squad);
+enum shop_transaction_status
+shop_system_try_sell_item(struct shop *shop, struct item *item, struct squad *squad);
 
 #endif

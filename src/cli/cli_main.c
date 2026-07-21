@@ -14,14 +14,14 @@
 #include "core/squad_movement.h"
 
 
-static void draw(char *framebuffer, draw_frame_context_t *context)
+static void draw(char *framebuffer, struct draw_frame_context *context)
 {
     terminal_view_redraw(framebuffer, context);
     terminal_view_stdout_framebuffer(framebuffer);
 }
 
-static void print_unit_info(unit_t *unit, const item_info_t items[],
-                                  const unit_template_t templates[])
+static void print_unit_info(struct unit *unit, const struct item_info items[],
+                                  const struct unit_template templates[])
 {
     printf("Name: %s, (%s)\n", unit->name, 
        templates[unit->template_id].name);
@@ -41,9 +41,9 @@ static void print_unit_info(unit_t *unit, const item_info_t items[],
                        unit->unspent_stat_points);
 }
 
-static void interpret_unit_info(command_t *cmd, squad_t *squad, 
-                           const unit_template_t templates[],
-                              const item_info_t items_info[])
+static void interpret_unit_info(struct command *cmd, struct squad *squad, 
+                           const struct unit_template templates[],
+                              const struct item_info items_info[])
 {
     if(cmd->argc < 3) 
     {
@@ -52,13 +52,13 @@ static void interpret_unit_info(command_t *cmd, squad_t *squad,
     }
     
     uint8_t unit_num = atoi(cmd->argv[2]);
-    unit_t *unit = squad_get_unit_by_num(squad, unit_num);
+    struct unit *unit = squad_get_unit_by_num(squad, unit_num);
     if(unit && unit->is_alive)
         print_unit_info(unit, items_info, templates);
 }
 
-static void interpret_item_info(command_t *cmd, squad_t *squad, 
-                              const item_info_t items_info[])
+static void interpret_item_info(struct command *cmd, struct squad *squad, 
+                              const struct item_info items_info[])
 {
     if(cmd->argc < 3) 
     {
@@ -67,14 +67,14 @@ static void interpret_item_info(command_t *cmd, squad_t *squad,
     }
     
     uint8_t item_num = atoi(cmd->argv[2]);
-    item_t *item = squad_get_item_by_num(squad, item_num);
+    struct item *item = squad_get_item_by_num(squad, item_num);
     if(item && item->id != ITEM_NONE)
         print_item_info(item, items_info, NULL);
 }
-/* command_t info*/
-static void interpret_info(command_t *cmd, squad_t *squad, 
-                           const unit_template_t templates[],
-                              const item_info_t items_info[])
+/* struct command info*/
+static void interpret_info(struct command *cmd, struct squad *squad, 
+                           const struct unit_template templates[],
+                              const struct item_info items_info[])
 {
     if(cmd->argc < 2) return;
 
@@ -87,7 +87,7 @@ static void interpret_info(command_t *cmd, squad_t *squad,
 
 
 /* command unequip*/
-static void interpret_unequip(command_t *cmd, squad_t *squad)
+static void interpret_unequip(struct command *cmd, struct squad *squad)
 {
     if(cmd->argc < 3)
     {
@@ -96,8 +96,8 @@ static void interpret_unequip(command_t *cmd, squad_t *squad)
         return;
     }
     uint8_t unit_num;
-    item_type_t equipment_type = ITEM_TYPE_GENERIC;
-    squad_unit_unequip_status_t result;
+    enum item_type equipment_type = ITEM_TYPE_GENERIC;
+    enum squad_unit_unequip_status result;
 
     unit_num = atoi(cmd->argv[1]);
     if(strcmp(cmd->argv[2], "weapon") == 0)
@@ -127,7 +127,7 @@ static void interpret_unequip(command_t *cmd, squad_t *squad)
 }
 
 /* command equip*/
-static void interpret_equip(command_t *cmd, squad_t *squad)
+static void interpret_equip(struct command *cmd, struct squad *squad)
 {
     if(cmd->argc < 3)
     {
@@ -136,12 +136,12 @@ static void interpret_equip(command_t *cmd, squad_t *squad)
         return;
     }
     uint8_t unit_num, item_num;
-    squad_unit_equip_status_t result;
+    enum squad_unit_equip_status result;
 
     unit_num = atoi(cmd->argv[1]);
     item_num = atoi(cmd->argv[2]);
 
-    item_t *item = squad_get_item_by_num(squad, item_num);
+    struct item *item = squad_get_item_by_num(squad, item_num);
     result = squad_unit_equip(squad, unit_num, item);
 
     switch(result)
@@ -162,7 +162,7 @@ static void interpret_equip(command_t *cmd, squad_t *squad)
 }
 
 /* command improve*/
-void interpret_unit_improve(command_t *cmd, squad_t *squad)
+void interpret_unit_improve(struct command *cmd, struct squad *squad)
 {
     if(cmd->argc < 3)
     {
@@ -172,11 +172,11 @@ void interpret_unit_improve(command_t *cmd, squad_t *squad)
     }
 
     int status;
-    stat_selection_t stat;
+    enum stat_selection stat;
     uint8_t unit_num;
 
     unit_num = atoi(cmd->argv[1]);
-    unit_t *unit = squad_get_unit_by_num(squad, unit_num);
+    struct unit *unit = squad_get_unit_by_num(squad, unit_num);
 
     if(strcmp(cmd->argv[2], "str") == 0)
         stat = STRENGTH;
@@ -194,7 +194,7 @@ void interpret_unit_improve(command_t *cmd, squad_t *squad)
 }
 
 /* command mov*/
-static void interpret_move(command_t *cmd, squad_t *squad)
+static void interpret_move(struct command *cmd, struct squad *squad)
 {
     switch (*cmd->argv[1])
     {
@@ -216,7 +216,7 @@ static void interpret_move(command_t *cmd, squad_t *squad)
     }
 }
 
-static void output_event_info(const event_t *event, uint8_t answer_count)
+static void output_event_info(const struct event *event, uint8_t answer_count)
 {
     puts(event->title);
     puts(event->message);
@@ -227,9 +227,9 @@ static void output_event_info(const event_t *event, uint8_t answer_count)
 }
 
 
-static void cli_active_event(game_state_t *state, const game_info_t *info)
+static void cli_active_event(struct game_state *state, const struct game_info *info)
 {
-    const event_t *active = 
+    const struct event *active = 
                   &info->events_info.events[state->active_event_id];
     int answer_count = event_get_answer_count(active);
     output_event_info(active, answer_count);
@@ -240,8 +240,8 @@ static void cli_active_event(game_state_t *state, const game_info_t *info)
     state->active_event_id = EVENT_NONE;
 }
 
-static void interpret_command(command_t *cmd, game_state_t *game_state,
-                      const game_info_t *game_info, int *need_redraw)
+static void interpret_command(struct command *cmd, struct game_state *game_state,
+                      const struct game_info *game_info, int *need_redraw)
 {
     if((strcmp(cmd->argv[0], "exit") == 0) ||
        (strcmp(cmd->argv[0], "quit") == 0) ||
@@ -271,8 +271,8 @@ static void interpret_command(command_t *cmd, game_state_t *game_state,
     if(strcmp(cmd->argv[0], "info") == 0)
     {
         interpret_info(cmd, &game_state->squad, 
-                      (const unit_template_t*)&game_info->unit_templates,
-                      (const item_info_t*)&game_info->items);
+                      (const struct unit_template*)&game_info->unit_templates,
+                      (const struct item_info*)&game_info->items);
         *need_redraw = 0;
     }
 
@@ -296,14 +296,14 @@ static void interpret_command(command_t *cmd, game_state_t *game_state,
 
 }
 
-static int has_pending_actions(const game_state_t *state)
+static int has_pending_actions(const struct game_state *state)
 {
     return (state->battle.status == BATTLE_STATUS_ACTIVE ||
             state->active_event_id != EVENT_NONE         ||
             state->active_shop != NULL                   );
 }
 
-void check_game_status(const game_state_t *state)
+void check_game_status(const struct game_state *state)
 {
     if(state->is_over)
     {
@@ -312,19 +312,19 @@ void check_game_status(const game_state_t *state)
     }
 }
 
-void cli_run(game_state_t *game_state, const game_info_t *game_info)
+void cli_run(struct game_state *game_state, const struct game_info *game_info)
 {
     char framebuffer[FRAME_HEIGHT][FRAME_WIDTH];
     terminal_view_init_framebuffer((char*)framebuffer);
 
-    draw_frame_context_t draw_context = {&game_state->world, 
-                   &game_state->squad, (cell_info_t*)&game_info->cells_info, 
-                        (item_info_t *)&game_info->items, game_state->days};
+    struct draw_frame_context draw_context = {&game_state->world, 
+                   &game_state->squad, (struct cell_info*)&game_info->cells_info, 
+                        (struct item_info *)&game_info->items, game_state->days};
 
     draw((char*)framebuffer, &draw_context);
 
     char input_buf[INPUT_BUF_SIZE];
-    command_t cmd;
+    struct command cmd;
     int need_redraw = 0;
     for(;;)
     {

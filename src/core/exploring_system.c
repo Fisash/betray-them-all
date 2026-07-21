@@ -3,11 +3,11 @@
 #include "core/event_system.h"
 #include "core/world_queries.h"
 
-void exploring_system_explore_cell(cell_t* cell, cell_t **cd_list,
-                        const events_info_t *info, int16_t *active,
-                                    const cell_info_t cells_info[])
+void exploring_system_explore_cell(struct cell *cell, struct cell **cd_list,
+                        const struct events_info *info, int16_t *active,
+                                    const struct cell_info cells_info[])
 {
-    const cell_info_t *cell_info = &cells_info[cell->type_id];
+    const struct cell_info *cell_info = &cells_info[cell->type_id];
 
     int16_t event_id =
     event_system_choose_explore_event_id(info, cell);
@@ -24,11 +24,11 @@ void exploring_system_explore_cell(cell_t* cell, cell_t **cd_list,
     *active = event_id;
 }
 
-void exploring_system_explore_squad_cell(squad_t *squad, world_t *world,
-                              const events_info_t *info, int16_t *active,
-                                          const cell_info_t cells_info[])
+void exploring_system_explore_squad_cell(struct squad *squad, struct world *world,
+                              const struct events_info *info, int16_t *active,
+                                          const struct cell_info cells_info[])
 {
-    cell_t *cell = world_queries_get_squad_cell(squad, world);
+    struct cell *cell = world_queries_get_squad_cell(squad, world);
     exploring_system_explore_cell(cell, world->event_cd_cells, 
                                     info, active, cells_info);
 }

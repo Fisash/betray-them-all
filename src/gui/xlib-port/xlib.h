@@ -3,6 +3,6 @@
 
 #include "gui/platform_interface.h"
 
-void xlib_init_interface(platform_interface_t *out);
+void xlib_init_interface(struct platform_interface *out);
 
 #endif

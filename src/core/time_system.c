@@ -3,9 +3,9 @@
 #include <stddef.h>
 #include "core/squad_movement.h"
 
-static void tick_world_cooldowns(cell_t **cd_list, uint16_t days)
+static void tick_world_cooldowns(struct cell **cd_list, uint16_t days)
 {
-    cell_t *cell;
+    struct cell *cell;
     int i;
     for (i = 0; i < CELL_LIST_SIZE; i++)
     {
@@ -23,7 +23,7 @@ static void tick_world_cooldowns(cell_t **cd_list, uint16_t days)
     }
 }
 
-void time_system_spend(game_state_t *state, uint16_t days)
+void time_system_spend(struct game_state *state, uint16_t days)
 {
     tick_world_cooldowns(state->world.event_cd_cells, days);
 

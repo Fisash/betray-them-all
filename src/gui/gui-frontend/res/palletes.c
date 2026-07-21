@@ -9,9 +9,9 @@ static const uint32_t raw_main_data[] = {
     0x7D7B62, 0xAAA25D, 0x846D59, 0xA88A5E
 };
 
-void palletes_load(pallete_t palletes[])
+void palletes_load(struct pallete palletes[])
 {
-    pallete_t *p;
+    struct pallete *p;
 
     p = &palletes[PALLETE_MAIN];
     p->color_count = 16;

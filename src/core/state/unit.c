@@ -5,50 +5,50 @@
 
 #define LEVEL_UP_EXP_MULTIPLIER 1.3f
 
-uint16_t unit_get_damage(unit_t *unit, const item_info_t items[])
+uint16_t unit_get_damage(struct unit *unit, const struct item_info items[])
 {
-   scaling_group_t scalings = 
+   struct scaling_group scalings = 
                    items[unit->weapon.id].props.weapon.damage.scalings;
    return scale_param(unit->weapon.props.weapon.damage, 
                                               scalings,
                                           unit->stats);
 }
 
-uint16_t unit_get_crit(unit_t *unit, const item_info_t items[])
+uint16_t unit_get_crit(struct unit *unit, const struct item_info items[])
 {
-   scaling_group_t scalings = 
+   struct scaling_group scalings = 
                    items[unit->weapon.id].props.weapon.crit.scalings;
    return scale_param(unit->weapon.props.weapon.crit, 
                                             scalings,
                                         unit->stats);
 }
 
-uint16_t unit_get_protection(unit_t *unit, const item_info_t items[])
+uint16_t unit_get_protection(struct unit *unit, const struct item_info items[])
 {
 
-   scaling_group_t scalings = 
+   struct scaling_group scalings = 
                    items[unit->armor.id].props.armor.protection.scalings;
    return scale_param(unit->armor.props.armor.protection, 
                                                 scalings,
                                             unit->stats);
 }
 
-uint16_t unit_get_mobility(unit_t *unit, const item_info_t items[])
+uint16_t unit_get_mobility(struct unit *unit, const struct item_info items[])
 {
-   scaling_group_t scalings = 
+   struct scaling_group scalings = 
                    items[unit->armor.id].props.armor.mobility.scalings;
    return scale_param(unit->armor.props.armor.mobility, 
                                               scalings,
                                           unit->stats);
 }
 
-void unit_init(unit_t *unit, const char *name, unit_template_id id, 
-                                 const unit_template_t templates[],
-                                    const item_info_t items_info[])
+void unit_init(struct unit *unit, const char *name, enum unit_template_id id, 
+                                      const struct unit_template templates[],
+                                         const struct item_info items_info[])
 {
     unit->is_alive = 1;
     unit->template_id = id;
-    const unit_template_t *t = &templates[id];
+    const struct unit_template *t = &templates[id];
 
     memset(unit->name, ' ', UNIT_NAME_BUF_SIZE);
     unit->name[UNIT_NAME_BUF_SIZE-1] = '\0';
@@ -80,11 +80,11 @@ void unit_init(unit_t *unit, const char *name, unit_template_id id,
     memcpy(unit->learned, t->initial_learned, sizeof(skills_mask_t));
 }
 
-void unit_fill_available_skills(skills_mask_t out, const unit_t *unit,
-                                               const skill_t skills[],
-                                    const unit_template_t templates[])
+void unit_fill_available_skills(skills_mask_t out, const struct unit *unit,
+                                               const struct skill skills[],
+                                    const struct unit_template templates[])
 {
-    const skill_t *skill;
+    const struct skill *skill;
     int is_ok_weapon, is_ok_stats, is_ok_tags, i;
 
     uint64_t unit_tags = templates[unit->template_id].tags_mask;
@@ -106,7 +106,7 @@ void unit_fill_available_skills(skills_mask_t out, const unit_t *unit,
     }
 }
 
-void unit_add_exp(unit_t *unit, uint16_t exp)
+void unit_add_exp(struct unit *unit, uint16_t exp)
 {
     unit->exp += exp;
     while(unit->exp >= unit->exp_for_next_level)
@@ -118,7 +118,7 @@ void unit_add_exp(unit_t *unit, uint16_t exp)
     }
 }
 
-int unit_apply_stat_point(unit_t *unit, stat_selection_t s)
+int unit_apply_stat_point(struct unit *unit, enum stat_selection s)
 {
     uint16_t *stat;
     uint16_t hp_increase;

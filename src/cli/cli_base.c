@@ -3,7 +3,7 @@
 
 #include "cli/cli_base.h"
 
-static void parse_command(char *input_buf, command_t *cmd)
+static void parse_command(char *input_buf, struct command *cmd)
 {
     cmd->argc = 0;
     char* current_token = strtok(input_buf, ARGS_SPLITER);
@@ -14,9 +14,9 @@ static void parse_command(char *input_buf, command_t *cmd)
     }
 }
 
-command_t cli_base_input_command(char input_buffer[])
+struct command cli_base_input_command(char input_buffer[])
 {
-    command_t result;
+    struct command result;
     do
     {
         memset(&result, 0, sizeof(result));
@@ -44,7 +44,7 @@ int cli_base_choose_number(uint8_t min, uint8_t max)
 }
 
 void print_stat_with_scaling(const char *label, int base_value,
-               int real_value, const scaling_group_t *scalings,
+               int real_value, const struct scaling_group *scalings,
                                               int is_show_real)
 {
     if(is_show_real)
@@ -61,10 +61,10 @@ void print_stat_with_scaling(const char *label, int base_value,
             scale_get_rank_view(scalings->intelligence));
 }
                                     
-void print_item_info(const item_t *item, const item_info_t info[],
-                                                     unit_t *unit)
+void print_item_info(const struct item *item, const struct item_info info[],
+                                                     struct unit *unit)
 {
-    const item_info_t *item_info = &info[item->id];
+    const struct item_info *item_info = &info[item->id];
     printf("%s (cost: %d) - ", item_info->title, item->cost);
     switch(item_info->type)
     {

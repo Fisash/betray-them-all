@@ -6,7 +6,7 @@
 #include "core/state/game_state.h"
 
 
-void gui_run(platform_interface_t *platform, game_state_t* game_state, 
-                                        const game_info_t *game_info);
+void gui_run(struct platform_interface *platform, struct game_state* game_state, 
+                                              const struct game_info *game_info);
 
 #endif

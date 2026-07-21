@@ -2,7 +2,7 @@
 
 #include "core/defs/cell_info.h"
 
-static void cell_info_init(cell_info_t *cell_info, const char *title, 
+static void cell_info_init(struct cell_info *cell_info, const char *title, 
                        const char *description, uint8_t exploring_cd)
 {
     strcpy(cell_info->title, title);
@@ -10,7 +10,7 @@ static void cell_info_init(cell_info_t *cell_info, const char *title,
     cell_info->exploring_cd = exploring_cd;
 }
 
-void cells_info_load(cell_info_t cells[])
+void cells_info_load(struct cell_info cells[])
 {
     cell_info_init(&cells[CELL_TYPE_NONE], "Void", 
                       "void cell description", 0);

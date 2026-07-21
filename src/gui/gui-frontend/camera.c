@@ -2,7 +2,7 @@
 
 #include "gui/platform_interface.h"
 
-void camera_init(camera_t *cam)
+void camera_init(struct camera *cam)
 {
     cam->min_pos_x = 0;
     cam->pos_x = 0;
@@ -17,49 +17,49 @@ void camera_init(camera_t *cam)
     cam->max_scale = 9;
 }
 
-void camera_zoom_increase(camera_t *cam)
+void camera_zoom_increase(struct camera *cam)
 {
     cam->scale += 1;
     if(cam->scale > cam->max_scale)
         cam->scale = cam->max_scale;
 }
 
-void camera_zoom_decrease(camera_t *cam)
+void camera_zoom_decrease(struct camera *cam)
 {
     cam->scale -= 1;
     if(cam->scale < cam->min_scale)
         cam->scale = cam->min_scale;
 }
 
-void camera_move_right(camera_t *cam)
+void camera_move_right(struct camera *cam)
 {
     cam->pos_x += MOV_STEP;
     if(cam->pos_x > cam->max_pos_x)
         cam->pos_x = cam->max_pos_x;
 }
 
-void camera_move_left(camera_t *cam)
+void camera_move_left(struct camera *cam)
 {
     cam->pos_x -= MOV_STEP;
     if(cam->pos_x < cam->min_pos_x)
         cam->pos_x = cam->min_pos_x;
 }
 
-void camera_move_up(camera_t *cam)
+void camera_move_up(struct camera *cam)
 {
     cam->pos_y += MOV_STEP;
     if(cam->pos_y > cam->max_pos_y)
         cam->pos_y = cam->max_pos_y;
 }
 
-void camera_move_down(camera_t *cam)
+void camera_move_down(struct camera *cam)
 {
     cam->pos_y -= MOV_STEP;
     if(cam->pos_y < cam->min_pos_y)
         cam->pos_y = cam->min_pos_y;
 }
 
-void camera_process_input_key_down(camera_t *cam, int keycode)
+void camera_process_input_key_down(struct camera *cam, int keycode)
 {
     switch(keycode)
     {

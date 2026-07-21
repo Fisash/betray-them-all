@@ -2,14 +2,14 @@
 
 #include "core/defs/events_info.h"
 
-static void answers_clear(event_answer_t *answers)
+static void answers_clear(struct event_answer *answers)
 {
     int i;
     for(i = 0; i < EVENT_MAX_ANSWERS; i++)
         answers[i].is_valid = 0;
 }
 
-static void answer_init(event_answer_t *answer, const char *text, 
+static void answer_init(struct event_answer *answer, const char *text, 
                      uint16_t action_id, int16_t rolling_event_id)
 {
     answer->is_valid = 1;
@@ -18,12 +18,12 @@ static void answer_init(event_answer_t *answer, const char *text,
     answer->rolling_event_id = rolling_event_id;
 }
 
-static void calculate_weight_sums(events_info_t *events_info)
+static void calculate_weight_sums(struct events_info *events_info)
 {
     uint16_t *sums_array = events_info->cell_type_weight_sums;
     memset(sums_array, 0, sizeof(uint16_t)*CELL_TYPE_COUNT);
 
-    event_t *event;
+    struct event *event;
     int event_i, cell_type_i;
     uint64_t type_mask;
     for (event_i = 0; event_i < EVENT_COUNT; event_i++)
@@ -38,12 +38,12 @@ static void calculate_weight_sums(events_info_t *events_info)
     }
 }
 
-void events_info_load(events_info_t *load_ptr)
+void events_info_load(struct events_info *load_ptr)
 {
-    event_answer_t answers[EVENT_MAX_ANSWERS];
+    struct event_answer answers[EVENT_MAX_ANSWERS];
 
     /*EVENT EXPLORED*/
-    answers_clear((event_answer_t*)&answers);
+    answers_clear((struct event_answer*)&answers);
     answer_init(&answers[0], "will look something else", 
                                             ACTION_NONE,
                                             EVENT_NONE);
@@ -55,7 +55,7 @@ void events_info_load(events_info_t *load_ptr)
         answers);
 
     /*EVENT_TEST_MEADOW*/
-    answers_clear((event_answer_t*)&answers);
+    answers_clear((struct event_answer*)&answers);
     answer_init(&answers[0], "ok", 
                         ACTION_NONE,
                         EVENT_NONE);
@@ -67,7 +67,7 @@ void events_info_load(events_info_t *load_ptr)
         answers);
 
     /*EVENT_TEST_FOREST*/
-    answers_clear((event_answer_t*)&answers);
+    answers_clear((struct event_answer*)&answers);
     answer_init(&answers[0], "ok", 
                           ACTION_NONE,
                           EVENT_NONE);
@@ -79,7 +79,7 @@ void events_info_load(events_info_t *load_ptr)
         answers);
 
     /*EVENT_FOREST_ANIMALS*/
-    answers_clear((event_answer_t*)&answers);
+    answers_clear((struct event_answer*)&answers);
     answer_init(&answers[0], "we have to fight", 
                           ACTION_START_ANIMALS_BATTLE,
                           EVENT_NONE);
@@ -91,7 +91,7 @@ void events_info_load(events_info_t *load_ptr)
         answers);
 
     /*EVENT_TEST_MOUNTAIN*/
-    answers_clear((event_answer_t*)&answers);
+    answers_clear((struct event_answer*)&answers);
     answer_init(&answers[0], "ok", 
                           ACTION_NONE,
                           EVENT_NONE);
@@ -103,7 +103,7 @@ void events_info_load(events_info_t *load_ptr)
         answers);
 
     /*EVENT_VILLAGE_MAIN*/
-    answers_clear((event_answer_t*)&answers);
+    answers_clear((struct event_answer*)&answers);
     answer_init(&answers[0], "Go to shop", 
                           ACTION_OPEN_VILLAGE_SHOP,
                           EVENT_NONE);

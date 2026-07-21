@@ -5,8 +5,8 @@
 
 #include <string.h>
 
-void squad_init(squad_t *squad, uint16_t x, uint16_t y, 
-                        const item_info_t items_info[])
+void squad_init(struct squad *squad, uint16_t x, uint16_t y, 
+                        const struct item_info items_info[])
 {
     squad->pos_x = x;
     squad->pos_y = y;
@@ -14,15 +14,15 @@ void squad_init(squad_t *squad, uint16_t x, uint16_t y,
     squad->provision = SQUAD_START_PROVISION;
     squad->move_order = MOVE_NONE;
 
-    memset(&squad->units, 0, sizeof(unit_t)*SQUAD_MAX_UNITS);
-    memset(&squad->inventory, 0, sizeof(item_t)*SQUAD_MAX_ITEMS);
+    memset(&squad->units, 0, sizeof(struct unit)*SQUAD_MAX_UNITS);
+    memset(&squad->inventory, 0, sizeof(struct item)*SQUAD_MAX_ITEMS);
 
     squad->items_info = items_info;
 }
 
-int squad_add_item(squad_t *squad, item_t *item)
+int squad_add_item(struct squad *squad, struct item *item)
 {
-    const item_info_t *info = &(squad->items_info[item->id]);
+    const struct item_info *info = &(squad->items_info[item->id]);
     if(info->type == ITEM_TYPE_PROVISION)
     {
         squad->provision += info->props.provision_increase_value;
@@ -32,14 +32,14 @@ int squad_add_item(squad_t *squad, item_t *item)
     return item_storage_add(squad->inventory, SQUAD_MAX_ITEMS, item);
 }
 
-item_t *squad_get_item_by_num(squad_t *squad, uint8_t num)
+struct item *squad_get_item_by_num(struct squad *squad, uint8_t num)
 {
     return item_storage_get_item(squad->inventory, SQUAD_MAX_ITEMS, (num-1));
 }
 
-unit_t *squad_get_unit_by_num(squad_t *squad, uint8_t num)
+struct unit *squad_get_unit_by_num(struct squad *squad, uint8_t num)
 {
-    unit_t *unit;
+    struct unit *unit;
     uint8_t i, current;
     for(i = 0, current = 0; i < SQUAD_MAX_UNITS; i++)
     {
@@ -53,7 +53,7 @@ unit_t *squad_get_unit_by_num(squad_t *squad, uint8_t num)
     return NULL;
 }
 
-int squad_add_unit(squad_t *squad, unit_t *unit)
+int squad_add_unit(struct squad *squad, struct unit *unit)
 {
     if(!unit->is_alive)
         return 1;
@@ -70,9 +70,9 @@ int squad_add_unit(squad_t *squad, unit_t *unit)
     return 1;
 }
 
-void squad_consume_day_provision(squad_t *squad)
+void squad_consume_day_provision(struct squad *squad)
 {
-    unit_t *unit;
+    struct unit *unit;
     int i;
     for(i = 0; i < SQUAD_MAX_UNITS; i++)
     {
@@ -89,14 +89,14 @@ void squad_consume_day_provision(squad_t *squad)
     }
 }
 
-squad_unit_equip_status_t 
-    squad_unit_equip(squad_t *squad, uint8_t unit_num, item_t *item)
+enum squad_unit_equip_status 
+    squad_unit_equip(struct squad *squad, uint8_t unit_num, struct item *item)
 {
-    unit_t *unit = squad_get_unit_by_num(squad, unit_num);
+    struct unit *unit = squad_get_unit_by_num(squad, unit_num);
     if(!unit)
         return SQUAD_UNIT_EQUIP_INVALID_UNIT;
 
-    item_t *equipment;
+    struct item *equipment;
     switch(squad->items_info[item->id].type)
     {
         case ITEM_TYPE_WEAPON:
@@ -116,15 +116,15 @@ squad_unit_equip_status_t
     return SQUAD_UNIT_EQUIP_OK;
 }
 
-squad_unit_unequip_status_t
-    squad_unit_unequip(squad_t *squad, uint8_t unit_num, item_type_t type)
+enum squad_unit_unequip_status
+squad_unit_unequip(struct squad *squad, uint8_t unit_num, enum item_type type)
 {
-    unit_t *unit = squad_get_unit_by_num(squad, unit_num);
+    struct unit *unit = squad_get_unit_by_num(squad, unit_num);
     if(!unit)
         return SQUAD_UNIT_UNEQUIP_INVALID_UNIT;
 
-    item_id nature_replacement;
-    item_t *equipment;
+    enum item_id nature_replacement;
+    struct item *equipment;
     switch(type)
     {
         case ITEM_TYPE_ARMOR:

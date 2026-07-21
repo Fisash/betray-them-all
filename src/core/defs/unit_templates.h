@@ -12,31 +12,31 @@
 #define UNIT_TAG_ANIMAL 2
 #define UNIT_ALL_TAGS_MASK UINT64_MAX
 
-typedef enum {
+enum unit_template_id {
     WARRIOR,
     ROGUE,
  
     WOLF,
     UNIT_TEMP_COUNT
-} unit_template_id;
+};
 
-typedef struct {
+struct unit_template {
     char name[UNIT_TEMP_BUF_SIZE];
     uint16_t hp_min, hp_max;
 
-    unit_stats_t min_stats_value;
-    unit_stats_t max_stats_value;
+    struct unit_stats min_stats_value;
+    struct unit_stats max_stats_value;
 
     uint64_t tags_mask;
 
-    item_id armor_item_id;
-    item_id weapon_item_id;
+    enum item_id armor_item_id;
+    enum item_id weapon_item_id;
 
     uint16_t base_exp_reward;
 
     skills_mask_t initial_learned;
-} unit_template_t;
+};
 
-void unit_templates_load(unit_template_t templates[]);
+void unit_templates_load(struct unit_template templates[]);
 
 #endif

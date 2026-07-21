@@ -6,12 +6,12 @@
 #include <stdio.h>
 #endif
 
-static int is_unit_able_to_turn(const battle_unit_t *b)
+static int is_unit_able_to_turn(const struct battle_unit *b)
 {
     return (b && b->unit && b->unit->is_alive && b->action_points > 0);
 }
 
-static battle_unit_t *find_active_unit_from_side(battle_unit_t side[])
+static struct battle_unit *find_active_unit_from_side(struct battle_unit side[])
 {
     int i;
     for(i = 0; i < MAX_UNITS; i++)
@@ -20,9 +20,9 @@ static battle_unit_t *find_active_unit_from_side(battle_unit_t side[])
     return NULL;
 }
 
-static battle_unit_t *find_active_unit(battle_state_t *state)
+static struct battle_unit *find_active_unit(struct battle_state *state)
 {
-    battle_unit_t *side, *active;
+    struct battle_unit *side, *active;
     int is_player_turn, r, pass;
 
     r = rand() % 2;
@@ -38,9 +38,9 @@ static battle_unit_t *find_active_unit(battle_state_t *state)
     return NULL;
 }
 
-static void fill_unit_available_skills(battle_turn_context_t *c,
-                                      const skill_t all_skills[],
-                               const unit_template_t templates[])
+static void fill_unit_available_skills(struct battle_turn_context *c,
+                                      const struct skill all_skills[],
+                               const struct unit_template templates[])
 {
     skills_mask_t available;
     int is_include_bit, is_enough_ap, turn_skill_count, i;
@@ -65,9 +65,9 @@ static void fill_unit_available_skills(battle_turn_context_t *c,
     c->skill_count = turn_skill_count;
 }
 
-static void battle_system_next_round(battle_state_t *state)
+static void battle_system_next_round(struct battle_state *state)
 {
-    battle_unit_t *side;
+    struct battle_unit *side;
     int pass, i;
 
     state->round_num++;
@@ -82,22 +82,22 @@ static void battle_system_next_round(battle_state_t *state)
 
 }
 
-static int is_active_unit_able_to_useful_turn(const battle_state_t *state,
-                                           const battle_turn_context_t *c)
+static int is_active_unit_able_to_useful_turn(const struct battle_state *state,
+                                           const struct battle_turn_context *c)
 {
-    const battle_unit_t *active = c->active_unit;
+    const struct battle_unit *active = c->active_unit;
     if(!c || !c->active_unit) return 0;
     uint16_t max_ap = unit_get_mobility(active->unit, state->all_items);
     return (c->skill_count > 1 || active->action_points == max_ap);
 }
 
-battle_turn_context_t battle_system_next_turn(battle_state_t *state, 
-                                         const skill_t all_skills[],
-                                  const unit_template_t templates[])
+struct battle_turn_context battle_system_next_turn(struct battle_state *state, 
+                                         const struct skill all_skills[],
+                                  const struct unit_template templates[])
 {
-    battle_turn_context_t result = {0};
+    struct battle_turn_context result = {0};
 
-    battle_unit_t *active = find_active_unit(state);
+    struct battle_unit *active = find_active_unit(state);
     if(active == NULL)
     {
         battle_system_next_round(state);
@@ -114,8 +114,8 @@ battle_turn_context_t battle_system_next_turn(battle_state_t *state,
     return result;
 }
 
-static void add_valid_unit_targets(battle_skill_use_context_t *c, 
-                                  battle_unit_t units[MAX_UNITS])
+static void add_valid_unit_targets(struct battle_skill_use_context *c, 
+                                  struct battle_unit units[MAX_UNITS])
 {
     int i;
     for(i = 0; i < MAX_UNITS; i++)
@@ -125,8 +125,8 @@ static void add_valid_unit_targets(battle_skill_use_context_t *c,
     }
 }
 
-static void fill_enemies_and_allies(battle_state_t *state, uint8_t side, 
-                        battle_unit_t **enemies, battle_unit_t **allies)
+static void fill_enemies_and_allies(struct battle_state *state, uint8_t side, 
+                        struct battle_unit **enemies, struct battle_unit **allies)
 {
     if(side == IS_PLAYER)
     {
@@ -140,15 +140,15 @@ static void fill_enemies_and_allies(battle_state_t *state, uint8_t side,
     }
 }
 
-battle_skill_use_context_t 
-        battle_system_get_skill_context(battle_state_t *state, 
-                                  const battle_unit_t *active, 
-                                         const skill_t *skill)
+struct battle_skill_use_context 
+        battle_system_get_skill_context(struct battle_state *state, 
+                                  const struct battle_unit *active, 
+                                         const struct skill *skill)
 {
-    battle_skill_use_context_t result = {0};
+    struct battle_skill_use_context result = {0};
     result.skill = skill;
 
-    battle_unit_t *my_enemies, *my_allies;
+    struct battle_unit *my_enemies, *my_allies;
     fill_enemies_and_allies(state, active->side, &my_enemies, &my_allies);
 
     if(skill_is_target_class_require_choice(skill->target_class))
@@ -174,13 +174,13 @@ battle_skill_use_context_t
 }
 
 
-static void add_event_report(battle_skill_execution_report_t *out, 
-                                     battle_event_report_t report)
+static void add_event_report(struct battle_skill_execution_report *out, 
+                                     struct battle_event_report report)
 {
     out->events[out->target_count++] = report;
 }
 
-static int is_any_alive_unit(battle_unit_t units[MAX_UNITS])
+static int is_any_alive_unit(struct battle_unit units[MAX_UNITS])
 {
     int i;
     for (i = 0; i < MAX_UNITS; i++)
@@ -189,7 +189,7 @@ static int is_any_alive_unit(battle_unit_t units[MAX_UNITS])
     return 0;
 }
 
-static void update_battle_state(battle_state_t *state)
+static void update_battle_state(struct battle_state *state)
 {
     if(!is_any_alive_unit(state->player_units))
         state->status = BATTLE_STATUS_LOST;
@@ -199,13 +199,13 @@ static void update_battle_state(battle_state_t *state)
         state->status = BATTLE_STATUS_ACTIVE;
 }
 
-battle_skill_execution_report_t 
-       battle_system_execute_skill(battle_state_t *state,
-                                   battle_unit_t *caster,
-                                     skill_id_t skill_id,
-                                   battle_unit_t *target)
+struct battle_skill_execution_report 
+       battle_system_execute_skill(struct battle_state *state,
+                                   struct battle_unit *caster,
+                                     enum skill_id skill_id,
+                                   struct battle_unit *target)
 {
-    battle_skill_execution_report_t report = {0};
+    struct battle_skill_execution_report report = {0};
     report.skill = &(state->all_skills[skill_id]);
     report.caster = caster;
 
@@ -225,7 +225,7 @@ battle_skill_execution_report_t
         case SKILL_USUAL_SLASH:
         case SKILL_USUAL_STABBING:
         case SKILL_MAUL:
-            battle_event_report_t attack_report = 
+            struct battle_event_report attack_report = 
                     battle_mechanics_execute_attack(damage_scale, 
                                caster, target, state->all_items);
             add_event_report(&report, attack_report);
@@ -234,7 +234,7 @@ battle_skill_execution_report_t
             break;
     }
 
-    battle_event_report_t *event;
+    struct battle_event_report *event;
     int is_any_target_died, i, exp_reward;
     for(i = 0, is_any_target_died = 0; i < report.target_count; i++)
     {

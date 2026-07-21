@@ -3,7 +3,7 @@
 
 #include "core/defs/items_info.h"
 
-int items_info_is_nature_equip(item_id id)
+int items_info_is_nature_equip(enum item_id id)
 {
     return (id == ITEM_NONE    ||
             id == WEAPON_FISTS ||
@@ -11,7 +11,7 @@ int items_info_is_nature_equip(item_id id)
             id == ARMOR_NUDE   );
 }
 
-char scale_get_rank_view(scale_rank_t rank)
+char scale_get_rank_view(enum scale_rank rank)
 {
     switch(rank)
     {
@@ -26,7 +26,7 @@ char scale_get_rank_view(scale_rank_t rank)
     }
 }
 
-static float get_scale_multiplier(scale_rank_t rank)
+static float get_scale_multiplier(enum scale_rank rank)
 {
     switch(rank)
     {
@@ -41,13 +41,13 @@ static float get_scale_multiplier(scale_rank_t rank)
     }
 }
 
-static float get_stat_scale_profit(scale_rank_t rank, uint16_t stat)
+static float get_stat_scale_profit(enum scale_rank rank, uint16_t stat)
 {
     return (get_scale_multiplier(rank) * (stat)/(MAX_STAT_VALUE));
 }
 
-uint16_t scale_param(uint16_t source, scaling_group_t scalings, 
-                                            unit_stats_t stats)
+uint16_t scale_param(uint16_t source, struct scaling_group scalings, 
+                                            struct unit_stats stats)
 {
     float bonus = 1;
     bonus += get_stat_scale_profit(scalings.strength, 
@@ -62,7 +62,7 @@ uint16_t scale_param(uint16_t source, scaling_group_t scalings,
     return (uint16_t)(source * bonus);
 }
 
-static void init_item(item_info_t *item, const char *title, 
+static void init_item(struct item_info *item, const char *title, 
                                    const char *description,
                                    uint16_t cost)
 {
@@ -72,9 +72,9 @@ static void init_item(item_info_t *item, const char *title,
     strcpy(item->description, description);
 }
 
-static void init_armor(item_info_t *armor, const char *title, 
+static void init_armor(struct item_info *armor, const char *title, 
                                      const char *description, 
-              param_spec_t protection, param_spec_t mobility)
+              struct param_spec protection, struct param_spec mobility)
 {
     init_item(armor, title, description, 0);
     armor->type = ITEM_TYPE_ARMOR;
@@ -84,9 +84,9 @@ static void init_armor(item_info_t *armor, const char *title,
 
 }
 
-static void init_weapon(item_info_t *weapon, const char *title, 
+static void init_weapon(struct item_info *weapon, const char *title, 
                                        const char *description, 
-                        param_spec_t damage, param_spec_t crit)
+                        struct param_spec damage, struct param_spec crit)
 {
     init_item(weapon, title, description, 0);
     weapon->type = ITEM_TYPE_WEAPON;
@@ -95,7 +95,7 @@ static void init_weapon(item_info_t *weapon, const char *title,
     weapon->props.weapon.crit = crit;
 }
 
-static void init_provision(item_info_t *provision, const char *title,
+static void init_provision(struct item_info *provision, const char *title,
                               const char *description, uint16_t cost, 
                                     uint8_t provision_increase_value)
 {
@@ -104,9 +104,9 @@ static void init_provision(item_info_t *provision, const char *title,
     provision->props.provision_increase_value = provision_increase_value;
 }
 
-static void param_spec_init(param_spec_t *param, uint16_t min, uint16_t max,
-                                         scale_rank_t str, scale_rank_t agi, 
-                                        scale_rank_t wil, scale_rank_t inte)
+static void param_spec_init(struct param_spec *param, uint16_t min, uint16_t max,
+                                         enum scale_rank str, enum scale_rank agi, 
+                                        enum scale_rank wil, enum scale_rank inte)
 {
     param->min = min;
     param->max = max;
@@ -116,23 +116,23 @@ static void param_spec_init(param_spec_t *param, uint16_t min, uint16_t max,
     param->scalings.intelligence = inte;
 }
 
-item_id items_info_get_rand_weapon_id()
+enum item_id items_info_get_rand_weapon_id()
 {
     return (WEAPON_REAL_FIRST + rand() % 
         (WEAPON_REAL_LAST - WEAPON_REAL_FIRST + 1));
 }
 
-item_id items_info_get_rand_armor_id()
+enum item_id items_info_get_rand_armor_id()
 {
     return (ARMOR_REAL_FIRST + rand() % 
         (ARMOR_REAL_LAST - ARMOR_REAL_FIRST + 1));
 }
 
-void items_info_load(item_info_t items[])
+void items_info_load(struct item_info items[])
 {
-    param_spec_t damage, crit, mobility, protection;
+    struct param_spec damage, crit, mobility, protection;
 
-    memset(items, 0, sizeof(item_info_t)*ALL_ITEMS_COUNT);
+    memset(items, 0, sizeof(struct item_info)*ALL_ITEMS_COUNT);
 
     /* armors */
     param_spec_init(&protection, 0, 0,

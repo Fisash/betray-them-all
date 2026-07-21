@@ -1,6 +1,6 @@
 #include "core/state/item_storage.h"
 
-int item_storage_add(item_t storage[], size_t capacity, item_t *item)
+int item_storage_add(struct item storage[], size_t capacity, struct item *item)
 {
     if(item->id == ITEM_NONE)
         return 1;
@@ -17,15 +17,15 @@ int item_storage_add(item_t storage[], size_t capacity, item_t *item)
     return 1;
 }
 
-int item_storage_add_by_item_id(item_t storage[], size_t capacity, 
-                             const item_info_t info[], item_id id)
+int item_storage_add_by_item_id(struct item storage[], size_t capacity, 
+                             const struct item_info info[], enum item_id id)
 {
-    item_t item;
+    struct item item;
     item_init(&item, info, id);
     return item_storage_add(storage, capacity, &item);
 }
 
-item_t *item_storage_get_item(item_t storage[], size_t capacity,   
+struct item *item_storage_get_item(struct item storage[], size_t capacity,   
                                             uint16_t real_index)
 {
     size_t i;

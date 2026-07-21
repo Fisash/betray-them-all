@@ -4,7 +4,7 @@
 #include "core/state/shop.h"
 #include "core/state/squad.h"
 
-void cli_shop_run(shop_t **active_shop, squad_t *squad, 
-                             const item_info_t info[]);
+void cli_shop_run(struct shop **active_shop, struct squad *squad, 
+                                   const struct item_info info[]);
 
 #endif

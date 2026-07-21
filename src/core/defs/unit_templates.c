@@ -1,8 +1,8 @@
 #include <string.h>
 #include "core/defs/unit_templates.h"
 
-static void set_start_equipment(unit_template_t *t, item_id armor, 
-                                                    item_id weapon)
+static void set_start_equipment(struct unit_template *t, enum item_id armor, 
+                                                    enum item_id weapon)
 {
     t->armor_item_id = armor;
     t->weapon_item_id = weapon;
@@ -22,9 +22,9 @@ static void fill_animal_learnings(skills_mask_t *mask)
     skills_mask_set_bit(*mask, SKILL_MAUL);
 }
 
-void unit_templates_load(unit_template_t templates[])
+void unit_templates_load(struct unit_template templates[])
 {
-    unit_template_t *t;
+    struct unit_template *t;
 
     skills_mask_t human_base_learnings = {0};
     fill_human_learnings(&human_base_learnings);

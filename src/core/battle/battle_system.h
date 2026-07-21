@@ -7,18 +7,18 @@
 /* next_turn    ->  get_skill_context -> execute_action -> ...*/
 /* turn_context ->  skill_use_context -> action_report  -> ...*/
 
-battle_turn_context_t battle_system_next_turn(battle_state_t *state, 
-                                         const skill_t all_skills[],
-                                 const unit_template_t templates[]);
+struct battle_turn_context battle_system_next_turn(struct battle_state *state, 
+                                         const struct skill all_skills[],
+                                 const struct unit_template templates[]);
 
-battle_skill_use_context_t 
-        battle_system_get_skill_context(battle_state_t *state, 
-                                  const battle_unit_t *active, 
-                                        const skill_t *skill);
-battle_skill_execution_report_t 
-       battle_system_execute_skill(battle_state_t *state,
-                                   battle_unit_t *caster,
-                                     skill_id_t skill_id,
-                                  battle_unit_t *target);
+struct battle_skill_use_context 
+        battle_system_get_skill_context(struct battle_state *state, 
+                                  const struct battle_unit *active, 
+                                        const struct skill *skill);
+struct battle_skill_execution_report 
+       battle_system_execute_skill(struct battle_state *state,
+                                   struct battle_unit *caster,
+                                     enum skill_id skill_id,
+                                  struct battle_unit *target);
 
 #endif

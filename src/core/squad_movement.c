@@ -2,7 +2,7 @@
 
 #include "core/state/world.h"
 
-void movement_change_squad_pos_by_order(squad_t *squad)
+void movement_change_squad_pos_by_order(struct squad *squad)
 {
     switch(squad->move_order)
     {
@@ -23,7 +23,7 @@ void movement_change_squad_pos_by_order(squad_t *squad)
     }
 }
 
-void movement_try_move_squad_by_order(squad_t *squad)
+void movement_try_move_squad_by_order(struct squad *squad)
 {
     int is_can_move = 0;
     switch(squad->move_order)
@@ -48,7 +48,7 @@ void movement_try_move_squad_by_order(squad_t *squad)
         movement_change_squad_pos_by_order(squad);
 }
 
-void movement_try_move_squad(squad_t *squad, move_order_t order)
+void movement_try_move_squad(struct squad *squad, enum move_order order)
 {
     squad->move_order = order;
     movement_try_move_squad_by_order(squad);

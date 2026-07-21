@@ -131,9 +131,9 @@ const unsigned char font_console_8x8[128][8] = {
     {0x00, 0x10, 0x38, 0x6C, 0xC6, 0xC6, 0xFE, 0x00}
 };
 
-void fonts_load(font_t fonts[])
+void fonts_load(struct font fonts[])
 {
-    font_t *f;
+    struct font *f;
 
     f = &fonts[FONT_CONSOLE];
     f->char_pixel_width = 8;
@@ -143,8 +143,8 @@ void fonts_load(font_t fonts[])
     f->data = &font_console_8x8[0][0];
 }
 
-int font_is_fill_char_pixel(const font_t *font, char c, 
-                                  uint8_t x, uint8_t y)
+int font_is_fill_char_pixel(const struct font *font, char c, 
+                                       uint8_t x, uint8_t y)
 {
     const unsigned char *char_start;
     uint8_t byte_offset_in_row, bytes_per_char, bit_index;

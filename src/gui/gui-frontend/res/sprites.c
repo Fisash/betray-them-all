@@ -78,8 +78,8 @@ static const unsigned char cell_village_data[][SPRITE_4BIT_HEIGHT] = {
     { 0xAA, 0xAA, 0xAE, 0x9A, 0xCE, 0xEC, 0xEE, 0xA4 }
 };
 
-static void sprite_fill_size(sprite_t *s, uint16_t pixel_width, 
-                                          uint16_t pixel_height)
+static void sprite_fill_size(struct sprite *s, uint16_t pixel_width, 
+                                              uint16_t pixel_height)
 {
     switch(s->indexing)
     {
@@ -92,9 +92,9 @@ static void sprite_fill_size(sprite_t *s, uint16_t pixel_width,
     } 
 }
 
-void sprites_load(sprite_t sprites[], pallete_t palletes[])
+void sprites_load(struct sprite sprites[], struct pallete palletes[])
 {
-    sprite_t *s;
+    struct sprite *s;
     
     s = &sprites[SPRITE_CELL_MEADOW];
     s->pallete = &palletes[PALLETE_MAIN];
@@ -121,7 +121,7 @@ void sprites_load(sprite_t sprites[], pallete_t palletes[])
     s->pixels = &cell_village_data[0][0];
 }
 
-uint32_t sprite_get_color(const sprite_t *sprite, int x, int y)
+uint32_t sprite_get_color(const struct sprite *sprite, int x, int y)
 {
     if(sprite->indexing != INDEX_BY_4BIT)
         return 0;

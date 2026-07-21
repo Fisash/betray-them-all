@@ -1,9 +1,9 @@
 #include "gui/gui-frontend/render/text_renderer.h"
 #include "gui/gui-frontend/res/font_bitmaps.h"
 
-void text_renderer_init(text_renderer_t *r, frame_buffer_t *fb, 
-                    font_t *font, int size, int has_background, 
-          uint32_t color_background, uint32_t color_foreground)
+void text_renderer_init(struct text_renderer *r, struct frame_buffer *fb, 
+                        struct font *font, int size, int has_background, 
+                        uint32_t color_background, uint32_t color_foreground)
 {
     r->fb = fb;
     r->font = font;
@@ -13,8 +13,8 @@ void text_renderer_init(text_renderer_t *r, frame_buffer_t *fb,
     r->color_foreground = color_foreground; 
 }
 
-static void render_char(text_renderer_t *r, char rendering, 
-                                int x_offset, int y_offset)
+static void render_char(struct text_renderer *r, char rendering, 
+                                     int x_offset, int y_offset)
 {
     int x, y, wx, wy, is_set;
     uint32_t *pixel;
@@ -36,8 +36,8 @@ static void render_char(text_renderer_t *r, char rendering,
     }
 }
 
-void text_renderer_render(text_renderer_t *r, const char *rendering, 
-                                         int x_offset, int y_offset)
+void text_renderer_render(struct text_renderer *r, const char *rendering, 
+                                              int x_offset, int y_offset)
 {
     int x_start = x_offset;
     while(*rendering != 0)

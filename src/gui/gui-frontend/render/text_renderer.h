@@ -4,19 +4,19 @@
 #include "gui/platform_interface.h"
 #include "gui/gui-frontend/res/font_bitmaps.h"
 
-typedef struct {
-    frame_buffer_t *fb;
-    font_t *font;
+struct text_renderer {
+    struct frame_buffer *fb;
+    struct font *font;
     int size;
     int has_background;
     uint32_t color_background;
     uint32_t color_foreground;
-} text_renderer_t;
+};
 
-void text_renderer_init(text_renderer_t *r, frame_buffer_t *fb, 
-                    font_t *font, int size, int has_background, 
-         uint32_t color_background, uint32_t color_foreground);
+void text_renderer_init(struct text_renderer *r, struct frame_buffer *fb, 
+                        struct font *font, int size, int has_background, 
+                        uint32_t color_background, uint32_t color_foreground);
 
-void text_renderer_render(text_renderer_t *r, const char *rendering, 
-                                        int x_offset, int y_offset);
+void text_renderer_render(struct text_renderer *r, const char *rendering, 
+                                              int x_offset, int y_offset);
 #endif

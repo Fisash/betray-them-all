@@ -7,7 +7,7 @@
 #include "core/state/item_storage.h"
 #include "core/value_noise.h"
 
-void world_cell_list_add(cell_t** list, cell_t *cell)
+void world_cell_list_add(struct cell** list, struct cell *cell)
 {
     int i;
     for(i = 0; i < CELL_LIST_SIZE; i++)
@@ -20,10 +20,10 @@ void world_cell_list_add(cell_t** list, cell_t *cell)
     }
 }
 
-static void cell_generate_terrain(int x, int y, world_t *world, 
+static void cell_generate_terrain(int x, int y, struct world *world, 
                                                  uint32_t seed)
 {
-    cell_type_id_t id;
+    enum cell_type_id id;
     double h = value_noise(x, y, seed);
 
     if(h > 0.7)
@@ -37,9 +37,9 @@ static void cell_generate_terrain(int x, int y, world_t *world,
     world->cells[y][x].days_until_update = 0;
 }
 
-static void cell_generate_village(world_t *world, const item_info_t items[])
+static void cell_generate_village(struct world *world, const struct item_info items[])
 {
-    cell_t *cell;
+    struct cell *cell;
     int x = rand() % WORLD_WIDTH;
     int y = rand() % WORLD_HEIGHT;
 
@@ -53,7 +53,7 @@ static void cell_generate_village(world_t *world, const item_info_t items[])
     cell->type_id = CELL_TYPE_VILLAGE;
 
     cell->data_index = world->village_count++;
-    village_t *village = &(world->villages[cell->data_index]);
+    struct village *village = &(world->villages[cell->data_index]);
 
     shop_init(&village->shop, 100, 1.5f, 1.0f);
     shop_generate_village_items(&village->shop, items);
@@ -66,12 +66,12 @@ static uint32_t get_world_seed()
     return rand() % UINT32_MAX;
 }
 
-void world_generate(world_t *world, const item_info_t items[])
+void world_generate(struct world *world, const struct item_info items[])
 {
     uint32_t seed = get_world_seed();
     srand(seed);
 
-    memset(world, 0, sizeof(world_t));
+    memset(world, 0, sizeof(struct world));
 
     int x, y, i;
     for (y = 0; y < WORLD_HEIGHT; y++)
@@ -84,7 +84,7 @@ void world_generate(world_t *world, const item_info_t items[])
         cell_generate_village(world, items);
 }
 
-void world_fill_cells_id_buffer(world_t *world, char *buffer)
+void world_fill_cells_id_buffer(struct world *world, char *buffer)
 {
     int x, y;
     for (y = 0; y < WORLD_HEIGHT; y++)

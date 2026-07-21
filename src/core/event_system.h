@@ -5,16 +5,16 @@
 #include "core/defs/game_info.h"
 #include "core/state/game_state.h"
 
-void event_system_handle_answer(int answer_index, game_state_t *state, 
-                                             const game_info_t *info);
+void event_system_handle_answer(int answer_index, struct game_state *state, 
+                                                   const struct game_info *info);
 
 int16_t 
-event_system_choose_explore_event_id(const events_info_t *info, 
-                                                 cell_t *cell);
+event_system_choose_explore_event_id(const struct events_info *info, 
+                                                 struct cell *cell);
 
-const event_t *event_system_choose_explore_event(const events_info_t *info, 
-                                                             cell_t *cell);
+const struct event *event_system_choose_explore_event(const struct events_info *info,
+                                                         struct cell *cell);
 
-int16_t event_system_get_event_id(event_t *event, 
-                       const events_info_t *info);
+int16_t event_system_get_event_id(struct event *event, 
+                                  const struct events_info *info);
 #endif

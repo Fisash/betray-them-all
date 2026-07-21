@@ -3,26 +3,26 @@
 
 #include <stdint.h>
 
-typedef struct {
+struct unit_stats {
     uint16_t strength;
     uint16_t agility;
     uint16_t will;
     uint16_t intelligence;
-} unit_stats_t;
+};
 
-typedef enum {
+enum stat_selection {
     STRENGTH,
     AGILITY,
     WILL,
     INTELLIGENCE
-} stat_selection_t;
+};
 
-void unit_stats_init(unit_stats_t *p, uint16_t strength, uint16_t agility, 
-                                    uint16_t will, uint16_t intelligence);
+void unit_stats_init(struct unit_stats *p, uint16_t strength,
+                     uint16_t agility, uint16_t will, uint16_t intelligence);
 
-uint16_t *unit_stats_get_stat(unit_stats_t *stats, stat_selection_t s);
+uint16_t *unit_stats_get_stat(struct unit_stats *stats, enum stat_selection s);
 
-int unit_stats_is_eligible(const unit_stats_t *unit, 
-                           const unit_stats_t *req);
+int unit_stats_is_eligible(const struct unit_stats *unit, 
+                           const struct unit_stats *req);
 
 #endif

@@ -10,18 +10,18 @@
 
 #include "gui/xlib-port/xlib.h"
 
-typedef struct {
+struct xlib_window_data {
     Display *display;
     Window window;
     GC gc;
     int width, height;
     int screen_num, depth;
-} xlib_window_data_t;
+};
 
-static window_id_t 
+static window_id 
        xlib_create_window(const char *title, int width, int height)
 {
-    xlib_window_data_t *data = malloc(sizeof(xlib_window_data_t));
+    struct xlib_window_data *data = malloc(sizeof(struct xlib_window_data));
     Display *display = XOpenDisplay(NULL);
     if(!display)
     {
@@ -51,20 +51,20 @@ static window_id_t
     data->gc = XCreateGC(display, data->window, 0, NULL);
     XSetForeground(display, data->gc, BlackPixel(display, 0));
 
-    return (window_id_t)data;
+    return (window_id)data;
 }
 
-static void xlib_destroy_winow(window_id_t id)
+static void xlib_destroy_winow(window_id id)
 {
-    xlib_window_data_t *data = (xlib_window_data_t*)id;
+    struct xlib_window_data *data = (struct xlib_window_data*)id;
     XFreeGC(data->display, data->gc);
     XCloseDisplay(data->display);
     free(data);
 }
 
-static void xlib_draw_frame(window_id_t window_id, frame_buffer_t *buffer)
+static void xlib_draw_frame(window_id window_id, struct frame_buffer *buffer)
 {
-    xlib_window_data_t *data = (xlib_window_data_t*)window_id;
+    struct xlib_window_data *data = (struct xlib_window_data* )window_id;
     if (!data || !data->display)
     {
         fprintf(stderr, "Invalid window or display data");
@@ -81,9 +81,10 @@ static void xlib_draw_frame(window_id_t window_id, frame_buffer_t *buffer)
     XFlush(data->display);
 }
 
-static void xlib_poll_event(window_id_t window_id, input_event_t *out_event)
+static void xlib_poll_event(window_id win,
+                            struct input_event *out_event)
 {
-    xlib_window_data_t *data = (xlib_window_data_t*)window_id;
+    struct xlib_window_data *data = (struct xlib_window_data *)win;
 
     out_event->type = INP_EVENT_NONE;
     if(XPending(data->display) == 0)
@@ -122,7 +123,7 @@ static void xlib_poll_event(window_id_t window_id, input_event_t *out_event)
     }
 }
 
-void xlib_init_interface(platform_interface_t *out)
+void xlib_init_interface(struct platform_interface *out)
 {
     out->create_window = xlib_create_window;
     out->destroy_window = xlib_destroy_winow;

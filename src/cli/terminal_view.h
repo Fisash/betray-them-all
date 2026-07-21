@@ -20,26 +20,26 @@
 
 #define CELL_VIEW_DEFAULT '#'
 
-typedef struct {
-    world_t *world;
-    squad_t *squad;
-    const cell_info_t *cells_info;
-    const item_info_t *items_info;
+struct draw_frame_context {
+    struct world *world;
+    struct squad *squad;
+    const struct cell_info *cells_info;
+    const struct item_info *items_info;
     int days;
-} draw_frame_context_t;
+};
 
-void draw_context_init(draw_frame_context_t *context, world_t *world, 
-                      squad_t *squad, const cell_info_t cells_info[], 
-                           const item_info_t items_info[], int days);
+void draw_context_init(struct draw_frame_context *context, struct world *world, 
+                           struct squad *squad, const struct cell_info cells_info[], 
+                                const struct item_info items_info[], int days);
 
 void terminal_view_init_framebuffer(char* framebuffer_ptr);
 
 
 void terminal_view_update_framebuffer(char *framebuffer, 
-                         draw_frame_context_t *context);
+                                      struct draw_frame_context *context);
 
 void terminal_view_redraw(char *framebuffer, 
-             draw_frame_context_t *context);
+                          struct draw_frame_context *context);
 
 void terminal_view_stdout_framebuffer(char *framebuffer);
 

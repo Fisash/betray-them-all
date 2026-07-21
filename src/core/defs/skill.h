@@ -11,7 +11,7 @@
 #define ROOT_SKILL NULL
 #define NATURE_WEAPON_GROUP 0
 
-typedef enum {
+enum skill_target_class {
     SKILL_TARGET_NONE,
     SKILL_TARGET_SELF,
     SKILL_TARGET_ENEMY_UNIT,
@@ -19,41 +19,42 @@ typedef enum {
     SKILL_TARGET_ANY_UNIT,
     SKILL_TARGET_ALL_ENEMIES,
     SKILL_TARGET_ALL_ALLIES
-} skill_target_class_t;
+};
 
-typedef enum {
+enum skill_id {
     SKILL_SKIP_TURN,
     SKILL_USUAL_SLASH,
     SKILL_USUAL_STABBING,
     SKILL_MAUL,
     SKILL_COUNT 
-} skill_id_t;
+};
 
-typedef struct skill_s skill_t; 
-struct skill_s {
+struct skill {
     char name[SKILL_NAME_BUF_SIZE];
     char description[SKILL_DES_BUF_SIZE];
 
-    skill_target_class_t target_class;
+    enum skill_target_class target_class;
 
-    unit_stats_t req_stats;
-    skill_t *req_learned;
+    struct unit_stats req_stats;
+    struct skill *req_learned;
 
     uint16_t action_points_cost;
     uint64_t weapon_group_mask;
     uint64_t unit_template_tags_group_mask;
 };
 
-int skill_is_target_class_require_choice(skill_target_class_t t);
 
-skill_id_t skill_get_id(const skill_t *skill, const skill_t all_skills[]);
+int skill_is_target_class_require_choice(enum skill_target_class t);
 
-void skills_load(skill_t skills[]);
+enum skill_id skill_get_id(const struct skill *skill,
+                        const struct skill *all_skills);
 
-int skill_is_compatible_with_weapon(const skill_t *skill, 
-                                const item_id weapon_id);
+void skills_load(struct skill all_skills[SKILL_COUNT]);
 
-int skill_is_compatible_with_unit_template(const skill_t *skill,
-                                   const uint64_t template_tags); 
+int skill_is_compatible_with_weapon(const struct skill *skill, 
+                                    const enum item_id weapon_id);
+
+int skill_is_compatible_with_unit_template(const struct skill *skill,
+                                           const uint64_t template_tags); 
 
 #endif

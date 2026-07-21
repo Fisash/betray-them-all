@@ -7,9 +7,9 @@ uint16_t get_between_value(uint16_t min, uint16_t max)
     return min + rand() % (max - min + 1);
 }
 
-void item_init(item_t *item, const item_info_t info[], item_id id)
+void item_init(struct item *item, const struct item_info info[], enum item_id id)
 {
-    const item_info_t *item_info = &info[id];
+    const struct item_info *item_info = &info[id];
     item->id = id;
     item->cost = item_info->cost;
 

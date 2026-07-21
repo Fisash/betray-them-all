@@ -4,27 +4,27 @@
 #include <stdint.h>
 #include "core/defs/items_info.h"
 
-typedef struct {
+struct weapon_props {
     uint16_t damage;
     uint16_t crit;
-} weapon_props_t;
+};
 
-typedef struct {
+struct armor_props {
     uint16_t protection;
     uint16_t mobility;
-} armor_props_t;
+};
 
-typedef struct {
-    item_id id;
+struct item {
+    enum item_id id;
     uint16_t cost;
     union {
-        weapon_props_t weapon;
-        armor_props_t armor;
+        struct weapon_props weapon;
+        struct armor_props armor;
     } props;
-} item_t;
+};
 
 uint16_t get_between_value(uint16_t min, uint16_t max);
 
-void item_init(item_t *item, const item_info_t info[], item_id id);
+void item_init(struct item *item, const struct item_info info[], enum item_id id);
 
 #endif

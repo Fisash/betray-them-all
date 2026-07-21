@@ -2,7 +2,7 @@
 
 #include "core/state/battle_state.h"
 
-static void battle_unit_init(battle_unit_t *b, unit_t *unit, 
+static void battle_unit_init(struct battle_unit *b, struct unit *unit, 
                        uint8_t side, uint16_t action_points)
 {
     b->unit = unit;
@@ -10,15 +10,15 @@ static void battle_unit_init(battle_unit_t *b, unit_t *unit,
     b->side = side;
 }
 
-int battle_unit_is_alive(battle_unit_t *b)
+int battle_unit_is_alive(struct battle_unit *b)
 {
     return (b && b->unit && b->unit->is_alive);
 }
 
-void battle_state_init(battle_state_t *b, squad_t *squad, 
-                   const skill_t all_skills[SKILL_COUNT],
-                   const item_info_t all_items[ALL_ITEMS_COUNT],
-                   const unit_template_t all_templates[UNIT_TEMP_COUNT])
+void battle_state_init(struct battle_state *b, struct squad *squad, 
+                       const struct skill all_skills[SKILL_COUNT],
+                       const struct item_info all_items[ALL_ITEMS_COUNT],
+                       const struct unit_template all_templates[UNIT_TEMP_COUNT])
 {
     b->player_unit_count = 0;
     b->enemy_unit_count = 0;
@@ -26,8 +26,8 @@ void battle_state_init(battle_state_t *b, squad_t *squad,
     memset(b->player_units, 0, sizeof(b->player_units));
     memset(b->enemy_units, 0, sizeof(b->enemy_units));
 
-    unit_t *unit;
-    battle_unit_t *battle_unit;
+    struct unit *unit;
+    struct battle_unit *battle_unit;
     int i;
     for(i = 0; i < MAX_UNITS; i++)
     {
@@ -48,10 +48,10 @@ void battle_state_init(battle_state_t *b, squad_t *squad,
     b->all_templates = all_templates;
 }
 
-int battle_state_add_enemy(battle_state_t *b, const unit_t *enemy)
+int battle_state_add_enemy(struct battle_state *b, const struct unit *enemy)
 {
-    battle_unit_t *battle_unit;
-    unit_t *my_enemy;
+    struct battle_unit *battle_unit;
+    struct unit *my_enemy;
     int i;
     for(i = 0; i < MAX_UNITS; i++)
     {

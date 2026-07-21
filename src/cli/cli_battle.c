@@ -9,9 +9,9 @@
 
 #define FIGHT_STATE_SPLITER "-----------------"
 
-static void draw_units(battle_unit_t b_units[])
+static void draw_units(struct battle_unit b_units[])
 {
-   unit_t *unit;
+   struct unit *unit;
    int count, i;
 
    count = 0;
@@ -26,7 +26,7 @@ static void draw_units(battle_unit_t b_units[])
    }
 }
 
-static void draw_state(battle_state_t *battle)
+static void draw_state(struct battle_state *battle)
 {
     puts(FIGHT_STATE_SPLITER);
     puts("Your units:");
@@ -37,9 +37,9 @@ static void draw_state(battle_state_t *battle)
     puts(FIGHT_STATE_SPLITER);
 }
 
-static void draw_turn_skill_list(battle_turn_context_t *c)
+static void draw_turn_skill_list(struct battle_turn_context *c)
 {
-    const skill_t *skill;
+    const struct skill *skill;
     int i;
 
     printf("Available skills for %s`s turn:\n", 
@@ -51,10 +51,10 @@ static void draw_turn_skill_list(battle_turn_context_t *c)
     }
 }
 
-static void draw_skill_use_target_list(battle_skill_use_context_t *c)
+static void draw_skill_use_target_list(struct battle_skill_use_context *c)
 {
     int i;
-    const battle_unit_t *battle_unit;
+    const struct battle_unit *battle_unit;
 
     printf("Available targets for use %s:\n", c->skill->name);
     for (i = 0; i < c->target_count; i++)
@@ -64,7 +64,7 @@ static void draw_skill_use_target_list(battle_skill_use_context_t *c)
     }
 }
 
-static const skill_t *cli_select_skill(battle_turn_context_t *c)
+static const struct skill *cli_select_skill(struct battle_turn_context *c)
 {
     int selected_index;
     draw_turn_skill_list(c);
@@ -72,7 +72,7 @@ static const skill_t *cli_select_skill(battle_turn_context_t *c)
     return c->available_skills[selected_index];
 }
 
-static battle_unit_t *cli_select_target(battle_skill_use_context_t *c)
+static struct battle_unit *cli_select_target(struct battle_skill_use_context *c)
 {
     int selected_index;
     draw_skill_use_target_list(c);
@@ -80,13 +80,13 @@ static battle_unit_t *cli_select_target(battle_skill_use_context_t *c)
     return c->available_targets.units[selected_index];
 }
 
-static void notification_turn_started(battle_turn_context_t *c, int round)
+static void notification_turn_started(struct battle_turn_context *c, int round)
 {
     printf("Round %d. It`s %s`s turn.\n", 
       round, c->active_unit->unit->name);
 }
 
-static void notification_event(battle_event_report_t *r)
+static void notification_event(struct battle_event_report *r)
 {
 
     printf(r->target->unit->name);
@@ -107,7 +107,7 @@ static void notification_event(battle_event_report_t *r)
     putc('\n', stdout);
 }
 
-static void notification_turn_result(battle_skill_execution_report_t *r)
+static void notification_turn_result(struct battle_skill_execution_report *r)
 {
     int i;
     printf("%s casted %s.\n", r->caster->unit->name, r->skill->name);
@@ -117,16 +117,16 @@ static void notification_turn_result(battle_skill_execution_report_t *r)
         notification_event(&r->events[i]); 
 }
 
-void cli_battle_run(battle_state_t *battle, const game_info_t *info)
+void cli_battle_run(struct battle_state *battle, const struct game_info *info)
 {
-    battle_turn_context_t turn_context;
-    battle_skill_use_context_t skill_use_context;
-    battle_skill_execution_report_t report;
+    struct battle_turn_context turn_context;
+    struct battle_skill_use_context skill_use_context;
+    struct battle_skill_execution_report report;
 
-    battle_unit_t *target = NULL;
+    struct battle_unit *target = NULL;
     int is_player_turn;
-    const skill_t *skill = NULL;
-    skill_id_t skill_id;
+    const struct skill *skill = NULL;
+    enum skill_id skill_id;
 
     while(battle->status == BATTLE_STATUS_ACTIVE)
     {

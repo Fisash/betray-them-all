@@ -4,35 +4,35 @@
 #include "core/state/shop.h"
 #include "core/state/item_storage.h"
 
-void shop_init(shop_t *shop, uint16_t gold, 
+void shop_init(struct shop *shop, uint16_t gold, 
                      float sell_multiplier,
                      float buy_multiplier )
 {
-    memset(&shop->items, 0, sizeof(item_t)*SHOP_MAX_ITEMS_COUNT);
+    memset(&shop->items, 0, sizeof(struct item)*SHOP_MAX_ITEMS_COUNT);
     shop->gold = gold;
     shop->sell_multiplier = sell_multiplier;
     shop->buy_multiplier = buy_multiplier;
 }
 
-item_t *shop_get_item_by_num(shop_t *shop, uint8_t num)
+struct item *shop_get_item_by_num(struct shop *shop, uint8_t num)
 {
     return item_storage_get_item(shop->items, SHOP_MAX_ITEMS_COUNT, (num-1));
 }
 
-uint16_t shop_get_sell_price(shop_t *shop, item_t *item)
+uint16_t shop_get_sell_price(struct shop *shop, struct item *item)
 {
     return (uint16_t)(item->cost * shop->sell_multiplier);
 }
 
-uint16_t shop_get_buy_price(shop_t *shop, item_t *item)
+uint16_t shop_get_buy_price(struct shop *shop, struct item *item)
 {
     return (uint16_t)(item->cost * shop->buy_multiplier);
 }
 
-void shop_generate_village_items(shop_t *shop, const item_info_t info[])
+void shop_generate_village_items(struct shop *shop, const struct item_info info[])
 {
-    item_t provision;
-    item_id id;
+    struct item provision;
+    enum item_id id;
     int i;
 
     item_init(&provision, info, ITEM_PROVISION_BAG);

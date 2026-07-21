@@ -5,12 +5,12 @@
 #include "gui/gui-frontend/res/sprites.h"
 #include "gui/gui-frontend/res/font_bitmaps.h"
 
-typedef struct {
-    pallete_t palletes[PALLETE_COUNT];
-    sprite_t sprites[SPRITE_COUNT];
-    font_t fonts[FONT_COUNT];
-} game_resources_t;
+struct game_resources {
+    struct pallete palletes[PALLETE_COUNT];
+    struct sprite sprites[SPRITE_COUNT];
+    struct font fonts[FONT_COUNT];
+};
 
-void game_resources_load(game_resources_t *res);
+void game_resources_load(struct game_resources *res);
 
 #endif
