@@ -255,7 +255,7 @@ static int match_string(const char *s, const char *strings[])
 }
 
 const char *cmd_synonyms_exit[]    = { "exit", "quit", "q", NULL };
-const char *cmd_synonyms_move[]    = { "move", "m", NULL };
+const char *cmd_synonyms_move[]    = { "move", "mov", "m", NULL };
 const char *cmd_synonyms_explore[] = { "explore", "e", NULL };
 const char *cmd_synonyms_next[]    = { "next", NULL };
 const char *cmd_synonyms_info[]    = { "info", NULL };
