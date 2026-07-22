@@ -2,11 +2,11 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "cli/cli_main.h"
-#include "cli/cli_base.h"
+#include "cli/entry.h"
+#include "cli/base.h"
 #include "cli/terminal_view.h"
-#include "cli/cli_battle.h"
-#include "cli/cli_shop.h"
+#include "cli/battle.h"
+#include "cli/shop.h"
 
 #include "core/time_system.h"
 #include "core/exploring_system.h"

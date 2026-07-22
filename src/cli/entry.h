@@ -1,5 +1,5 @@
-#ifndef CLI_MAIN_H
-#define CLI_MAIN_H
+#ifndef ENTRY_H
+#define ENTRY_H
 
 #include <stdint.h>
 

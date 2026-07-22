@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "cli/cli_base.h"
+#include "cli/base.h"
 
 static void parse_command(char *input_buf, struct command *cmd)
 {

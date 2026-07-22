@@ -1,10 +1,10 @@
 #ifdef CLI
-    #include "cli/cli_main.h"
+#   include "cli/entry.h"
 #elif defined(XLIB)
-    #include "gui/gui-frontend/gui_main.h"
-    #include "gui/xlib-port/xlib.h"
+#   include "gui/gui-frontend/gui_main.h"
+#   include "gui/xlib-port/xlib.h"
 #else
-    #error "Invalid platform"
+#   error "Invalid platform"
 #endif
 
 #include "core/state/game_state.h"
