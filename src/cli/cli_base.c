@@ -43,9 +43,9 @@ int cli_base_choose_number(uint8_t min, uint8_t max)
     }
 }
 
-void print_stat_with_scaling(const char *label, int base_value,
-               int real_value, const struct scaling_group *scalings,
-                                              int is_show_real)
+void print_stat_with_scaling(const char *label, int base_value, int real_value,
+                             const struct scaling_group *scalings,
+                             int is_show_real)
 {
     if(is_show_real)
         printf("%s: %d(%d) (%c%c%c%c)", label, base_value, real_value, 
@@ -62,7 +62,7 @@ void print_stat_with_scaling(const char *label, int base_value,
 }
                                     
 void print_item_info(const struct item *item, const struct item_info info[],
-                                                     struct unit *unit)
+                                                          struct unit *unit)
 {
     const struct item_info *item_info = &info[item->id];
     printf("%s (cost: %d) - ", item_info->title, item->cost);
