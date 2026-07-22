@@ -35,30 +35,36 @@ MAIN_XLIB_OBJ = $(BUILDDIR)/xlib/main.o
 
 $(CORE_OBJ): $(BUILDDIR)/core/%.o: $(SRCDIR)/core/%.c
 	@mkdir -p $(@D)
+	@echo "compiling $(notdir $<)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(GUI_FRONTEND_OBJ): $(BUILDDIR)/gui/frontend/%.o: $(SRCDIR)/gui/gui-frontend/%.c
 	@mkdir -p $(@D)
+	@echo "compiling $(notdir $<)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(CLI_OBJ): CFLAGS += -DCLI
 $(CLI_OBJ): $(BUILDDIR)/cli/%.o: $(SRCDIR)/cli/%.c
 	@mkdir -p $(@D)
+	@echo "compiling $(notdir $<)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(MAIN_CLI_OBJ): CFLAGS += -DCLI
 $(MAIN_CLI_OBJ): $(SRCDIR)/main.c
 	@mkdir -p $(@D)
+	@echo "compiling $(notdir $<)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(XLIB_PORT_OBJ): CFLAGS += -DXLIB
 $(XLIB_PORT_OBJ): $(BUILDDIR)/xlib/port/%.o: $(SRCDIR)/gui/xlib-port/%.c
 	@mkdir -p $(@D)
+	@echo "compiling $(notdir $<)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(MAIN_XLIB_OBJ): CFLAGS += -DXLIB
 $(MAIN_XLIB_OBJ): $(SRCDIR)/main.c
 	@mkdir -p $(@D)
+	@echo "compiling $(notdir $<)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 DEPS = $(CORE_OBJ:.o=.d) $(GUI_FRONTEND_OBJ:.o=.d) \
@@ -66,15 +72,17 @@ DEPS = $(CORE_OBJ:.o=.d) $(GUI_FRONTEND_OBJ:.o=.d) \
        $(XLIB_PORT_OBJ:.o=.d) $(MAIN_XLIB_OBJ:.o=.d)
 -include $(DEPS)
 
-.PHONY: core gui cli xlib
+.PHONY: core xlib
 
 core: $(CORE_OBJ)            
 
 gui: $(GUI_FRONTEND_OBJ)    
 
 cli: $(CORE_OBJ) $(CLI_OBJ) $(MAIN_CLI_OBJ)
+	@echo "linking everything"
 	@$(CC) $(LDFLAGS) $^ -o $@
 
 xlib: LDFLAGS += -lX11
 xlib: $(CORE_OBJ) $(GUI_FRONTEND_OBJ) $(XLIB_PORT_OBJ) $(MAIN_XLIB_OBJ)
-	  @$(CC) $(LDFLAGS) $^ -o $@
+	@echo "linking everything"
+	@$(CC) $(LDFLAGS) $^ -o $@

@@ -240,61 +240,126 @@ static void cli_active_event(struct game_state *state, const struct game_info *i
     state->active_event_id = EVENT_NONE;
 }
 
-static void interpret_command(struct command *cmd, struct game_state *game_state,
-                      const struct game_info *game_info, int *need_redraw)
+/* maybe some better place for that */
+/* but i can't put it in string.h :< */
+static int match_string(const char *s, const char *strings[])
 {
-    if((strcmp(cmd->argv[0], "exit") == 0) ||
-       (strcmp(cmd->argv[0], "quit") == 0) ||
-       (strcmp(cmd->argv[0], "q") == 0))
-            exit(0);
-
-    *need_redraw = 1;
-
-    if((strcmp(cmd->argv[0], "mov") == 0 || 
-       (strcmp(cmd->argv[0], "m") == 0)) &&
-                          cmd->argc > 1)
-    {
-        interpret_move(cmd, &game_state->squad);
-        time_system_spend(game_state, 1);
+    int i = 0;
+    while(strings[i] != NULL) {
+        if (strcmp(s, strings[i]) == 0)
+            return 1;
+        else
+            i++;
     }
-
-    if(strcmp(cmd->argv[0], "explore") == 0)
-       exploring_system_explore_squad_cell(&game_state->squad, 
-                          &game_state->world, 
-                          &game_info->events_info, 
-                          &game_state->active_event_id,
-                          game_info->cells_info);
-
-    if(strcmp(cmd->argv[0], "next") == 0)
-        time_system_spend(game_state, 1);
-
-    if(strcmp(cmd->argv[0], "info") == 0)
-    {
-        interpret_info(cmd, &game_state->squad, 
-                      (const struct unit_template*)&game_info->unit_templates,
-                      (const struct item_info*)&game_info->items);
-        *need_redraw = 0;
-    }
-
-    if(strcmp(cmd->argv[0], "equip") == 0)
-    {
-        interpret_equip(cmd, &game_state->squad);
-        *need_redraw = 0;
-    }
-
-    if(strcmp(cmd->argv[0], "unequip") == 0)
-    {
-        interpret_unequip(cmd, &game_state->squad);
-        *need_redraw = 0;
-    }
-
-    if(strcmp(cmd->argv[0], "improve") == 0)
-    {
-        interpret_unit_improve(cmd, &game_state->squad);
-        *need_redraw = 0;
-    }
-
+    return 0;
 }
+
+const char *cmd_synonyms_exit[]    = { "exit", "quit", "q", NULL };
+const char *cmd_synonyms_move[]    = { "move", "m", NULL };
+const char *cmd_synonyms_explore[] = { "explore", "e", NULL };
+const char *cmd_synonyms_next[]    = { "next", NULL };
+const char *cmd_synonyms_info[]    = { "info", NULL };
+const char *cmd_synonyms_equip[]   = { "equip", NULL };
+const char *cmd_synonyms_unequip[] = { "unequip", NULL };
+const char *cmd_synonyms_improve[] = { "improve", NULL };
+const char *cmd_synonyms_help[]    = { "help", "?", NULL };
+
+enum command_type {
+    cmd_none,
+    cmd_exit,
+    cmd_move,
+    cmd_explore,
+    cmd_next,
+    cmd_info,
+    cmd_equip,
+    cmd_unequip,
+    cmd_improve,
+    cmd_help,
+    cmd_unknown
+};
+
+/* maybe learn and use suffix tree for less complexity */
+static enum command_type interpret_string_command(const char *s)
+{
+    if (s == NULL || strlen(s) == 0)
+       return cmd_none;
+    else if (match_string(s, cmd_synonyms_exit))
+       return cmd_exit;
+    else if (match_string(s, cmd_synonyms_move))
+       return cmd_move;
+    else if (match_string(s, cmd_synonyms_explore))
+       return cmd_explore;
+    else if (match_string(s, cmd_synonyms_next))
+       return cmd_next;
+    else if (match_string(s, cmd_synonyms_info))
+       return cmd_info;
+    else if (match_string(s, cmd_synonyms_equip))
+       return cmd_equip;
+    else if (match_string(s, cmd_synonyms_unequip))
+       return cmd_unequip;
+    else if (match_string(s, cmd_synonyms_improve))
+       return cmd_improve;
+    else if (match_string(s, cmd_synonyms_help))
+       return cmd_help;
+    else
+       return cmd_unknown;
+}
+
+static void interpret_command(struct command *cmd,
+                              struct game_state *game_state,
+                              const struct game_info *game_info,
+                              int *need_redraw)
+{
+    enum command_type type;
+    type = interpret_string_command(cmd->argv[0]);
+    switch (type) {
+    case cmd_exit:
+        exit(0);
+        break;
+    case cmd_move:
+        if (cmd->argc > 1) {
+            interpret_move(cmd, &game_state->squad);
+            time_system_spend(game_state, 1);
+            *need_redraw = 1;
+        }
+        break;
+    case cmd_explore:
+        exploring_system_explore_squad_cell(&game_state->squad, 
+                                            &game_state->world, 
+                                            &game_info->events_info, 
+                                            &game_state->active_event_id,
+                                            game_info->cells_info);
+        *need_redraw = 1;
+        break;
+    case cmd_next:
+        time_system_spend(game_state, 1);
+        break;
+    case cmd_info:
+        interpret_info(cmd, &game_state->squad, 
+                       (const struct unit_template*)&game_info->unit_templates,
+                       (const struct item_info*)&game_info->items);
+        break;
+    case cmd_equip:
+        interpret_equip(cmd, &game_state->squad);
+        break;
+    case cmd_unequip:
+        interpret_unequip(cmd, &game_state->squad);
+        break;
+    case cmd_improve:
+        interpret_unit_improve(cmd, &game_state->squad);
+        break;
+    case cmd_help:
+        /* write help message */
+        break;
+    case cmd_unknown:
+        /* maybe write something */
+        break;
+    case cmd_none:
+    default:
+        break;
+    }
+}
+
 
 static int has_pending_actions(const struct game_state *state)
 {
@@ -315,17 +380,26 @@ void check_game_status(const struct game_state *state)
 void cli_run(struct game_state *game_state, const struct game_info *game_info)
 {
     char framebuffer[FRAME_HEIGHT][FRAME_WIDTH];
+                                    /* allocate .bss with this size? */
+                                    /* instead of stack */
+
     terminal_view_init_framebuffer((char*)framebuffer);
 
-    struct draw_frame_context draw_context = {&game_state->world, 
-                   &game_state->squad, (struct cell_info*)&game_info->cells_info, 
-                        (struct item_info *)&game_info->items, game_state->days};
+    struct draw_frame_context draw_context = {
+        &game_state->world, &game_state->squad,
+        (struct cell_info*)&game_info->cells_info,
+        (struct item_info *)&game_info->items,
+        game_state->days
+    };
 
     draw((char*)framebuffer, &draw_context);
 
-    char input_buf[INPUT_BUF_SIZE];
+    char input_buf[INPUT_BUF_SIZE]; /* allocate .bss with this size? */
+                                    /* instead of stack */
+
     struct command cmd;
     int need_redraw = 0;
+
     for(;;)
     {
         cmd = cli_base_input_command(input_buf);
@@ -351,6 +425,7 @@ void cli_run(struct game_state *game_state, const struct game_info *game_info)
         {
             draw_context.days = game_state->days;
             draw((char*)framebuffer, &draw_context);
+            need_redraw = 0;
         }
     }
 }

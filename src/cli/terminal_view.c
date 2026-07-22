@@ -7,7 +7,7 @@
 #include "core/world_queries.h"
 
 void draw_context_init(struct draw_frame_context *context, struct world *world, 
-                       struct squad *squad, const struct cell_info cells_info[], 
+                      struct squad *squad, const struct cell_info cells_info[], 
                              const struct item_info items_info[], int days)
 {
     context->world = world;
@@ -103,14 +103,18 @@ static void draw_rect(char **cursor_ptr, const char *rect,
 static void draw_world(char *framebuffer, struct world *world)
 {
     char world_view[WORLD_HEIGHT][WORLD_WIDTH];
+
+                    /* maybe just allocate .bss with this size? */
+                    /* and after take pointer to that buf */
+
     world_fill_cells_id_buffer(world, (char*)&world_view);
 
     view_cells_id((char*)&world_view, WORLD_HEIGHT*WORLD_WIDTH); 
 
     char *cursor = get_cursor(framebuffer, 
-           WORLD_OFFSET_X, WORLD_OFFSET_Y);
+                              WORLD_OFFSET_X, WORLD_OFFSET_Y);
     draw_rect(&cursor, (char*)&world_view, 
-                WORLD_WIDTH, WORLD_HEIGHT);
+              WORLD_WIDTH, WORLD_HEIGHT);
 }
 
 static void draw_player(char *framebuffer, struct squad *squad)
@@ -184,7 +188,7 @@ void draw_squad_cell_info(char **cursor_ptr, struct draw_frame_context *context)
 {
 
     struct cell *cell = world_queries_get_squad_cell(context->squad, 
-                                               context->world);
+                                                     context->world);
 
     const struct cell_info *info = &context->cells_info[cell->type_id];
 
