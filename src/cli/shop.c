@@ -2,8 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "cli/cli_shop.h"
-#include "cli/cli_base.h"
+#include "cli/shop.h"
+#include "cli/base.h"
 
 #include "core/shop_system.h"
 

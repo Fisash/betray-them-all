@@ -1,27 +1,19 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "cli/command_interpretation.h"
 
-#include "cli/cli_main.h"
-#include "cli/cli_base.h"
-#include "cli/terminal_view.h"
-#include "cli/cli_battle.h"
-#include "cli/cli_shop.h"
+#define HELP_MSG_INFO    "info [unit|item]"
+#define HELP_MSG_UNEQUIP "unequip [N unit] [weapon|armor]"
+#define HELP_MSG_EQUIP   "equip [N unit] [N item]"
+#define HELP_MSG_IMPROVE "improve [N unit] [str|agl|wil|int]"
+#define HELP_MSG_MOVE    "move [r|l|u|d|s]"
 
-#include "core/time_system.h"
-#include "core/exploring_system.h"
-#include "core/event_system.h"
-#include "core/squad_movement.h"
+/*-----------------------------------------------------------------------*/
 
-
-static void draw(char *framebuffer, struct draw_frame_context *context)
-{
-    terminal_view_redraw(framebuffer, context);
-    terminal_view_stdout_framebuffer(framebuffer);
-}
-
-static void print_unit_info(struct unit *unit, const struct item_info items[],
-                                  const struct unit_template templates[])
+static void print_unit_info(struct unit *unit,
+                            const struct item_info items[],
+                            const struct unit_template templates[])
 {
     printf("Name: %s, (%s)\n", unit->name, 
        templates[unit->template_id].name);
@@ -42,8 +34,8 @@ static void print_unit_info(struct unit *unit, const struct item_info items[],
 }
 
 static void interpret_unit_info(struct command *cmd, struct squad *squad, 
-                           const struct unit_template templates[],
-                              const struct item_info items_info[])
+                                  const struct unit_template templates[],
+                                     const struct item_info items_info[])
 {
     if(cmd->argc < 3) 
     {
@@ -58,11 +50,11 @@ static void interpret_unit_info(struct command *cmd, struct squad *squad,
 }
 
 static void interpret_item_info(struct command *cmd, struct squad *squad, 
-                              const struct item_info items_info[])
+                                     const struct item_info items_info[])
 {
     if(cmd->argc < 3) 
     {
-        puts("Identify item to put info");
+        puts("Identify item to put info.");
         return;
     }
     
@@ -71,12 +63,16 @@ static void interpret_item_info(struct command *cmd, struct squad *squad,
     if(item && item->id != ITEM_NONE)
         print_item_info(item, items_info, NULL);
 }
-/* struct command info*/
+
 static void interpret_info(struct command *cmd, struct squad *squad, 
-                           const struct unit_template templates[],
-                              const struct item_info items_info[])
+                             const struct unit_template templates[],
+                                const struct item_info items_info[])
 {
-    if(cmd->argc < 2) return;
+    if(cmd->argc < 2)
+    {
+        puts(HELP_MSG_INFO);
+        return;
+    }
 
     if(strcmp(cmd->argv[1], "unit") == 0)
         interpret_unit_info(cmd, squad, templates, items_info); 
@@ -86,13 +82,11 @@ static void interpret_info(struct command *cmd, struct squad *squad,
 }
 
 
-/* command unequip*/
 static void interpret_unequip(struct command *cmd, struct squad *squad)
 {
     if(cmd->argc < 3)
     {
-        puts("Identify unit and equipment type like this:"
-             "unequip [squad unit number] [weapon/armor]");
+        puts(HELP_MSG_UNEQUIP);
         return;
     }
     uint8_t unit_num;
@@ -126,13 +120,12 @@ static void interpret_unequip(struct command *cmd, struct squad *squad)
     }
 }
 
-/* command equip*/
+
 static void interpret_equip(struct command *cmd, struct squad *squad)
 {
     if(cmd->argc < 3)
     {
-        puts("Identify unit and item like this:"
-             "equip [squad unit number] [squad item number]");
+        puts(HELP_MSG_EQUIP);
         return;
     }
     uint8_t unit_num, item_num;
@@ -161,13 +154,12 @@ static void interpret_equip(struct command *cmd, struct squad *squad)
 
 }
 
-/* command improve*/
+
 void interpret_unit_improve(struct command *cmd, struct squad *squad)
 {
     if(cmd->argc < 3)
     {
-        puts("Identify unit and stat like this:"
-             "improve [squad unit number] [str/agl/wil/int]");
+        puts(HELP_MSG_IMPROVE);
         return;
     }
 
@@ -193,9 +185,13 @@ void interpret_unit_improve(struct command *cmd, struct squad *squad)
     puts((status == 0) ? "Stat improved!" : "No points");
 }
 
-/* command mov*/
+
 static void interpret_move(struct command *cmd, struct squad *squad)
 {
+    if (cmd->argc < 2) {
+        puts(HELP_MSG_MOVE);
+        return;
+    }
     switch (*cmd->argv[1])
     {
         case 'r':
@@ -216,29 +212,7 @@ static void interpret_move(struct command *cmd, struct squad *squad)
     }
 }
 
-static void output_event_info(const struct event *event, uint8_t answer_count)
-{
-    puts(event->title);
-    puts(event->message);
-    int i;
-    for(i = 0; i < answer_count; i++)
-       printf("%d. %s\n", i+1, event->answers[i].text);
-    putc('>', stdout);
-}
-
-
-static void cli_active_event(struct game_state *state, const struct game_info *info)
-{
-    const struct event *active = 
-                  &info->events_info.events[state->active_event_id];
-    int answer_count = event_get_answer_count(active);
-    output_event_info(active, answer_count);
-    int answer_index = cli_base_choose_number(1, answer_count)-1;
-
-    event_system_handle_answer(answer_index, state, info);
-
-    state->active_event_id = EVENT_NONE;
-}
+/*-----------------------------------------------------------------------*/
 
 /* maybe some better place for that */
 /* but i can't put it in string.h :< */
@@ -253,6 +227,8 @@ static int match_string(const char *s, const char *strings[])
     }
     return 0;
 }
+
+/*-----------------------------------------------------------------------*/
 
 const char *cmd_synonyms_exit[]    = { "exit", "quit", "q", NULL };
 const char *cmd_synonyms_move[]    = { "move", "mov", "m", NULL };
@@ -305,127 +281,52 @@ static enum command_type interpret_string_command(const char *s)
        return cmd_unknown;
 }
 
-static void interpret_command(struct command *cmd,
-                              struct game_state *game_state,
-                              const struct game_info *game_info,
-                              int *need_redraw)
+void interpret_command(struct command *cmd, struct game_state *state,
+                       const struct game_info *info, int *need_redraw)
 {
-    enum command_type type;
-    type = interpret_string_command(cmd->argv[0]);
-    switch (type) {
-    case cmd_exit:
-        exit(0);
-        break;
-    case cmd_move:
-        if (cmd->argc > 1) {
-            interpret_move(cmd, &game_state->squad);
-            time_system_spend(game_state, 1);
+    switch (interpret_string_command(cmd->argv[0]))
+    {
+        case cmd_exit:
+            exit(0);    /* get rid of it actually */
+            break;
+        case cmd_move:
+            interpret_move(cmd, &state->squad);
+            time_system_spend(state, 1);    /* <- take this case apart! */        
             *need_redraw = 1;
-        }
-        break;
-    case cmd_explore:
-        exploring_system_explore_squad_cell(&game_state->squad, 
-                                            &game_state->world, 
-                                            &game_info->events_info, 
-                                            &game_state->active_event_id,
-                                            game_info->cells_info);
-        *need_redraw = 1;
-        break;
-    case cmd_next:
-        time_system_spend(game_state, 1);
-        break;
-    case cmd_info:
-        interpret_info(cmd, &game_state->squad, 
-                       (const struct unit_template*)&game_info->unit_templates,
-                       (const struct item_info*)&game_info->items);
-        break;
-    case cmd_equip:
-        interpret_equip(cmd, &game_state->squad);
-        break;
-    case cmd_unequip:
-        interpret_unequip(cmd, &game_state->squad);
-        break;
-    case cmd_improve:
-        interpret_unit_improve(cmd, &game_state->squad);
-        break;
-    case cmd_help:
-        /* write help message */
-        break;
-    case cmd_unknown:
-        /* maybe write something */
-        break;
-    case cmd_none:
-    default:
-        break;
-    }
-}
-
-
-static int has_pending_actions(const struct game_state *state)
-{
-    return (state->battle.status == BATTLE_STATUS_ACTIVE ||
-            state->active_event_id != EVENT_NONE         ||
-            state->active_shop != NULL                   );
-}
-
-void check_game_status(const struct game_state *state)
-{
-    if(state->is_over)
-    {
-        puts("You lost!");
-        exit(0);
-    }
-}
-
-void cli_run(struct game_state *game_state, const struct game_info *game_info)
-{
-    char framebuffer[FRAME_HEIGHT][FRAME_WIDTH];
-                                    /* allocate .bss with this size? */
-                                    /* instead of stack */
-
-    terminal_view_init_framebuffer((char*)framebuffer);
-
-    struct draw_frame_context draw_context = {
-        &game_state->world, &game_state->squad,
-        (struct cell_info*)&game_info->cells_info,
-        (struct item_info *)&game_info->items,
-        game_state->days
-    };
-
-    draw((char*)framebuffer, &draw_context);
-
-    char input_buf[INPUT_BUF_SIZE]; /* allocate .bss with this size? */
-                                    /* instead of stack */
-
-    struct command cmd;
-    int need_redraw = 0;
-
-    for(;;)
-    {
-        cmd = cli_base_input_command(input_buf);
-
-        interpret_command(&cmd, game_state, game_info, &need_redraw);        
-        check_game_status(game_state);
-
-        while (has_pending_actions(game_state))
-        {
-            if(game_state->battle.status == BATTLE_STATUS_ACTIVE)
-                cli_battle_run(&game_state->battle, game_info);
-    
-            if(game_state->active_shop != NULL)
-                cli_shop_run(&game_state->active_shop, &game_state->squad, 
-                                                        game_info->items);
-
-            if(game_state->active_event_id  != EVENT_NONE)
-                cli_active_event(game_state, game_info);
-        }
-             
-
-        if(need_redraw)
-        {
-            draw_context.days = game_state->days;
-            draw((char*)framebuffer, &draw_context);
-            need_redraw = 0;
-        }
+            break;
+        case cmd_explore:
+            exploring_system_explore_squad_cell(&state->squad, 
+                                                &state->world, 
+                                                &info->events_info, 
+                                                &state->active_event_id,
+                                                info->cells_info);
+            *need_redraw = 1;
+            break;
+        case cmd_next:
+            time_system_spend(state, 1);
+            break;
+        case cmd_info:
+            interpret_info(cmd, &state->squad, 
+                           info->unit_templates,
+                           info->items);
+            break;
+        case cmd_equip:
+            interpret_equip(cmd, &state->squad);
+            break;
+        case cmd_unequip:
+            interpret_unequip(cmd, &state->squad);
+            break;
+        case cmd_improve:
+            interpret_unit_improve(cmd, &state->squad);
+            break;
+        case cmd_help:
+            /* write help message */
+            break;
+        case cmd_unknown:
+            /* maybe write something */
+            break;
+        case cmd_none:
+        default:
+            break;
     }
 }
