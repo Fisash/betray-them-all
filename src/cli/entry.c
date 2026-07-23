@@ -9,13 +9,11 @@
 #include "cli/shop.h"
 #include "cli/command_interpretation.h"
 
-
 static void draw(char *framebuffer, struct draw_frame_context *context)
 {
     terminal_view_redraw(framebuffer, context);
     terminal_view_stdout_framebuffer(framebuffer);
 }
-
 
 static void output_event_info(const struct event *event, uint8_t answer_count)
 {
@@ -42,71 +40,78 @@ static void cli_active_event(struct game_state *state, const struct game_info *i
 }
 
 
-static int has_pending_actions(const struct game_state *state)
+enum {
+    leave,
+    lose,
+    fighting,
+    shopping,
+    event_happening,
+    idle
+};
+
+static int current_game_state(const struct game_state *state)
 {
-    return (state->battle.status == BATTLE_STATUS_ACTIVE ||
-            state->active_event_id != EVENT_NONE         ||
-            state->active_shop != NULL                   );
+    if(!state->is_running)
+        return leave;
+    else if(state->is_over)
+        return lose;
+    else if(state->battle.status == BATTLE_STATUS_ACTIVE)
+        return fighting;
+    else if(state->active_shop)
+        return shopping;
+    else if(state->active_event_id != EVENT_NONE)
+        return event_happening;
+    else
+        return idle;
 }
 
-void check_game_status(const struct game_state *state)
+static char buf_frame[FRAME_HEIGHT*FRAME_WIDTH];
+static char buf_input[INPUT_BUF_SIZE];
+
+void cli_run(struct game_state *game, const struct game_info *info)
 {
-    if(state->is_over)
-    {
-        puts("You lost!");
-        exit(0);
-    }
-}
-
-void cli_run(struct game_state *game_state, const struct game_info *game_info)
-{
-    char framebuffer[FRAME_HEIGHT][FRAME_WIDTH];
-                                    /* allocate .bss with this size? */
-                                    /* instead of stack */
-
-    terminal_view_init_framebuffer((char*)framebuffer);
-
-    struct draw_frame_context draw_context = {
-        &game_state->world, &game_state->squad,
-        (struct cell_info*)&game_info->cells_info,
-        (struct item_info *)&game_info->items,
-        game_state->days
-    };
-
-    draw((char*)framebuffer, &draw_context);
-
-    char input_buf[INPUT_BUF_SIZE]; /* allocate .bss with this size? */
-                                    /* instead of stack */
-
+    struct draw_frame_context draw_context;
     struct command cmd;
-    int need_redraw = 0;
-
-    for(;;)
+    char *frame, *input;
+    int need_redraw;
+    frame = buf_frame;
+    input = buf_input; 
+    terminal_view_init_framebuffer(frame);
+    draw_context_init(&draw_context, &game->world, &game->squad,
+                      info->cells_info, info->items, game->days);
+    need_redraw = 1;
+    game->is_running = 1;
+    while(game->is_running)
     {
-        cmd = cli_base_input_command(input_buf);
-
-        interpret_command(&cmd, game_state, game_info, &need_redraw);        
-        check_game_status(game_state);
-
-        while (has_pending_actions(game_state))
-        {
-            if(game_state->battle.status == BATTLE_STATUS_ACTIVE)
-                cli_battle_run(&game_state->battle, game_info);
-    
-            if(game_state->active_shop != NULL)
-                cli_shop_run(&game_state->active_shop, &game_state->squad, 
-                                                        game_info->items);
-
-            if(game_state->active_event_id  != EVENT_NONE)
-                cli_active_event(game_state, game_info);
-        }
-             
-
         if(need_redraw)
         {
-            draw_context.days = game_state->days;
-            draw((char*)framebuffer, &draw_context);
+            draw_context.days = game->days;
+            draw(frame, &draw_context);
             need_redraw = 0;
+        }
+        cli_base_input_command(&cmd, input);
+        interpret_command(&cmd, game, info, &need_redraw);        
+        switch (current_game_state(game))
+        {
+            case fighting:
+                cli_battle_run(&game->battle, info);
+                break;
+            case shopping:
+                cli_shop_run(&game->active_shop, &game->squad, info->items);
+                break;
+            case event_happening:
+                cli_active_event(game, info);
+                break;
+            case lose:
+                puts("You lost!");
+                game->is_running = 0;
+                break;
+            case leave:
+                puts("Exitting.");
+                break;
+            case idle:
+            default:
+                break;
         }
     }
 }

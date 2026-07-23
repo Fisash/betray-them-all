@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "cli/command_interpretation.h"
+#include "cli/print.h"
 
 #define HELP_MSG_INFO    "info [unit|item]"
 #define HELP_MSG_UNEQUIP "unequip [N unit] [weapon|armor]"
@@ -11,27 +12,6 @@
 
 /*-----------------------------------------------------------------------*/
 
-static void print_unit_info(struct unit *unit,
-                            const struct item_info items[],
-                            const struct unit_template templates[])
-{
-    printf("Name: %s, (%s)\n", unit->name, 
-       templates[unit->template_id].name);
-    printf("LVL: %d. EXP: %d/%d\n", unit->level, unit->exp, 
-                                 unit->exp_for_next_level);
-    printf("HP: %d/%d\n", unit->hp, unit->max_hp);
-    printf("STR: %d\nAGL: %d\nWIL: %d\nINT: %d\n", 
-        unit->stats.strength, unit->stats.agility, 
-        unit->stats.will,unit->stats.intelligence);
-
-    printf("Weapon: ");
-    print_item_info(&unit->weapon, items, unit);
-    printf("Armor: ");
-    print_item_info(&unit->armor, items, unit);
-    if(unit->unspent_stat_points > 0)
-        printf("Unspent stat leveling points: %d", 
-                       unit->unspent_stat_points);
-}
 
 static void interpret_unit_info(struct command *cmd, struct squad *squad, 
                                   const struct unit_template templates[],
@@ -76,8 +56,7 @@ static void interpret_info(struct command *cmd, struct squad *squad,
 
     if(strcmp(cmd->argv[1], "unit") == 0)
         interpret_unit_info(cmd, squad, templates, items_info); 
-
-    if(strcmp(cmd->argv[1], "item") == 0)
+    else if(strcmp(cmd->argv[1], "item") == 0)
         interpret_item_info(cmd, squad, items_info);
 }
 
@@ -188,7 +167,8 @@ void interpret_unit_improve(struct command *cmd, struct squad *squad)
 
 static void interpret_move(struct command *cmd, struct squad *squad)
 {
-    if (cmd->argc < 2) {
+    if(cmd->argc < 2)
+    {
         puts(HELP_MSG_MOVE);
         return;
     }
@@ -219,8 +199,9 @@ static void interpret_move(struct command *cmd, struct squad *squad)
 static int match_string(const char *s, const char *strings[])
 {
     int i = 0;
-    while(strings[i] != NULL) {
-        if (strcmp(s, strings[i]) == 0)
+    while(strings[i] != NULL)
+    {
+        if(strcmp(s, strings[i]) == 0)
             return 1;
         else
             i++;
@@ -257,67 +238,67 @@ enum command_type {
 /* maybe learn and use suffix tree for less complexity */
 static enum command_type interpret_string_command(const char *s)
 {
-    if (s == NULL || strlen(s) == 0)
+    if(s == NULL || strlen(s) == 0)
        return cmd_none;
-    else if (match_string(s, cmd_synonyms_exit))
+    else if(match_string(s, cmd_synonyms_exit))
        return cmd_exit;
-    else if (match_string(s, cmd_synonyms_move))
+    else if(match_string(s, cmd_synonyms_move))
        return cmd_move;
-    else if (match_string(s, cmd_synonyms_explore))
+    else if(match_string(s, cmd_synonyms_explore))
        return cmd_explore;
-    else if (match_string(s, cmd_synonyms_next))
+    else if(match_string(s, cmd_synonyms_next))
        return cmd_next;
-    else if (match_string(s, cmd_synonyms_info))
+    else if(match_string(s, cmd_synonyms_info))
        return cmd_info;
-    else if (match_string(s, cmd_synonyms_equip))
+    else if(match_string(s, cmd_synonyms_equip))
        return cmd_equip;
-    else if (match_string(s, cmd_synonyms_unequip))
+    else if(match_string(s, cmd_synonyms_unequip))
        return cmd_unequip;
-    else if (match_string(s, cmd_synonyms_improve))
+    else if(match_string(s, cmd_synonyms_improve))
        return cmd_improve;
-    else if (match_string(s, cmd_synonyms_help))
+    else if(match_string(s, cmd_synonyms_help))
        return cmd_help;
     else
        return cmd_unknown;
 }
 
-void interpret_command(struct command *cmd, struct game_state *state,
+void interpret_command(struct command *cmd, struct game_state *game,
                        const struct game_info *info, int *need_redraw)
 {
     switch (interpret_string_command(cmd->argv[0]))
     {
         case cmd_exit:
-            exit(0);    /* get rid of it actually */
+            game->is_running = 0;
             break;
         case cmd_move:
-            interpret_move(cmd, &state->squad);
-            time_system_spend(state, 1);    /* <- take this case apart! */        
+            interpret_move(cmd, &game->squad);
+            time_system_spend(game, 1);    /* <- take this case apart! */        
             *need_redraw = 1;
             break;
         case cmd_explore:
-            exploring_system_explore_squad_cell(&state->squad, 
-                                                &state->world, 
+            exploring_system_explore_squad_cell(&game->squad, 
+                                                &game->world, 
                                                 &info->events_info, 
-                                                &state->active_event_id,
+                                                &game->active_event_id,
                                                 info->cells_info);
             *need_redraw = 1;
             break;
         case cmd_next:
-            time_system_spend(state, 1);
+            time_system_spend(game, 1);
             break;
         case cmd_info:
-            interpret_info(cmd, &state->squad, 
+            interpret_info(cmd, &game->squad, 
                            info->unit_templates,
                            info->items);
             break;
         case cmd_equip:
-            interpret_equip(cmd, &state->squad);
+            interpret_equip(cmd, &game->squad);
             break;
         case cmd_unequip:
-            interpret_unequip(cmd, &state->squad);
+            interpret_unequip(cmd, &game->squad);
             break;
         case cmd_improve:
-            interpret_unit_improve(cmd, &state->squad);
+            interpret_unit_improve(cmd, &game->squad);
             break;
         case cmd_help:
             /* write help message */
