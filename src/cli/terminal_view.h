@@ -32,7 +32,7 @@ void draw_context_init(struct draw_frame_context *context, struct world *world,
                        struct squad *squad, const struct cell_info cells_info[], 
                                  const struct item_info items_info[], int days);
 
-void terminal_view_init_framebuffer(char* framebuffer_ptr);
+void terminal_view_init_framebuffer(char *framebuffer_ptr);
 
 
 void terminal_view_update_framebuffer(char *framebuffer, 

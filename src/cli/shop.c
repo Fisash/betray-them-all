@@ -4,6 +4,7 @@
 
 #include "cli/shop.h"
 #include "cli/base.h"
+#include "cli/print.h"
 
 #include "core/shop_system.h"
 
@@ -115,7 +116,7 @@ void cli_shop_run(struct shop **active_shop, struct squad *squad,
     int is_need_draw_shop_items = 1;
     char input_buf[INPUT_BUF_SIZE];
     struct command cmd;
-    for(;;)
+    for(;;)     /* get rid */
     {
         if(is_need_draw_shop_items)
         {
@@ -123,7 +124,7 @@ void cli_shop_run(struct shop **active_shop, struct squad *squad,
             draw_shop_items(*active_shop, info); 
         }
 
-        cmd = cli_base_input_command(input_buf);
+        cli_base_input_command(&cmd, input_buf);
 
         if((strcmp(cmd.argv[0], "leave") == 0) || 
            (strcmp(cmd.argv[0], "quit") == 0)  ||
