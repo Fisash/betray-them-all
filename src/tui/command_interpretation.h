@@ -4,7 +4,7 @@
 #include "core/exploring_system.h"
 #include "core/event_system.h"
 #include "core/squad_movement.h"
-#include "cli/base.h"
+#include "tui/base.h"
 
 /* dependencies are not clear! */
 /* where the fckn game_info and game_state?? */

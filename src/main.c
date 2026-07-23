@@ -1,5 +1,7 @@
-#ifdef CLI
+#if defined(CLI)
 #   include "cli/entry.h"
+#elif defined(TUI)
+#   include "tui/entry.h"
 #elif defined(XLIB)
 #   include "gui/gui-frontend/gui_main.h"
 #   include "gui/xlib-port/xlib.h"
@@ -10,7 +12,7 @@
 #include "core/state/game_state.h"
 #include "core/defs/game_info.h"
 
-int main()
+int main(int argc, char **argv)
 {
     struct game_info game_info;
     game_info_load(&game_info);
@@ -18,7 +20,9 @@ int main()
     struct game_state game_state;
     game_state_init(&game_state, &game_info);
 
-#ifdef CLI
+#if defined(CLI)
+    game_entry(argc, argv);
+#elif defined(TUI)
     cli_run(&game_state, &game_info);
 #elif defined(XLIB)
     struct platform_interface platform;

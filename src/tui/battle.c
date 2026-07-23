@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "cli/battle.h"
-#include "cli/base.h"
+#include "tui/battle.h"
+#include "tui/base.h"
 
 #include "core/battle/battle_system.h"
 #include "core/battle/battle_bot.h"

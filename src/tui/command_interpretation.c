@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "cli/command_interpretation.h"
-#include "cli/print.h"
+#include "tui/command_interpretation.h"
+#include "tui/print.h"
 
 #define HELP_MSG_INFO    "info [unit|item]"
 #define HELP_MSG_UNEQUIP "unequip [N unit] [weapon|armor]"
@@ -32,12 +32,6 @@ static void interpret_unit_info(struct command *cmd, struct squad *squad,
 static void interpret_item_info(struct command *cmd, struct squad *squad, 
                                      const struct item_info items_info[])
 {
-    if(cmd->argc < 3) 
-    {
-        puts("Identify item to put info.");
-        return;
-    }
-    
     uint8_t item_num = atoi(cmd->argv[2]);
     struct item *item = squad_get_item_by_num(squad, item_num);
     if(item && item->id != ITEM_NONE)
@@ -48,12 +42,11 @@ static void interpret_info(struct command *cmd, struct squad *squad,
                              const struct unit_template templates[],
                                 const struct item_info items_info[])
 {
-    if(cmd->argc < 2)
+    if(cmd->argc < 3)
     {
         puts(HELP_MSG_INFO);
         return;
     }
-
     if(strcmp(cmd->argv[1], "unit") == 0)
         interpret_unit_info(cmd, squad, templates, items_info); 
     else if(strcmp(cmd->argv[1], "item") == 0)

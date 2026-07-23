@@ -1,8 +1,8 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "cli/base.h"
-#include "cli/print.h"
+#include "tui/base.h"
+#include "tui/print.h"
 
 static void parse_command(char *input_buf, struct command *cmd)
 {

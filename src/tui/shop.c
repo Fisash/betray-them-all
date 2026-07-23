@@ -2,9 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "cli/shop.h"
-#include "cli/base.h"
-#include "cli/print.h"
+#include "tui/shop.h"
+#include "tui/base.h"
+#include "tui/print.h"
 
 #include "core/shop_system.h"
 

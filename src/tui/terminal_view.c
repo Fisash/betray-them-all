@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "cli/terminal_view.h"
+#include "tui/terminal_view.h"
 
 #include "core/world_queries.h"
 
