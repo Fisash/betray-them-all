@@ -16,6 +16,7 @@ struct game_state {
     int16_t active_event_id;
     uint16_t days;
 
+    uint8_t is_running;
     uint8_t is_over;
 };
 
