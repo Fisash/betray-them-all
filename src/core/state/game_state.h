@@ -8,6 +8,15 @@
 
 #include "core/defs/game_info.h"
 
+enum game_status {
+    LEAVE,
+    LOSE,
+    FIGHTING,
+    SHOPPING,
+    EVENT_HAPPENING,
+    IDLE
+};
+
 struct game_state {
     struct world world;
     struct squad squad;
@@ -21,5 +30,7 @@ struct game_state {
 };
 
 void game_state_init(struct game_state *game_state, const struct game_info *info);
+
+enum game_status game_state_get_status(const struct game_state *state);
 
 #endif

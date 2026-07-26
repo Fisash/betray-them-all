@@ -8,7 +8,7 @@
 
 void draw_context_init(struct draw_frame_context *context, struct world *world, 
                       struct squad *squad, const struct cell_info cells_info[], 
-                             const struct item_info items_info[], int days)
+                                const struct item_info items_info[], int *days)
 {
     context->world = world;
     context->squad = squad;
@@ -221,13 +221,12 @@ void terminal_view_update_framebuffer(char *framebuffer,
     draw_str(&cursor, " provision: ");
     draw_int(&cursor, provision);
     draw_str(&cursor, "  day: ");
-    draw_int(&cursor, context->days);
+    draw_int(&cursor, *(context->days));
 
     cursor = get_cursor(framebuffer, 56, 0);
     draw_squad_cell_info(&cursor, context);
 
     draw_squad(framebuffer, context->squad, context->items_info);
-
 
     draw_player(framebuffer, context->squad);
 }

@@ -1,7 +1,6 @@
 #include "core/exploring_system.h"
 
 #include "core/event_system.h"
-#include "core/world_queries.h"
 
 void exploring_system_explore_cell(struct cell *cell, struct cell **cd_list,
                         const struct events_info *info, int16_t *active,
@@ -28,7 +27,7 @@ void exploring_system_explore_squad_cell(struct squad *squad, struct world *worl
                               const struct events_info *info, int16_t *active,
                                           const struct cell_info cells_info[])
 {
-    struct cell *cell = world_queries_get_squad_cell(squad, world);
+    struct cell *cell = &world->cells[squad->pos_y][squad->pos_x];
     exploring_system_explore_cell(cell, world->event_cd_cells, 
                                     info, active, cells_info);
 }

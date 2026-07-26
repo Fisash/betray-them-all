@@ -48,7 +48,7 @@ static uint32_t get_world_view_pixel(const struct world *world,
 }
 
 void world_renderer_render(struct frame_buffer *fb, const struct camera *cam,
-                                                        const struct world *world,
+                                                    const struct world *world,
                                                const struct sprite sprites[])
 {
     int x, y;

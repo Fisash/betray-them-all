@@ -4,16 +4,11 @@
 
 #include "cli/entry.h"
 #include "cli/base.h"
-#include "cli/terminal_view.h"
 #include "cli/battle.h"
 #include "cli/shop.h"
 #include "cli/command_interpretation.h"
-
-static void draw(char *framebuffer, struct draw_frame_context *context)
-{
-    terminal_view_redraw(framebuffer, context);
-    terminal_view_stdout_framebuffer(framebuffer);
-}
+#include "cli/command_info.h"
+#include "cli/command_parser.h"
 
 static void output_event_info(const struct event *event, uint8_t answer_count)
 {
@@ -24,7 +19,6 @@ static void output_event_info(const struct event *event, uint8_t answer_count)
        printf("%d. %s\n", i+1, event->answers[i].text);
     putchar('>');
 }
-
 
 static void cli_active_event(struct game_state *state, const struct game_info *info)
 {
@@ -39,78 +33,40 @@ static void cli_active_event(struct game_state *state, const struct game_info *i
     state->active_event_id = EVENT_NONE;
 }
 
+struct command_inputer inputer;
 
-enum {
-    leave,
-    lose,
-    fighting,
-    shopping,
-    event_happening,
-    idle
-};
-
-static int current_game_state(const struct game_state *state)
+static void game_input_command(struct game_state *game, const struct game_info *info)
 {
-    if(!state->is_running)
-        return leave;
-    else if(state->is_over)
-        return lose;
-    else if(state->battle.status == BATTLE_STATUS_ACTIVE)
-        return fighting;
-    else if(state->active_shop)
-        return shopping;
-    else if(state->active_event_id != EVENT_NONE)
-        return event_happening;
-    else
-        return idle;
+    command_inputer_input(&inputer);
+    interpret_command(&inputer.cmd, game, info);
 }
-
-static char buf_frame[FRAME_HEIGHT*FRAME_WIDTH];
-static char buf_input[INPUT_BUF_SIZE];
 
 void cli_run(struct game_state *game, const struct game_info *info)
 {
-    struct draw_frame_context draw_context;
-    struct command cmd;
-    char *frame, *input;
-    int need_redraw;
-    frame = buf_frame;
-    input = buf_input; 
-    terminal_view_init_framebuffer(frame);
-    draw_context_init(&draw_context, &game->world, &game->squad,
-                      info->cells_info, info->items, game->days);
-    need_redraw = 1;
+    command_inputer_init(&inputer); /* move to init from main */
     game->is_running = 1;
     while(game->is_running)
     {
-        if(need_redraw)
+        switch (game_state_get_status(game))
         {
-            draw_context.days = game->days;
-            draw(frame, &draw_context);
-            need_redraw = 0;
-        }
-        cli_base_input_command(&cmd, input);
-        interpret_command(&cmd, game, info, &need_redraw);        
-        switch (current_game_state(game))
-        {
-            case fighting:
+            case FIGHTING:
                 cli_battle_run(&game->battle, info);
                 break;
-            case shopping:
-                cli_shop_run(&game->active_shop, &game->squad, info->items);
+            case SHOPPING:
+                cli_shop_run(&inputer, &game->active_shop, &game->squad);
                 break;
-            case event_happening:
+            case EVENT_HAPPENING:
                 cli_active_event(game, info);
                 break;
-            case lose:
+            case LOSE:
                 puts("You lost!");
                 game->is_running = 0;
                 break;
-            case leave:
+            case LEAVE:
                 puts("Exitting.");
                 break;
-            case idle:
             default:
+                game_input_command(game, info);
                 break;
         }
     }

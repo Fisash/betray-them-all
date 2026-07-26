@@ -90,6 +90,9 @@ void world_fill_cells_id_buffer(struct world *world, char *buffer)
     for (y = 0; y < WORLD_HEIGHT; y++)
     {
         for (x = 0; x < WORLD_WIDTH; x++)
-            *(buffer++) = (char)world->cells[y][x].type_id;
+        {
+            *buffer = (char)world->cells[y][x].type_id;
+            buffer++;
+        }
     }
 }

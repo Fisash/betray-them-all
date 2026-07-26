@@ -10,12 +10,12 @@
 #include "core/state/game_state.h"
 #include "core/defs/game_info.h"
 
+struct game_info game_info;
+struct game_state game_state;
+
 int main()
 {
-    struct game_info game_info;
     game_info_load(&game_info);
-
-    struct game_state game_state;
     game_state_init(&game_state, &game_info);
 
 #ifdef CLI

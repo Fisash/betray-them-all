@@ -2,7 +2,7 @@ CC = gcc
 OPT = -O2
 STRIP_FLAG = -s
 
-CFLAGS = -Wall -Wextra -std=c89 -MMD -MP \
+CFLAGS = -Wall -Werror -Wextra -std=c89 -MMD -MP \
          -fno-asynchronous-unwind-tables -flto -fno-ident \
          -ffunction-sections -fdata-sections
 
