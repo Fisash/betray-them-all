@@ -2,7 +2,6 @@
 #include <stdlib.h>
 
 #include "core/event_system.h"
-#include "core/world_queries.h"
 
 static void start_forest_animals_battle(struct battle_state *b, 
                     struct squad *squad, const struct game_info *info)
@@ -18,7 +17,7 @@ static void start_forest_animals_battle(struct battle_state *b,
 static void open_village_shop(struct shop **active_shop, 
                               struct squad *squad, struct world *world)
 {
-    struct cell *squad_cell = world_queries_get_squad_cell(squad, world);
+    struct cell *squad_cell = &world->cells[squad->pos_y][squad->pos_x];
     if(squad_cell->type_id != CELL_TYPE_VILLAGE)
         return;
     *active_shop = &(world->villages[squad_cell->data_index].shop);
@@ -81,7 +80,7 @@ int16_t event_system_choose_explore_event_id(const struct events_info *info,
 
 
 const struct event *event_system_choose_explore_event(const struct events_info *info, 
-                                                             struct cell *cell)
+                                                                   struct cell *cell)
 {
     int16_t id = event_system_choose_explore_event_id(info, cell);
     return &(info->events[id]);

@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include "input.h"
 
@@ -15,56 +16,66 @@ void input_line(char *buf, size_t len)
 {
     int is_done, ch;
     size_t cur;
-    memset(buf, 0, len);
     cur = 0;
     is_done = 0;
-    while(!is_done && cur<len)
+    while(!is_done)
     {
         ch = getchar();
-        if(is_printable(ch))
+        if(is_printable(ch) && cur<len-1)
         {
             buf[cur] = (char)ch;
             putchar(ch);
             cur++;
         }
-        else
+        else if(ch == '\n')
         {
-            switch(ch)
-            {
-                case enter:
-                    putchar(ch);
-                    is_done = 1;
-                    break;
-                case backspace:
-                    if(cur > 0)
-                    {
-                        buf[cur] = '\0';
-                        fputs(ERASE_CHAR_SEQUENCE, stdout);
-                        cur--;
-                    }
-                    break;
-                default:
-                    break;
-            }
+            putchar('\n');
+            is_done = 1;
+        }
+        else if(ch == '\b' && cur > 0)
+        {
+            fputs(ERASE_CHAR_SEQUENCE, stdout);
+            cur--;
         }
     }
+    buf[cur] = '\0';
 }
 
-enum { buf_size=16 };
+/*-----------------------------------------------------------------------*/
+
+#if 0
+enum { input_size=16 };
 
 void simple_shell(const char *prefix)
 {
-    char buf[buf_size];
+    char input[input_size];
     int is_continue;
     is_continue = 1;
     while(is_continue)
     {
-        memset(buf, 0, buf_size);
-        if (prefix)
+        if(prefix)
             fputs(prefix, stdout);
-        input_line(buf, buf_size);
-        if (strcmp(buf, "quit") == 0)
+        input_line(input, input_size);
+        if(strcmp(input, "quit") == 0)
             is_continue = 0;
+        else if(strcmp(input, "q") == 0)
+            is_continue = 0;
+        else if(strlen(input))
+            puts(input);
     }
 }
+#endif
 
+/*-----------------------------------------------------------------------*/
+
+int input_choose_number(int min, int max)
+{
+    char input[4];
+    int res = 0;
+    while(res < min || res > max)
+    {
+        input_line(input, 4);
+        res = atoi(input);
+    }
+    return res;
+}

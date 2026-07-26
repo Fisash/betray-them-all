@@ -5,8 +5,8 @@
 #include "core/state/item_storage.h"
 
 void shop_init(struct shop *shop, uint16_t gold, 
-                     float sell_multiplier,
-                     float buy_multiplier )
+                          float sell_multiplier,
+                           float buy_multiplier)
 {
     memset(&shop->items, 0, sizeof(struct item)*SHOP_MAX_ITEMS_COUNT);
     shop->gold = gold;
@@ -14,9 +14,10 @@ void shop_init(struct shop *shop, uint16_t gold,
     shop->buy_multiplier = buy_multiplier;
 }
 
-struct item *shop_get_item_by_num(struct shop *shop, uint8_t num)
+struct item *shop_get_item_by_num(struct shop *shop, uint16_t num)
 {
-    return item_storage_get_item(shop->items, SHOP_MAX_ITEMS_COUNT, (num-1));
+    return item_storage_get_item(shop->items, 
+              SHOP_MAX_ITEMS_COUNT, (num-1));
 }
 
 uint16_t shop_get_sell_price(struct shop *shop, struct item *item)

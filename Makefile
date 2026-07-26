@@ -2,7 +2,7 @@ CC = gcc
 OPT = -O2
 STRIP_FLAG = -s
 
-CFLAGS = -Wall -Wextra -std=c89 -MMD -MP \
+CFLAGS = -Wall -Werror -Wextra -std=c89 -MMD -MP \
          -fno-asynchronous-unwind-tables -flto -fno-ident \
          -ffunction-sections -fdata-sections
 
@@ -29,10 +29,6 @@ CLI_SRC = $(wildcard $(SRCDIR)/cli/*.c)
 CLI_OBJ = $(patsubst $(SRCDIR)/cli/%.c,$(BUILDDIR)/cli/%.o,$(CLI_SRC))
 MAIN_CLI_OBJ = $(BUILDDIR)/cli/main.o
 
-TUI_SRC = $(wildcard $(SRCDIR)/tui/*.c)
-TUI_OBJ = $(patsubst $(SRCDIR)/tui/%.c,$(BUILDDIR)/tui/%.o,$(TUI_SRC))
-MAIN_TUI_OBJ = $(BUILDDIR)/tui/main.o
-
 XLIB_PORT_SRC = $(wildcard $(SRCDIR)/gui/xlib-port/*.c)
 XLIB_PORT_OBJ = $(patsubst $(SRCDIR)/gui/xlib-port/%.c,$(BUILDDIR)/xlib/port/%.o,$(XLIB_PORT_SRC))
 MAIN_XLIB_OBJ = $(BUILDDIR)/xlib/main.o
@@ -49,24 +45,6 @@ $(GUI_FRONTEND_OBJ): $(BUILDDIR)/gui/frontend/%.o: $(SRCDIR)/gui/gui-frontend/%.
 
 $(CLI_OBJ): CFLAGS += -DCLI
 $(CLI_OBJ): $(BUILDDIR)/cli/%.o: $(SRCDIR)/cli/%.c
-	@mkdir -p $(@D)
-	@echo "compiling $(notdir $<)"
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-$(TUI_OBJ): CFLAGS += -DTUI
-$(TUI_OBJ): $(BUILDDIR)/tui/%.o: $(SRCDIR)/tui/%.c
-	@mkdir -p $(@D)
-	@echo "compiling $(notdir $<)"
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-$(MAIN_CLI_OBJ): CFLAGS += -DCLI
-$(MAIN_CLI_OBJ): $(SRCDIR)/main.c
-	@mkdir -p $(@D)
-	@echo "compiling $(notdir $<)"
-	@$(CC) $(CFLAGS) -c $< -o $@
-
-$(MAIN_TUI_OBJ): CFLAGS += -DTUI
-$(MAIN_TUI_OBJ): $(SRCDIR)/main.c
 	@mkdir -p $(@D)
 	@echo "compiling $(notdir $<)"
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -95,10 +73,6 @@ core: $(CORE_OBJ)
 gui: $(GUI_FRONTEND_OBJ)    
 
 cli: $(CORE_OBJ) $(CLI_OBJ) $(MAIN_CLI_OBJ)
-	@echo "linking everything"
-	@$(CC) $(LDFLAGS) $^ -o $@
-
-tui: $(CORE_OBJ) $(TUI_OBJ) $(MAIN_TUI_OBJ)
 	@echo "linking everything"
 	@$(CC) $(LDFLAGS) $^ -o $@
 

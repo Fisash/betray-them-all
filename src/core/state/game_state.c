@@ -41,3 +41,19 @@ void game_state_init(struct game_state *game_state, const struct game_info *info
     give_start_items(squad, info);
     game_state->active_event_id = EVENT_NONE;
 }
+
+enum game_status game_state_get_status(const struct game_state *state)
+{
+    if(!state->is_running)
+        return LEAVE;
+    else if(state->is_over)
+        return LOSE;
+    else if(state->battle.status == BATTLE_STATUS_ACTIVE)
+        return FIGHTING;
+    else if(state->active_shop)
+        return SHOPPING;
+    else if(state->active_event_id != EVENT_NONE)
+        return EVENT_HAPPENING;
+    else
+        return IDLE;
+}

@@ -2,11 +2,18 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "tui/shop.h"
-#include "tui/base.h"
-#include "tui/print.h"
+#include "cli/shop.h"
+#include "cli/base.h"
+#include "cli/print.h"
+#include "cli/syntax_parser.h"
 
 #include "core/shop_system.h"
+
+static struct shop_interface_state {
+    int is_selling_mode;
+    int is_view_info_mode;
+    uint8_t page;
+};
 
 static void draw_shop_items(struct shop *shop, const struct item_info info[])
 {
@@ -110,21 +117,35 @@ static void cli_item_info(struct command *cmd, struct shop *shop,
         print_item_info(item, items_info, NULL);
 }
 
+static void print_navigation_message(struct shop_interface_state *state)
+{
+    puts("items for [b]uy, items for [s]ale, [i]nfo, [d]eal, [l]eave"); 
+    
+    const char *deal_type = 
+        state->is_selling_mode ? "sell" : "buy";
+    const char *item_ownership = 
+        state->is_selling_mode ? "squad`s" : "seller`s";
+    const char *interact_type = 
+        state->is_view_info_mode ? "get info" : deal_type;
+    
+    printf("Select %s item for %s:\n", item_ownership, interact_type);
+    printf("Page[%d:%d]:", state->page, 
+}
+
 void cli_shop_run(struct shop **active_shop, struct squad *squad, 
                                    const struct item_info info[])
 {
-    int is_need_draw_shop_items = 1;
-    char input_buf[INPUT_BUF_SIZE];
-    struct command cmd;
-    for(;;)     /* get rid */
+    struct shop_interface_state state;
+
+    while(*active_shop != NULL)
     {
+        print_navigation_message(&state);
+
         if(is_need_draw_shop_items)
         {
             printf("Squad gold: %d\n", squad->gold);
             draw_shop_items(*active_shop, info); 
         }
-
-        cli_base_input_command(&cmd, input_buf);
 
         if((strcmp(cmd.argv[0], "leave") == 0) || 
            (strcmp(cmd.argv[0], "quit") == 0)  ||

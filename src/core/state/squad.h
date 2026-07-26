@@ -50,18 +50,20 @@ void squad_init(struct squad *squad, uint16_t x, uint16_t y,
 
 int squad_add_item(struct squad *squad, struct item *item);
 
-struct item *squad_get_item_by_num(struct squad *squad, uint8_t num);
+struct item *squad_get_item_by_num(struct squad *squad, uint16_t num);
 
-struct unit *squad_get_unit_by_num(struct squad *squad, uint8_t num);
+struct unit *squad_get_unit_by_num(struct squad *squad, uint16_t num);
 
 int squad_add_unit(struct squad *squad, struct unit *unit);
 
 void squad_consume_day_provision(struct squad *squad);
 
 enum squad_unit_equip_status 
-    squad_unit_equip(struct squad *squad, uint8_t unit_num, struct item *item);
+    squad_unit_equip(struct squad *squad, uint16_t unit_num, 
+                                         struct item *item);
 
 enum squad_unit_unequip_status
-    squad_unit_unequip(struct squad *squad, uint8_t unit_num, enum item_type type);
+    squad_unit_unequip(struct squad *squad, uint16_t unit_num, 
+                                         enum item_type type);
 
 #endif

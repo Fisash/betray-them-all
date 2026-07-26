@@ -3,6 +3,6 @@
 
 void input_line(char *buf, size_t len);
 
-void simple_shell(const char *prefix);
+int input_choose_number(int min, int max);
 
 #endif

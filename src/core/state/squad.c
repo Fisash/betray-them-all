@@ -32,21 +32,23 @@ int squad_add_item(struct squad *squad, struct item *item)
     return item_storage_add(squad->inventory, SQUAD_MAX_ITEMS, item);
 }
 
-struct item *squad_get_item_by_num(struct squad *squad, uint8_t num)
+struct item *squad_get_item_by_num(struct squad *squad, uint16_t num)
 {
     return item_storage_get_item(squad->inventory, SQUAD_MAX_ITEMS, (num-1));
 }
 
-struct unit *squad_get_unit_by_num(struct squad *squad, uint8_t num)
+struct unit *squad_get_unit_by_num(struct squad *squad, uint16_t num)
 {
     struct unit *unit;
-    uint8_t i, current;
+    uint16_t i, current;
     for(i = 0, current = 0; i < SQUAD_MAX_UNITS; i++)
     {
         unit = &squad->units[i];
         if(!unit->is_alive)
             continue;
-        if(++current == num)
+
+        current++;
+        if(current == num)
             return unit;
     }
 
@@ -90,7 +92,8 @@ void squad_consume_day_provision(struct squad *squad)
 }
 
 enum squad_unit_equip_status 
-    squad_unit_equip(struct squad *squad, uint8_t unit_num, struct item *item)
+squad_unit_equip(struct squad *squad, uint16_t unit_num, 
+                                      struct item *item)
 {
     struct unit *unit = squad_get_unit_by_num(squad, unit_num);
     if(!unit)
@@ -117,7 +120,8 @@ enum squad_unit_equip_status
 }
 
 enum squad_unit_unequip_status
-squad_unit_unequip(struct squad *squad, uint8_t unit_num, enum item_type type)
+squad_unit_unequip(struct squad *squad, uint16_t unit_num, 
+                                      enum item_type type)
 {
     struct unit *unit = squad_get_unit_by_num(squad, unit_num);
     if(!unit)

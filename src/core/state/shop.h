@@ -13,9 +13,9 @@ struct shop {
 };
 
 void shop_init(struct shop *shop, uint16_t gold, float sell_multiplier,
-                                             float buy_multiplier);
+                                                 float buy_multiplier);
 
-struct item *shop_get_item_by_num(struct shop *shop, uint8_t num);
+struct item *shop_get_item_by_num(struct shop *shop, uint16_t num);
 
 uint16_t shop_get_sell_price(struct shop *shop, struct item *item);
 

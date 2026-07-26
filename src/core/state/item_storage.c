@@ -18,7 +18,7 @@ int item_storage_add(struct item storage[], size_t capacity, struct item *item)
 }
 
 int item_storage_add_by_item_id(struct item storage[], size_t capacity, 
-                             const struct item_info info[], enum item_id id)
+                        const struct item_info info[], enum item_id id)
 {
     struct item item;
     item_init(&item, info, id);
@@ -26,7 +26,7 @@ int item_storage_add_by_item_id(struct item storage[], size_t capacity,
 }
 
 struct item *item_storage_get_item(struct item storage[], size_t capacity,   
-                                            uint16_t real_index)
+                                                      uint16_t real_index)
 {
     size_t i;
     uint16_t current;

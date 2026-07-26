@@ -2,18 +2,14 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "tui/entry.h"
-#include "tui/base.h"
-#include "tui/terminal_view.h"
-#include "tui/battle.h"
-#include "tui/shop.h"
-#include "tui/command_interpretation.h"
-
-static void draw(char *framebuffer, struct draw_frame_context *context)
-{
-    terminal_view_redraw(framebuffer, context);
-    terminal_view_stdout_framebuffer(framebuffer);
-}
+#include "cli/entry.h"
+#include "cli/base.h"
+#include "cli/terminal_view.h"
+#include "cli/battle.h"
+#include "cli/shop.h"
+#include "cli/command_interpretation.h"
+#include "cli/command_info.h"
+#include "cli/syntax_parser.h"
 
 static void output_event_info(const struct event *event, uint8_t answer_count)
 {
@@ -68,28 +64,30 @@ static int current_game_state(const struct game_state *state)
 static char buf_frame[FRAME_HEIGHT*FRAME_WIDTH];
 static char buf_input[INPUT_BUF_SIZE];
 
+struct command_info commands_info[CMD_COUNT];
+
 void cli_run(struct game_state *game, const struct game_info *info)
 {
     struct draw_frame_context draw_context;
-    struct command cmd;
-    char *frame, *input;
-    int need_redraw;
-    frame = buf_frame;
-    input = buf_input; 
+    struct parsed_command cmd;
+    char *frame = buf_frame;
+    char *input = buf_input; 
+    commands_info_init(commands_info);
     terminal_view_init_framebuffer(frame);
     draw_context_init(&draw_context, &game->world, &game->squad,
-                      info->cells_info, info->items, game->days);
-    need_redraw = 1;
+                    info->cells_info, info->items, &game->days);
     game->is_running = 1;
     while(game->is_running)
     {
-        if(need_redraw)
+        syntax_command_input(&cmd, input, commands_info);
+        interpret_command(&cmd, game, info, commands_info);
+        if(commands_info[cmd.type].is_need_redraw_after_execution)
         {
-            draw_context.days = game->days;
-            draw(frame, &draw_context);
-            need_redraw = 0;
+            terminal_view_redraw(frame, &draw_context);
+            terminal_view_stdout_framebuffer(frame);
         }
-        switch(current_game_state(game))
+
+        switch (current_game_state(game))
         {
             case fighting:
                 cli_battle_run(&game->battle, info);
@@ -108,8 +106,6 @@ void cli_run(struct game_state *game, const struct game_info *info)
                 puts("Exitting.");
                 break;
             case idle:
-                cli_base_input_command(&cmd, input);
-                interpret_command(&cmd, game, info, &need_redraw);        
             default:
                 break;
         }
