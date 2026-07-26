@@ -3,7 +3,6 @@
 #include <stdlib.h>
 
 #include "cli/shop.h"
-#include "cli/base.h"
 #include "cli/print.h"
 #include "cli/command_parser.h"
 
