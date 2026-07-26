@@ -16,7 +16,7 @@ static const struct command_info cmd_move = {
 };
 
 static const struct command_info cmd_explore = {
-    { "explore", "e", NULL},
+    { "explore", "examine", "e", NULL},
     0, 
     NULL
 };
@@ -34,7 +34,7 @@ static const struct command_info cmd_info_world = {
 };
 
 static const struct command_info cmd_info_base = {
-    { "info", "base", NULL},
+    { "info", "list", "ls", "base", NULL},
     0, 
     NULL
 };

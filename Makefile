@@ -49,12 +49,6 @@ $(CLI_OBJ): $(BUILDDIR)/cli/%.o: $(SRCDIR)/cli/%.c
 	@echo "compiling $(notdir $<)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(MAIN_CLI_OBJ): CFLAGS += -DCLI
-$(MAIN_CLI_OBJ): $(SRCDIR)/main.c
-	@mkdir -p $(@D)
-	@echo "compiling $(notdir $<)"
-	@$(CC) $(CFLAGS) -c $< -o $@
-
 $(XLIB_PORT_OBJ): CFLAGS += -DXLIB
 $(XLIB_PORT_OBJ): $(BUILDDIR)/xlib/port/%.o: $(SRCDIR)/gui/xlib-port/%.c
 	@mkdir -p $(@D)

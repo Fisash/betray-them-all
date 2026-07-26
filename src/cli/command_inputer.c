@@ -1,7 +1,9 @@
 #include "cli/command_inputer.h"
 #include <stdio.h>
 #include <string.h>
+#include "input.h"
 
+#if 0
 static void lexical_input(struct command *cmd, char input_buffer[])
 {
     do
@@ -12,6 +14,24 @@ static void lexical_input(struct command *cmd, char input_buffer[])
     }
     while (cmd->argc == 0);
 }
+#endif
+
+#define INPUT_PREFIX " / "
+
+static void lexical_input(struct command *cmd, char input_buffer[])
+{
+    do
+    {
+        memset(cmd, 0, sizeof(struct command));
+
+        fputs(INPUT_PREFIX, stdout);    /* temporary i guess */
+
+        input_line(input_buffer, INPUT_BUF_SIZE);
+        command_parse_lexical(input_buffer, cmd);
+    }
+    while(cmd->argc == 0);
+}
+
 
 void command_inputer_init(struct command_inputer *c)
 {

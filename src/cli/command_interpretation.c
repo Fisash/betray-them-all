@@ -4,7 +4,9 @@
 #include "cli/command_interpretation.h"
 #include "cli/print.h"
 
-#define UNKNOWN_COMMAND_MSG "Unknown command!"
+#define MSG_UNKNOWN_COMMAND "Unknown command!"
+#define MSG_HELP_GENERAL \
+    "[move] [explore] [map] [info] [item(s)] [unit(s)] [(un)equip]"
 
 static void interpret_move(struct parsed_command *cmd, struct squad *squad)
 {
@@ -97,10 +99,19 @@ void interpret_unit_improve(struct parsed_command *cmd,
     puts((result == 0) ? "Stat improved!" : "No points");
 }
 
+#if 0
+void print_help_general(void)
+{
+   int i;
+   for (i=0;i<  ;i++)
+}
+#endif
+
+
 /*-----------------------------------------------------------------------*/
-void interpret_command(struct parsed_command *cmd, 
-                          struct game_state *game,
-                     const struct game_info *info)
+
+void interpret_command(struct parsed_command *cmd, struct game_state *game,
+                                              const struct game_info *info)
 {
     if (!cmd->is_correct)
     {
@@ -154,10 +165,13 @@ void interpret_command(struct parsed_command *cmd,
             interpret_unit_improve(cmd, &game->squad);
             break;
         case CMD_HELP:
-            /* write help message */
+            puts(MSG_HELP_GENERAL);
+#if 0
+            print_help_general(void);
+#endif
             break;
         case CMD_UNKNOWN:
-            puts(UNKNOWN_COMMAND_MSG);
+            puts(MSG_UNKNOWN_COMMAND);
             break;
         default:
             break;

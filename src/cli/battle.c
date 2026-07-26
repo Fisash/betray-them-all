@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "cli/battle.h"
-#include "cli/base.h"
+#include "cli/input.h"
 
 #include "core/battle/battle_system.h"
 #include "core/battle/battle_bot.h"
@@ -68,7 +68,7 @@ static const struct skill *cli_select_skill(struct battle_turn_context *c)
 {
     int selected_index;
     draw_turn_skill_list(c);
-    selected_index = cli_base_choose_number(1, c->skill_count)-1;
+    selected_index = input_choose_number(1, c->skill_count)-1;
     return c->available_skills[selected_index];
 }
 
@@ -76,7 +76,7 @@ static struct battle_unit *cli_select_target(struct battle_skill_use_context *c)
 {
     int selected_index;
     draw_skill_use_target_list(c);
-    selected_index = cli_base_choose_number(1, c->target_count)-1;
+    selected_index = input_choose_number(1, c->target_count)-1;
     return c->available_targets.units[selected_index];
 }
 
@@ -157,11 +157,5 @@ void cli_battle_run(struct battle_state *battle, const struct game_info *info)
                            turn_context.active_unit, 
                                   skill_id, target);
         notification_turn_result(&report);
-    }
-    
-    if(battle->status == BATTLE_STATUS_LOST)
-    {
-        puts("You lost!\n");
-        exit(0);
     }
 }

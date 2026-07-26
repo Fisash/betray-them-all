@@ -1,5 +1,5 @@
-#ifndef GAME_H
-#define GAME_H
+#ifndef GAME_STATE_H
+#define GAME_STATE_H
 
 #include "core/state/world.h"
 #include "core/state/squad.h"

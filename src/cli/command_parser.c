@@ -150,9 +150,10 @@ void command_parse_syntax(struct parsed_command *out,
 
     out->type = define_command_type(first_word, info); 
     out->info = info[out->type];
-    if(lex_cmd->argc < out->info->min_argc+1)
+    if(out->type != CMD_UNKNOWN && lex_cmd->argc < out->info->min_argc+1)
         return;
 
+    out->is_correct = 0;
     switch(out->type)
     {
         case CMD_MOVE:
