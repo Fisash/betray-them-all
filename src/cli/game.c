@@ -1,77 +1,58 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <termios.h>
 
 #include "cli/game.h"
-#include "cli/input.h"
-#include "cli/battle.h"
-#include "cli/shop.h"
-#include "cli/command_interpretation.h"
-#include "cli/command_info.h"
-#include "cli/command_parser.h"
+#include "cli/game_menu.h"
 
-static void output_event_info(const struct event *event, uint8_t answer_count)
+/*-----------------------------------------------------------------------*/
+
+static void turn_off_canonical(void)
 {
-    puts(event->title);
-    puts(event->message);
-    int i;
-    for(i = 0; i < answer_count; i++)
-       printf("%d. %s\n", i+1, event->answers[i].text);
+    struct termios term;
+    tcgetattr(1, &term);
+    term.c_lflag &= ~(ECHO|ICANON);
+    tcsetattr(1, 0, &term);
 }
 
-static void cli_active_event(struct game_state *state, const struct game_info *info)
+static void turn_on_canonical(void)
 {
-    const struct event *active = 
-                  &info->events_info.events[state->active_event_id];
-    int answer_count = event_get_answer_count(active);
-
-    output_event_info(active, answer_count);
-    int answer_index = input_choose_number(1, answer_count)-1;
-
-    event_system_handle_answer(answer_index, state, info);
-
-    state->active_event_id = EVENT_NONE;
+    struct termios term;
+    tcgetattr(1, &term);
+    term.c_lflag |= ECHO|ICANON;
+    tcsetattr(1, 0, &term);
 }
 
+/*-----------------------------------------------------------------------*/
 
-struct command_inputer inputer; /* get rid */
+struct command_inputer GLOBAL_inputer;         /* get rid, rework */
+struct game_info GLOBAL_game_info;             /* get rid, rework */
 
-static void game_input_command(struct game_state *game, const struct game_info *info)
+void game_init(struct game *game)
 {
-    command_inputer_input(&inputer);
-    interpret_command(&inputer.cmd, game, info);
+    game_info_load(&GLOBAL_game_info);         /* get rid, rework */
+    command_inputer_init(&GLOBAL_inputer);     /* get rid, rework */
+
+    game->info = &GLOBAL_game_info;
+    game->inputer = &GLOBAL_inputer;
+    game->state = NULL;
+    game->is_running = 0;
 }
 
+/*-----------------------------------------------------------------------*/
 
-void game_run(struct game_state *game, const struct game_info *info)
+void game_run(struct game *game)
 {
-    command_inputer_init(&inputer); /* move to init from main */
-                                    /* get rid */
-
-    game->is_running = 1;
-    while(game->is_running)
+    if(!isatty(0) || !isatty(1))
     {
-        switch (game_state_get_status(game))
-        {
-            case FIGHTING:
-                cli_battle_run(&game->battle, info);
-                break;
-            case SHOPPING:
-                cli_shop_run(&inputer, &game->active_shop, &game->squad);
-                break;
-            case EVENT_HAPPENING:
-                cli_active_event(game, info);
-                break;
-            case LOSE:
-                puts("You lost!");
-                game->is_running = 0;
-                break;
-            case LEAVE:
-                puts("Exitting.");
-                break;
-            default:
-                game_input_command(game, info);
-                break;
-        }
+        fputs("io device is not tty attached!\n", stderr);
+        exit(1);
     }
+    turn_off_canonical();
+    puts("Welcome to \033[1mBetray Them All\033[0m!");
+    game->is_running = 1;
+    game_menu(game);
+    turn_on_canonical();
 }

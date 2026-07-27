@@ -9,7 +9,7 @@
 #include "core/defs/game_info.h"
 
 enum game_status {
-    LEAVE,
+    LEAVE,          /* strange, probably get rid */
     LOSE,
     FIGHTING,
     SHOPPING,
@@ -25,7 +25,8 @@ struct game_state {
     int16_t active_event_id;
     uint16_t days;
 
-    uint8_t is_running;
+    uint8_t is_running;  /* probably get rid */
+                         /* or not, hm */
     uint8_t is_over;
 };
 

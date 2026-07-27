@@ -3,44 +3,24 @@
 #include <string.h>
 #include "input.h"
 
-#if 0
-static void lexical_input(struct command *cmd, char input_buffer[])
-{
-    do
-    {
-        memset(cmd, 0, sizeof(struct command));
-        fgets(input_buffer, INPUT_BUF_SIZE, stdin);
-        command_parse_lexical(input_buffer, cmd);
-    }
-    while (cmd->argc == 0);
-}
-#endif
-
-#define INPUT_PREFIX " / "
-
-static void lexical_input(struct command *cmd, char input_buffer[])
-{
-    do
-    {
-        memset(cmd, 0, sizeof(struct command));
-
-        fputs(INPUT_PREFIX, stdout);    /* temporary i guess */
-
-        input_line(input_buffer, INPUT_BUF_SIZE);
-        command_parse_lexical(input_buffer, cmd);
-    }
-    while(cmd->argc == 0);
-}
-
-
 void command_inputer_init(struct command_inputer *c)
 {
+    memset(c->input_buf, 0, INPUT_BUF_SIZE);
     commands_info_init(c->commands_info);
 }
+
+/* move to struct field ? */
+#define INPUT_PREFIX " / "
 
 void command_inputer_input(struct command_inputer *c)
 {
     struct command lex_cmd;
-    lexical_input(&lex_cmd, c->input_buf);
+    do
+    {
+        memset(&lex_cmd, 0, sizeof(struct command));  /* strange */
+        input_line_prefix(c->input_buf, INPUT_BUF_SIZE, INPUT_PREFIX);
+        command_parse_lexical(c->input_buf, &lex_cmd);
+    }
+    while(lex_cmd.argc == 0);
     command_parse_syntax(&c->cmd, &lex_cmd, c->commands_info);
 }

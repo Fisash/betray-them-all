@@ -42,7 +42,7 @@
 !_TAG_PARSER_VERSION!C	1.1	/current.age/
 !_TAG_PARSER_VERSION!C++	2.2	/current.age/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
-!_TAG_PROC_CWD	/home/fisash/Study/C/betray-them-all/	//
+!_TAG_PROC_CWD	/home/keter/code/working/betray-them-all/	//
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
@@ -68,7 +68,9 @@ ALIGN_CENTER	src/gui/gui-frontend/layout_node.h	/^    ALIGN_CENTER,$/;"	e	enum:a
 ALIGN_END	src/gui/gui-frontend/layout_node.h	/^    ALIGN_END$/;"	e	enum:alignment
 ALIGN_START	src/gui/gui-frontend/layout_node.h	/^    ALIGN_START,$/;"	e	enum:alignment
 ALL_ITEMS_COUNT	src/core/defs/items_info.h	/^    ALL_ITEMS_COUNT$/;"	e	enum:item_id
-ARGS_SPLITER	src/cli/lexical_parser.c	/^#define ARGS_SPLITER /;"	d	file:
+ARGC_MAX	src/cli/command_parser.h	/^#define ARGC_MAX /;"	d
+ARGS_SPLITER	src/cli/command_parser.c	/^#define ARGS_SPLITER /;"	d	file:
+ARGS_SPLITER	src/tui/lexical_parser.c	/^#define ARGS_SPLITER /;"	d	file:
 ARMOR_FABRIC	src/core/defs/items_info.h	/^    ARMOR_FABRIC = ARMOR_REAL_FIRST,$/;"	e	enum:item_id
 ARMOR_IRON	src/core/defs/items_info.h	/^    ARMOR_IRON,$/;"	e	enum:item_id
 ARMOR_LEATHER	src/core/defs/items_info.h	/^    ARMOR_LEATHER,$/;"	e	enum:item_id
@@ -99,42 +101,80 @@ CELL_TYPE_MEADOW	src/core/defs/cell_info.h	/^    CELL_TYPE_MEADOW,$/;"	e	enum:ce
 CELL_TYPE_MOUNTAIN	src/core/defs/cell_info.h	/^    CELL_TYPE_MOUNTAIN,$/;"	e	enum:cell_type_id
 CELL_TYPE_NONE	src/core/defs/cell_info.h	/^    CELL_TYPE_NONE = 0,$/;"	e	enum:cell_type_id
 CELL_TYPE_VILLAGE	src/core/defs/cell_info.h	/^    CELL_TYPE_VILLAGE,$/;"	e	enum:cell_type_id
-CELL_VIEW_DEFAULT	src/cli/terminal_view.h	/^#define CELL_VIEW_DEFAULT /;"	d
-CELL_VIEW_FOREST	src/cli/terminal_view.h	/^#define CELL_VIEW_FOREST /;"	d
-CELL_VIEW_MEADOW	src/cli/terminal_view.h	/^#define CELL_VIEW_MEADOW /;"	d
-CELL_VIEW_MOUNTAIN	src/cli/terminal_view.h	/^#define CELL_VIEW_MOUNTAIN /;"	d
-CELL_VIEW_SQUAD	src/cli/terminal_view.h	/^#define CELL_VIEW_SQUAD /;"	d
-CELL_VIEW_VILLAGE	src/cli/terminal_view.h	/^#define CELL_VIEW_VILLAGE /;"	d
+CELL_VIEW_DEFAULT	src/cli/print.c	/^#define CELL_VIEW_DEFAULT /;"	d	file:
+CELL_VIEW_DEFAULT	src/tui/terminal_view.h	/^#define CELL_VIEW_DEFAULT /;"	d
+CELL_VIEW_FOREST	src/cli/print.c	/^#define CELL_VIEW_FOREST /;"	d	file:
+CELL_VIEW_FOREST	src/tui/terminal_view.h	/^#define CELL_VIEW_FOREST /;"	d
+CELL_VIEW_MEADOW	src/cli/print.c	/^#define CELL_VIEW_MEADOW /;"	d	file:
+CELL_VIEW_MEADOW	src/tui/terminal_view.h	/^#define CELL_VIEW_MEADOW /;"	d
+CELL_VIEW_MOUNTAIN	src/cli/print.c	/^#define CELL_VIEW_MOUNTAIN /;"	d	file:
+CELL_VIEW_MOUNTAIN	src/tui/terminal_view.h	/^#define CELL_VIEW_MOUNTAIN /;"	d
+CELL_VIEW_SQUAD	src/cli/print.c	/^#define CELL_VIEW_SQUAD /;"	d	file:
+CELL_VIEW_SQUAD	src/tui/terminal_view.h	/^#define CELL_VIEW_SQUAD /;"	d
+CELL_VIEW_VILLAGE	src/cli/print.c	/^#define CELL_VIEW_VILLAGE /;"	d	file:
+CELL_VIEW_VILLAGE	src/tui/terminal_view.h	/^#define CELL_VIEW_VILLAGE /;"	d
 CELL_WIDTH_PIXELS	src/gui/gui-frontend/render/world_renderer.h	/^#define CELL_WIDTH_PIXELS /;"	d
-CLI_BASE_H	src/cli/base.h	/^#define CLI_BASE_H$/;"	d
+CLI_BASE_H	src/tui/base.h	/^#define CLI_BASE_H$/;"	d
 CLI_BATTLE_H	src/cli/battle.h	/^#define CLI_BATTLE_H$/;"	d
+CLI_BATTLE_H	src/tui/battle.h	/^#define CLI_BATTLE_H$/;"	d
 CLI_PRINT_H	src/cli/print.h	/^#define CLI_PRINT_H$/;"	d
+CLI_PRINT_H	src/tui/print.h	/^#define CLI_PRINT_H$/;"	d
 CLI_SHOP_H	src/cli/shop.h	/^#define CLI_SHOP_H$/;"	d
+CLI_SHOP_H	src/tui/shop.h	/^#define CLI_SHOP_H$/;"	d
 CMD_COUNT	src/cli/command_info.h	/^    CMD_COUNT = CMD_UNKNOWN$/;"	e	enum:command_type
+CMD_COUNT	src/tui/command_info.h	/^    CMD_COUNT = CMD_UNKNOWN$/;"	e	enum:command_type
 CMD_EQUIP	src/cli/command_info.h	/^    CMD_EQUIP,$/;"	e	enum:command_type
+CMD_EQUIP	src/tui/command_info.h	/^    CMD_EQUIP,$/;"	e	enum:command_type
 CMD_EXIT	src/cli/command_info.h	/^    CMD_EXIT,$/;"	e	enum:command_type
+CMD_EXIT	src/tui/command_info.h	/^    CMD_EXIT,$/;"	e	enum:command_type
 CMD_EXPLORE	src/cli/command_info.h	/^    CMD_EXPLORE,$/;"	e	enum:command_type
+CMD_EXPLORE	src/tui/command_info.h	/^    CMD_EXPLORE,$/;"	e	enum:command_type
 CMD_HELP	src/cli/command_info.h	/^    CMD_HELP,$/;"	e	enum:command_type
+CMD_HELP	src/tui/command_info.h	/^    CMD_HELP,$/;"	e	enum:command_type
 CMD_IMPROVE	src/cli/command_info.h	/^    CMD_IMPROVE,$/;"	e	enum:command_type
-CMD_INFO_ITEM	src/cli/command_info.h	/^    CMD_INFO_ITEM,$/;"	e	enum:command_type
-CMD_INFO_UNIT	src/cli/command_info.h	/^    CMD_INFO_UNIT,$/;"	e	enum:command_type
+CMD_IMPROVE	src/tui/command_info.h	/^    CMD_IMPROVE,$/;"	e	enum:command_type
+CMD_INFO_ITEM	src/tui/command_info.h	/^    CMD_INFO_ITEM,$/;"	e	enum:command_type
+CMD_INFO_UNIT	src/tui/command_info.h	/^    CMD_INFO_UNIT,$/;"	e	enum:command_type
+CMD_INFO_WORLD	src/cli/command_info.h	/^    CMD_INFO_WORLD,$/;"	e	enum:command_type
+CMD_LOADGAME	src/cli/command_info.h	/^    CMD_LOADGAME,$/;"	e	enum:command_type
 CMD_MAX_SYNONYMS	src/cli/command_info.h	/^#define CMD_MAX_SYNONYMS /;"	d
+CMD_MAX_SYNONYMS	src/tui/command_info.h	/^#define CMD_MAX_SYNONYMS /;"	d
 CMD_MOVE	src/cli/command_info.h	/^    CMD_MOVE,$/;"	e	enum:command_type
-CMD_SHOP_BUY_ITEM	src/cli/command_info.h	/^    CMD_SHOP_BUY_ITEM,$/;"	e	enum:command_type
-CMD_SHOP_SELL_ITEM	src/cli/command_info.h	/^    CMD_SHOP_SELL_ITEM,$/;"	e	enum:command_type
+CMD_MOVE	src/tui/command_info.h	/^    CMD_MOVE,$/;"	e	enum:command_type
+CMD_NEWGAME	src/cli/command_info.h	/^    CMD_NEWGAME,$/;"	e	enum:command_type
+CMD_SETTINGS	src/cli/command_info.h	/^    CMD_SETTINGS,$/;"	e	enum:command_type
+CMD_SHOP_BUY	src/cli/command_info.h	/^    CMD_SHOP_BUY,$/;"	e	enum:command_type
+CMD_SHOP_BUY_ITEM	src/tui/command_info.h	/^    CMD_SHOP_BUY_ITEM,$/;"	e	enum:command_type
+CMD_SHOP_INFO_INV	src/cli/command_info.h	/^    CMD_SHOP_INFO_INV,$/;"	e	enum:command_type
+CMD_SHOP_INFO_ITEM	src/cli/command_info.h	/^    CMD_SHOP_INFO_ITEM,$/;"	e	enum:command_type
+CMD_SHOP_SELL	src/cli/command_info.h	/^    CMD_SHOP_SELL,$/;"	e	enum:command_type
+CMD_SHOP_SELL_ITEM	src/tui/command_info.h	/^    CMD_SHOP_SELL_ITEM,$/;"	e	enum:command_type
+CMD_SQUAD_INFO_BASE	src/cli/command_info.h	/^    CMD_SQUAD_INFO_BASE,$/;"	e	enum:command_type
+CMD_SQUAD_INFO_INV	src/cli/command_info.h	/^    CMD_SQUAD_INFO_INV,$/;"	e	enum:command_type
+CMD_SQUAD_INFO_ITEM	src/cli/command_info.h	/^    CMD_SQUAD_INFO_ITEM,$/;"	e	enum:command_type
+CMD_SQUAD_INFO_UNIT	src/cli/command_info.h	/^    CMD_SQUAD_INFO_UNIT,$/;"	e	enum:command_type
+CMD_SQUAD_INFO_UNITS	src/cli/command_info.h	/^    CMD_SQUAD_INFO_UNITS,$/;"	e	enum:command_type
 CMD_UNEQUIP	src/cli/command_info.h	/^    CMD_UNEQUIP,$/;"	e	enum:command_type
+CMD_UNEQUIP	src/tui/command_info.h	/^    CMD_UNEQUIP,$/;"	e	enum:command_type
 CMD_UNKNOWN	src/cli/command_info.h	/^    CMD_UNKNOWN,$/;"	e	enum:command_type
+CMD_UNKNOWN	src/tui/command_info.h	/^    CMD_UNKNOWN,$/;"	e	enum:command_type
 CMD_WAIT	src/cli/command_info.h	/^    CMD_WAIT,$/;"	e	enum:command_type
+CMD_WAIT	src/tui/command_info.h	/^    CMD_WAIT,$/;"	e	enum:command_type
 COMMAND_INFO_H	src/cli/command_info.h	/^#define COMMAND_INFO_H$/;"	d
+COMMAND_INFO_H	src/tui/command_info.h	/^#define COMMAND_INFO_H$/;"	d
+COMMAND_INPUTER_H	src/cli/command_inputer.h	/^#define COMMAND_INPUTER_H$/;"	d
 COMMAND_INTERPRETATION_H	src/cli/command_interpretation.h	/^#define COMMAND_INTERPRETATION_H$/;"	d
+COMMAND_INTERPRETATION_H	src/tui/command_interpretation.h	/^#define COMMAND_INTERPRETATION_H$/;"	d
 CORE_INTERFACE_H	src/core/core_interface.h	/^#define CORE_INTERFACE_H$/;"	d
-ENTRY_H	src/cli/entry.h	/^#define ENTRY_H$/;"	d
+ENTRY_H	src/tui/entry.h	/^#define ENTRY_H$/;"	d
+ERASE_CHAR_SEQUENCE	src/cli/input.c	/^#define ERASE_CHAR_SEQUENCE /;"	d	file:
 EVASION_C	src/core/battle/battle_mechanics.h	/^#define EVASION_C /;"	d
 EVENTS_INFO_H	src/core/defs/events_info.h	/^#define EVENTS_INFO_H$/;"	d
 EVENT_COUNT	src/core/defs/event.h	/^    EVENT_COUNT$/;"	e	enum:event_id
 EVENT_EXPLORED	src/core/defs/event.h	/^    EVENT_EXPLORED,$/;"	e	enum:event_id
 EVENT_FOREST_ANIMALS	src/core/defs/event.h	/^    EVENT_FOREST_ANIMALS,$/;"	e	enum:event_id
 EVENT_H	src/core/defs/event.h	/^#define EVENT_H$/;"	d
+EVENT_HAPPENING	src/core/state/game_state.h	/^    EVENT_HAPPENING,$/;"	e	enum:game_status
 EVENT_MAX_ANSWERS	src/core/defs/event.h	/^#define EVENT_MAX_ANSWERS /;"	d
 EVENT_MESSAGE_BUF_SIZE	src/core/defs/event.h	/^#define EVENT_MESSAGE_BUF_SIZE /;"	d
 EVENT_NONE	src/core/defs/event.h	/^    EVENT_NONE = -1,$/;"	e	enum:event_id
@@ -145,18 +185,30 @@ EVENT_TEST_MOUNTAIN	src/core/defs/event.h	/^    EVENT_TEST_MOUNTAIN,$/;"	e	enum:
 EVENT_TITLE_BUF_SIZE	src/core/defs/event.h	/^#define EVENT_TITLE_BUF_SIZE /;"	d
 EVENT_VILLAGE_MAIN	src/core/defs/event.h	/^    EVENT_VILLAGE_MAIN,$/;"	e	enum:event_id
 EXPLORING_SYSTEM_H	src/core/exploring_system.h	/^#define EXPLORING_SYSTEM_H$/;"	d
+FIGHTING	src/core/state/game_state.h	/^    FIGHTING,$/;"	e	enum:game_status
 FIGHT_STATE_SPLITER	src/cli/battle.c	/^#define FIGHT_STATE_SPLITER /;"	d	file:
+FIGHT_STATE_SPLITER	src/tui/battle.c	/^#define FIGHT_STATE_SPLITER /;"	d	file:
 FONT_BITMAPS_H	src/gui/gui-frontend/res/font_bitmaps.h	/^#define FONT_BITMAPS_H$/;"	d
 FONT_CONSOLE	src/gui/gui-frontend/res/font_bitmaps.h	/^    FONT_CONSOLE,$/;"	e	enum:font_id
 FONT_COUNT	src/gui/gui-frontend/res/font_bitmaps.h	/^    FONT_COUNT$/;"	e	enum:font_id
-FRAME_HEIGHT	src/cli/terminal_view.h	/^#define FRAME_HEIGHT /;"	d
-FRAME_WIDTH	src/cli/terminal_view.h	/^#define FRAME_WIDTH /;"	d
-GAME_H	src/core/state/game_state.h	/^#define GAME_H$/;"	d
+FRAME_HEIGHT	src/tui/terminal_view.h	/^#define FRAME_HEIGHT /;"	d
+FRAME_WIDTH	src/tui/terminal_view.h	/^#define FRAME_WIDTH /;"	d
+GAME_H	src/cli/game.h	/^#define GAME_H$/;"	d
 GAME_INFO_H	src/core/defs/game_info.h	/^#define GAME_INFO_H$/;"	d
+GAME_MENU_H_SENTRY	src/cli/game_menu.h	/^#define GAME_MENU_H_SENTRY$/;"	d
 GAME_RESOURCES_H	src/gui/gui-frontend/res/game_resources.h	/^#define GAME_RESOURCES_H$/;"	d
+GAME_SESSION_H_SENTRY	src/cli/game_session.h	/^#define GAME_SESSION_H_SENTRY$/;"	d
+GAME_STATE_H	src/core/state/game_state.h	/^#define GAME_STATE_H$/;"	d
+GLOBAL_game_info	src/cli/game.c	/^struct game_info GLOBAL_game_info;             \/* get rid, rework *\/$/;"	v	typeref:struct:game_info
+GLOBAL_game_state	src/cli/game_session.c	/^struct game_state GLOBAL_game_state;           \/* get rid, rework *\/$/;"	v	typeref:struct:game_state
+GLOBAL_inputer	src/cli/game.c	/^struct command_inputer GLOBAL_inputer;         \/* get rid, rework *\/$/;"	v	typeref:struct:command_inputer
 GUI_MAIN_H	src/gui/gui-frontend/gui_main.h	/^#define GUI_MAIN_H$/;"	d
+IDLE	src/core/state/game_state.h	/^    IDLE$/;"	e	enum:game_status
 INDEX_BY_4BIT	src/gui/gui-frontend/res/palletes.h	/^    INDEX_BY_4BIT$/;"	e	enum:pallete_indexing
-INPUT_BUF_SIZE	src/cli/lexical_parser.h	/^#define INPUT_BUF_SIZE /;"	d
+INPUT_BUF_SIZE	src/cli/command_inputer.h	/^#define INPUT_BUF_SIZE /;"	d
+INPUT_BUF_SIZE	src/tui/lexical_parser.h	/^#define INPUT_BUF_SIZE /;"	d
+INPUT_H	src/cli/input.h	/^#define INPUT_H$/;"	d
+INPUT_PREFIX	src/cli/command_inputer.c	/^#define INPUT_PREFIX /;"	d	file:
 INP_EVENT_EXPOSE	src/gui/platform_interface.h	/^    INP_EVENT_EXPOSE,$/;"	e	enum:input_event_type
 INP_EVENT_KEY_DOWN	src/gui/platform_interface.h	/^    INP_EVENT_KEY_DOWN,$/;"	e	enum:input_event_type
 INP_EVENT_KEY_UP	src/gui/platform_interface.h	/^    INP_EVENT_KEY_UP$/;"	e	enum:input_event_type
@@ -189,9 +241,11 @@ KEY_Z	src/gui/platform_interface.h	/^#define KEY_Z /;"	d
 LAYOUT_NODE_H	src/gui/gui-frontend/layout_node.h	/^#define LAYOUT_NODE_H$/;"	d
 LEARNED_SKILLS_H	src/core/defs/skills_mask.h	/^#define LEARNED_SKILLS_H$/;"	d
 LEARNED_SKILL_WORDS	src/core/defs/skills_mask.h	/^#define LEARNED_SKILL_WORDS /;"	d
+LEAVE	src/core/state/game_state.h	/^    LEAVE,          \/* strange, probably get rid *\/$/;"	e	enum:game_status
 LEVEL_UP_EXP_MULTIPLIER	src/core/state/unit.c	/^#define LEVEL_UP_EXP_MULTIPLIER /;"	d	file:
-LEXICAL_PARSER_H	src/cli/lexical_parser.h	/^#define LEXICAL_PARSER_H$/;"	d
-MAX_AGRC	src/cli/lexical_parser.h	/^#define MAX_AGRC /;"	d
+LEXICAL_PARSER_H	src/tui/lexical_parser.h	/^#define LEXICAL_PARSER_H$/;"	d
+LOSE	src/core/state/game_state.h	/^    LOSE,$/;"	e	enum:game_status
+MAX_AGRC	src/tui/lexical_parser.h	/^#define MAX_AGRC /;"	d
 MAX_CRIT	src/core/battle/battle_mechanics.h	/^#define MAX_CRIT /;"	d
 MAX_EVASION	src/core/battle/battle_mechanics.h	/^#define MAX_EVASION /;"	d
 MAX_STAT_VALUE	src/core/defs/items_info.h	/^#define MAX_STAT_VALUE /;"	d
@@ -203,6 +257,9 @@ MOVE_NONE	src/core/state/squad.h	/^    MOVE_NONE,$/;"	e	enum:move_order
 MOVE_RIGHT	src/core/state/squad.h	/^    MOVE_RIGHT,$/;"	e	enum:move_order
 MOVE_UP	src/core/state/squad.h	/^    MOVE_UP,$/;"	e	enum:move_order
 MOV_STEP	src/gui/gui-frontend/camera.h	/^#define MOV_STEP /;"	d
+MSG_HELP_GAME_MENU	src/cli/game_menu.c	/^#define MSG_HELP_GAME_MENU /;"	d	file:
+MSG_HELP_GENERAL	src/cli/command_interpretation.c	/^#define MSG_HELP_GENERAL /;"	d	file:
+MSG_UNKNOWN_COMMAND	src/cli/command_interpretation.c	/^#define MSG_UNKNOWN_COMMAND /;"	d	file:
 NATURE_WEAPON_GROUP	src/core/defs/skill.h	/^#define NATURE_WEAPON_GROUP /;"	d
 PALLETES_H	src/gui/gui-frontend/res/palletes.h	/^#define PALLETES_H$/;"	d
 PALLETE_COUNT	src/gui/gui-frontend/res/palletes.h	/^    PALLETE_COUNT$/;"	e	enum:pallete_id
@@ -223,6 +280,7 @@ SCALE_S	src/core/defs/items_info.h	/^    SCALE_S$/;"	e	enum:scale_rank
 SELECTING_LESS_HP_TARGET	src/core/battle/battle_bot.h	/^    SELECTING_LESS_HP_TARGET$/;"	e	enum:bot_selecting_target_tactic
 SELECTING_RANDOM_NOT_SKIP_SKILL	src/core/battle/battle_bot.h	/^    SELECTING_RANDOM_NOT_SKIP_SKILL$/;"	e	enum:bot_selecting_skill_tactic
 SELECTING_RANDOM_TARGET	src/core/battle/battle_bot.h	/^    SELECTING_RANDOM_TARGET,$/;"	e	enum:bot_selecting_target_tactic
+SHOPPING	src/core/state/game_state.h	/^    SHOPPING,$/;"	e	enum:game_status
 SHOP_H	src/core/state/shop.h	/^#define SHOP_H$/;"	d
 SHOP_MAX_ITEMS_COUNT	src/core/state/shop.h	/^#define SHOP_MAX_ITEMS_COUNT /;"	d
 SHOP_SYSTEM_H	src/core/shop_system.h	/^#define SHOP_SYSTEM_H$/;"	d
@@ -274,12 +332,13 @@ START_ACTION_POINTS	src/core/state/battle_state.h	/^#define START_ACTION_POINTS 
 START_HEIGHT	src/gui/gui-frontend/gui_main.c	/^#define START_HEIGHT /;"	d	file:
 START_WIDTH	src/gui/gui-frontend/gui_main.c	/^#define START_WIDTH /;"	d	file:
 STRENGTH	src/core/defs/unit_stats.h	/^    STRENGTH,$/;"	e	enum:stat_selection
-SYNTAX_PARSER_H	src/cli/syntax_parser.h	/^#define SYNTAX_PARSER_H$/;"	d
+SYNTAX_PARSER_H	src/cli/command_parser.h	/^#define SYNTAX_PARSER_H$/;"	d
+SYNTAX_PARSER_H	src/tui/syntax_parser.h	/^#define SYNTAX_PARSER_H$/;"	d
 TAG_FOREST	src/core/defs/events_info.h	/^#define TAG_FOREST /;"	d
 TAG_MEADOW	src/core/defs/events_info.h	/^#define TAG_MEADOW /;"	d
 TAG_MOUNTAIN	src/core/defs/events_info.h	/^#define TAG_MOUNTAIN /;"	d
 TAG_VILLAGE	src/core/defs/events_info.h	/^#define TAG_VILLAGE /;"	d
-TERMINAL_VIEW_H	src/cli/terminal_view.h	/^#define TERMINAL_VIEW_H$/;"	d
+TERMINAL_VIEW_H	src/tui/terminal_view.h	/^#define TERMINAL_VIEW_H$/;"	d
 TEXT_RENDERER_H	src/gui/gui-frontend/render/text_renderer.h	/^#define TEXT_RENDERER_H$/;"	d
 TIME_SYSTEM_H	src/core/time_system.h	/^#define TIME_SYSTEM_H$/;"	d
 UNIT_ALL_TAGS_MASK	src/core/defs/unit_templates.h	/^#define UNIT_ALL_TAGS_MASK /;"	d
@@ -291,7 +350,7 @@ UNIT_TAG_HUMAN	src/core/defs/unit_templates.h	/^#define UNIT_TAG_HUMAN /;"	d
 UNIT_TEMPLATES_H	src/core/defs/unit_templates.h	/^#define UNIT_TEMPLATES_H$/;"	d
 UNIT_TEMP_BUF_SIZE	src/core/defs/unit_templates.h	/^#define UNIT_TEMP_BUF_SIZE /;"	d
 UNIT_TEMP_COUNT	src/core/defs/unit_templates.h	/^    UNIT_TEMP_COUNT$/;"	e	enum:unit_template_id
-UNKNOWN_COMMAND_MSG	src/cli/command_interpretation.c	/^#define UNKNOWN_COMMAND_MSG /;"	d	file:
+UNKNOWN_COMMAND_MSG	src/tui/command_interpretation.c	/^#define UNKNOWN_COMMAND_MSG /;"	d	file:
 VALUE_NOISE_H	src/core/value_noise.h	/^#define VALUE_NOISE_H$/;"	d
 VILLAGE_MAX_COUNT	src/core/state/world.h	/^#define VILLAGE_MAX_COUNT /;"	d
 WARRIOR	src/core/defs/unit_templates.h	/^    WARRIOR,$/;"	e	enum:unit_template_id
@@ -310,18 +369,19 @@ WILL	src/core/defs/unit_stats.h	/^    WILL,$/;"	e	enum:stat_selection
 WOLF	src/core/defs/unit_templates.h	/^    WOLF,$/;"	e	enum:unit_template_id
 WORLD_H	src/core/state/world.h	/^#define WORLD_H$/;"	d
 WORLD_HEIGHT	src/core/state/world.h	/^#define WORLD_HEIGHT /;"	d
-WORLD_OFFSET_X	src/cli/terminal_view.h	/^#define WORLD_OFFSET_X /;"	d
-WORLD_OFFSET_Y	src/cli/terminal_view.h	/^#define WORLD_OFFSET_Y /;"	d
-WORLD_QUERIES_H	src/core/world_queries.h	/^#define WORLD_QUERIES_H$/;"	d
+WORLD_OFFSET_X	src/tui/terminal_view.h	/^#define WORLD_OFFSET_X /;"	d
+WORLD_OFFSET_Y	src/tui/terminal_view.h	/^#define WORLD_OFFSET_Y /;"	d
 WORLD_RENDERER_H	src/gui/gui-frontend/render/world_renderer.h	/^#define WORLD_RENDERER_H$/;"	d
 WORLD_WIDTH	src/core/state/world.h	/^#define WORLD_WIDTH /;"	d
 XLIB_H	src/gui/xlib-port/xlib.h	/^#define XLIB_H$/;"	d
 __anon00d60d1c010a	src/core/state/items.h	/^    union {$/;"	u	struct:item
-__anon38f672ac010a	src/cli/syntax_parser.h	/^    union {$/;"	u	struct:parsed_command
+__anon0d1af1240103	src/cli/input.c	/^enum { escape=27, backspace=8, enter=10 };$/;"	g	file:
+__anon563e7026010a	src/tui/syntax_parser.h	/^    union {$/;"	u	struct:parsed_command
 __anon6a52faf6010a	src/core/state/battle_state.h	/^    union {$/;"	u	struct:battle_skill_use_context
 __anon97efa328010a	src/core/defs/items_info.h	/^    union {$/;"	u	struct:item_info
 __anona884fabb010a	src/gui/platform_interface.h	/^    union {$/;"	u	struct:input_event
-__anond978d0460103	src/cli/entry.c	/^enum {$/;"	g	file:
+__anona9007c84010a	src/cli/command_parser.h	/^    union {$/;"	u	struct:parsed_command
+__anond8fff3c00103	src/tui/entry.c	/^enum {$/;"	g	file:
 action_id	src/core/defs/event.h	/^    enum event_action action_id;$/;"	m	struct:event_answer	typeref:enum:event_action
 action_points	src/core/state/battle_state.h	/^    uint16_t action_points;$/;"	m	struct:battle_unit	typeref:typename:uint16_t
 action_points_cost	src/core/defs/skill.h	/^    uint16_t action_points_cost;$/;"	m	struct:skill	typeref:typename:uint16_t
@@ -340,9 +400,13 @@ all_templates	src/core/state/battle_state.h	/^    const struct unit_template *al
 answer_init	src/core/defs/events_info.c	/^static void answer_init(struct event_answer *answer, const char *text, $/;"	f	typeref:typename:void	file:
 answers	src/core/defs/event.h	/^    struct event_answer answers[EVENT_MAX_ANSWERS];$/;"	m	struct:event	typeref:struct:event_answer[]
 answers_clear	src/core/defs/events_info.c	/^static void answers_clear(struct event_answer *answers)$/;"	f	typeref:typename:void	file:
-argc	src/cli/lexical_parser.h	/^    uint8_t argc;$/;"	m	struct:command	typeref:typename:uint8_t
-args	src/cli/syntax_parser.h	/^    } args;$/;"	m	struct:parsed_command	typeref:union:parsed_command::__anon38f672ac010a
-argv	src/cli/lexical_parser.h	/^    char *argv [MAX_AGRC];$/;"	m	struct:command	typeref:typename:char * []
+apply_command	src/cli/command_interpretation.c	/^void apply_command(struct parsed_command *cmd, struct game_state *game,$/;"	f	typeref:typename:void
+argc	src/cli/command_parser.h	/^    uint8_t argc;$/;"	m	struct:command	typeref:typename:uint8_t
+argc	src/tui/lexical_parser.h	/^    uint8_t argc;$/;"	m	struct:command	typeref:typename:uint8_t
+args	src/cli/command_parser.h	/^    } args;$/;"	m	struct:parsed_command	typeref:union:parsed_command::__anona9007c84010a
+args	src/tui/syntax_parser.h	/^    } args;$/;"	m	struct:parsed_command	typeref:union:parsed_command::__anon563e7026010a
+argv	src/cli/command_parser.h	/^    char *argv [ARGC_MAX];$/;"	m	struct:command	typeref:typename:char * []
+argv	src/tui/lexical_parser.h	/^    char *argv [MAX_AGRC];$/;"	m	struct:command	typeref:typename:char * []
 armor	src/core/defs/items_info.h	/^        struct armor_info_props armor;$/;"	m	union:item_info::__anon97efa328010a	typeref:struct:armor_info_props
 armor	src/core/state/items.h	/^        struct armor_props armor;$/;"	m	union:item::__anon00d60d1c010a	typeref:struct:armor_props
 armor	src/core/state/unit.h	/^    struct item armor;$/;"	m	struct:unit	typeref:struct:item
@@ -351,6 +415,7 @@ armor_item_id	src/core/defs/unit_templates.h	/^    enum item_id armor_item_id;$/
 armor_props	src/core/state/items.h	/^struct armor_props {$/;"	s
 available_skills	src/core/state/battle_state.h	/^    const struct skill *available_skills[MAX_TURN_SKILL_COUNT];$/;"	m	struct:battle_turn_context	typeref:typename:const struct skill * []
 available_targets	src/core/state/battle_state.h	/^    } available_targets;$/;"	m	struct:battle_skill_use_context	typeref:union:battle_skill_use_context::__anon6a52faf6010a
+backspace	src/cli/input.c	/^enum { escape=27, backspace=8, enter=10 };$/;"	e	enum:__anon0d1af1240103	file:
 base_exp_reward	src/core/defs/unit_templates.h	/^    uint16_t base_exp_reward;$/;"	m	struct:unit_template	typeref:typename:uint16_t
 battle	src/core/state/game_state.h	/^    struct battle_state battle;$/;"	m	struct:game_state	typeref:struct:battle_state
 battle_bot_select_skill	src/core/battle/battle_bot.c	/^const struct skill *battle_bot_select_skill(struct battle_turn_context *context,$/;"	f	typeref:typename:const struct skill *
@@ -378,8 +443,8 @@ battle_unit_init	src/core/state/battle_state.c	/^static void battle_unit_init(st
 battle_unit_is_alive	src/core/state/battle_state.c	/^int battle_unit_is_alive(struct battle_unit *b)$/;"	f	typeref:typename:int
 bot_selecting_skill_tactic	src/core/battle/battle_bot.h	/^enum bot_selecting_skill_tactic {$/;"	g
 bot_selecting_target_tactic	src/core/battle/battle_bot.h	/^enum bot_selecting_target_tactic {$/;"	g
-buf_frame	src/cli/entry.c	/^static char buf_frame[FRAME_HEIGHT*FRAME_WIDTH];$/;"	v	typeref:typename:char[]	file:
-buf_input	src/cli/entry.c	/^static char buf_input[INPUT_BUF_SIZE];$/;"	v	typeref:typename:char[]	file:
+buf_frame	src/tui/entry.c	/^static char buf_frame[FRAME_HEIGHT*FRAME_WIDTH];$/;"	v	typeref:typename:char[]	file:
+buf_input	src/tui/entry.c	/^static char buf_input[INPUT_BUF_SIZE];$/;"	v	typeref:typename:char[]	file:
 buy_multiplier	src/core/state/shop.h	/^    float buy_multiplier;$/;"	m	struct:shop	typeref:typename:float
 bytes_per_row	src/gui/gui-frontend/res/font_bitmaps.h	/^    uint8_t bytes_per_row;$/;"	m	struct:font	typeref:typename:uint8_t
 calc_pos_scalar	src/gui/gui-frontend/layout_node.c	/^static void calc_pos_scalar(uint16_t *out, uint16_t parent_pos_scalar,$/;"	f	typeref:typename:void	file:
@@ -408,103 +473,153 @@ cell_type_id	src/core/defs/cell_info.h	/^enum cell_type_id {$/;"	g
 cell_type_weight_sums	src/core/defs/events_info.h	/^    uint16_t cell_type_weight_sums[CELL_TYPE_COUNT];$/;"	m	struct:events_info	typeref:typename:uint16_t[]
 cell_village_data	src/gui/gui-frontend/res/sprites.c	/^static const unsigned char cell_village_data[][SPRITE_4BIT_HEIGHT] = {$/;"	v	typeref:typename:const unsigned char[][]	file:
 cells	src/core/state/world.h	/^    struct cell cells[WORLD_HEIGHT][WORLD_WIDTH]; $/;"	m	struct:world	typeref:struct:cell[][]
-cells_info	src/cli/terminal_view.h	/^    const struct cell_info *cells_info;$/;"	m	struct:draw_frame_context	typeref:typename:const struct cell_info *
 cells_info	src/core/defs/game_info.h	/^    struct cell_info cells_info[CELL_TYPE_COUNT];$/;"	m	struct:game_info	typeref:struct:cell_info[]
+cells_info	src/tui/terminal_view.h	/^    const struct cell_info *cells_info;$/;"	m	struct:draw_frame_context	typeref:typename:const struct cell_info *
 cells_info_load	src/core/defs/cell_info.c	/^void cells_info_load(struct cell_info cells[])$/;"	f	typeref:typename:void
 char_pixel_height	src/gui/gui-frontend/res/font_bitmaps.h	/^    uint8_t char_pixel_height;$/;"	m	struct:font	typeref:typename:uint8_t
 char_pixel_width	src/gui/gui-frontend/res/font_bitmaps.h	/^    uint8_t char_pixel_width;$/;"	m	struct:font	typeref:typename:uint8_t
-clear_screen	src/cli/terminal_view.c	/^static void clear_screen()$/;"	f	typeref:typename:void	file:
-cli_active_event	src/cli/entry.c	/^static void cli_active_event(struct game_state *state, const struct game_info *info)$/;"	f	typeref:typename:void	file:
-cli_base_choose_number	src/cli/base.c	/^int cli_base_choose_number(uint8_t min, uint8_t max)$/;"	f	typeref:typename:int
+clear_screen	src/tui/terminal_view.c	/^static void clear_screen()$/;"	f	typeref:typename:void	file:
+cli_active_event	src/tui/entry.c	/^static void cli_active_event(struct game_state *state, const struct game_info *info)$/;"	f	typeref:typename:void	file:
+cli_base_choose_number	src/tui/base.c	/^int cli_base_choose_number(uint8_t min, uint8_t max)$/;"	f	typeref:typename:int
 cli_battle_run	src/cli/battle.c	/^void cli_battle_run(struct battle_state *battle, const struct game_info *info)$/;"	f	typeref:typename:void
-cli_item_info	src/cli/shop.c	/^static void cli_item_info(struct command *cmd, struct shop *shop,$/;"	f	typeref:typename:void	file:
-cli_run	src/cli/entry.c	/^void cli_run(struct game_state *game, const struct game_info *info)$/;"	f	typeref:typename:void
+cli_battle_run	src/tui/battle.c	/^void cli_battle_run(struct battle_state *battle, const struct game_info *info)$/;"	f	typeref:typename:void
+cli_item_info	src/cli/shop.c	/^static void cli_item_info(struct parsed_command *cmd, struct shop *shop,$/;"	f	typeref:typename:void	file:
+cli_item_info	src/tui/shop.c	/^static void cli_item_info(struct command *cmd, struct shop *shop,$/;"	f	typeref:typename:void	file:
+cli_run	src/tui/entry.c	/^void cli_run(struct game_state *game, const struct game_info *info)$/;"	f	typeref:typename:void
 cli_select_skill	src/cli/battle.c	/^static const struct skill *cli_select_skill(struct battle_turn_context *c)$/;"	f	typeref:typename:const struct skill *	file:
+cli_select_skill	src/tui/battle.c	/^static const struct skill *cli_select_skill(struct battle_turn_context *c)$/;"	f	typeref:typename:const struct skill *	file:
 cli_select_target	src/cli/battle.c	/^static struct battle_unit *cli_select_target(struct battle_skill_use_context *c)$/;"	f	typeref:struct:battle_unit *	file:
-cli_shop_run	src/cli/shop.c	/^void cli_shop_run(struct shop **active_shop, struct squad *squad, $/;"	f	typeref:typename:void
-cli_try_buy	src/cli/shop.c	/^static void cli_try_buy(struct command *cmd, struct shop *shop, struct squad *squad)$/;"	f	typeref:typename:void	file:
-cli_try_sell	src/cli/shop.c	/^static void cli_try_sell(struct command *cmd, struct shop *shop, struct squad *squad)$/;"	f	typeref:typename:void	file:
-cmd_args_equip	src/cli/syntax_parser.h	/^struct cmd_args_equip { $/;"	s
-cmd_args_improve	src/cli/syntax_parser.h	/^struct cmd_args_improve { $/;"	s
-cmd_args_info_item	src/cli/syntax_parser.h	/^struct cmd_args_info_item { $/;"	s
-cmd_args_info_unit	src/cli/syntax_parser.h	/^struct cmd_args_info_unit { $/;"	s
-cmd_args_move	src/cli/syntax_parser.h	/^struct cmd_args_move { $/;"	s
-cmd_args_unequip	src/cli/syntax_parser.h	/^struct cmd_args_unequip { $/;"	s
-cmd_synonyms	src/cli/command_info.h	/^    char *cmd_synonyms[CMD_MAX_SYNONYMS];$/;"	m	struct:command_info	typeref:typename:char * []
-cmd_synonyms_buy	src/cli/command_info.c	/^    *cmd_synonyms_buy[] = { "buy", NULL };$/;"	v	typeref:typename:const char * []	file:
-cmd_synonyms_equip	src/cli/command_info.c	/^    *cmd_synonyms_equip[] = { "equip", NULL };$/;"	v	typeref:typename:const char * []	file:
-cmd_synonyms_exit	src/cli/command_info.c	/^    *cmd_synonyms_exit[] = { "exit", "quit", "q", NULL };$/;"	v	typeref:typename:const char * []	file:
-cmd_synonyms_explore	src/cli/command_info.c	/^    *cmd_synonyms_explore[] = { "explore", "e", NULL };$/;"	v	typeref:typename:const char * []	file:
-cmd_synonyms_help	src/cli/command_info.c	/^    *cmd_synonyms_help[] = { "help", "?", NULL };$/;"	v	typeref:typename:const char * []	file:
-cmd_synonyms_improve	src/cli/command_info.c	/^    *cmd_synonyms_improve[] = { "improve", NULL };$/;"	v	typeref:typename:const char * []	file:
-cmd_synonyms_info_item	src/cli/command_info.c	/^    *cmd_synonyms_info_item[] = { "info item", NULL };$/;"	v	typeref:typename:const char * []	file:
-cmd_synonyms_info_unit	src/cli/command_info.c	/^    *cmd_synonyms_info_unit[] = { "info unit", NULL };$/;"	v	typeref:typename:const char * []	file:
-cmd_synonyms_move	src/cli/command_info.c	/^    *cmd_synonyms_move[] = { "move", "mov", "m", NULL };$/;"	v	typeref:typename:const char * []	file:
-cmd_synonyms_sell	src/cli/command_info.c	/^    *cmd_synonyms_sell[] = { "sell", NULL };$/;"	v	typeref:typename:const char * []	file:
-cmd_synonyms_unequip	src/cli/command_info.c	/^    *cmd_synonyms_unequip[] = { "unequip", NULL };$/;"	v	typeref:typename:const char * []	file:
-cmd_synonyms_wait	src/cli/command_info.c	/^    *cmd_synonyms_wait[] = { "wait", NULL };$/;"	v	typeref:typename:const char * []	file:
+cli_select_target	src/tui/battle.c	/^static struct battle_unit *cli_select_target(struct battle_skill_use_context *c)$/;"	f	typeref:struct:battle_unit *	file:
+cli_shop_run	src/cli/shop.c	/^void cli_shop_run(struct command_inputer *inputer, $/;"	f	typeref:typename:void
+cli_try_buy	src/cli/shop.c	/^static void cli_try_buy(struct parsed_command *cmd, $/;"	f	typeref:typename:void	file:
+cli_try_buy	src/tui/shop.c	/^static void cli_try_buy(struct command *cmd, struct shop *shop, struct squad *squad)$/;"	f	typeref:typename:void	file:
+cli_try_sell	src/cli/shop.c	/^static void cli_try_sell(struct parsed_command *cmd, $/;"	f	typeref:typename:void	file:
+cli_try_sell	src/tui/shop.c	/^static void cli_try_sell(struct command *cmd, struct shop *shop, struct squad *squad)$/;"	f	typeref:typename:void	file:
+cmd	src/cli/command_inputer.h	/^    struct parsed_command cmd;$/;"	m	struct:command_inputer	typeref:struct:parsed_command
+cmd_args_equip	src/cli/command_parser.h	/^struct cmd_args_equip { $/;"	s
+cmd_args_equip	src/tui/syntax_parser.h	/^struct cmd_args_equip { $/;"	s
+cmd_args_improve	src/cli/command_parser.h	/^struct cmd_args_improve { $/;"	s
+cmd_args_improve	src/tui/syntax_parser.h	/^struct cmd_args_improve { $/;"	s
+cmd_args_info_item	src/tui/syntax_parser.h	/^struct cmd_args_info_item { $/;"	s
+cmd_args_info_unit	src/tui/syntax_parser.h	/^struct cmd_args_info_unit { $/;"	s
+cmd_args_move	src/tui/syntax_parser.h	/^struct cmd_args_move { $/;"	s
+cmd_args_unequip	src/cli/command_parser.h	/^struct cmd_args_unequip { $/;"	s
+cmd_args_unequip	src/tui/syntax_parser.h	/^struct cmd_args_unequip { $/;"	s
+cmd_equip	src/cli/command_info.c	/^static const struct command_info cmd_equip = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_exit	src/cli/command_info.c	/^static const struct command_info cmd_exit = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_explore	src/cli/command_info.c	/^static const struct command_info cmd_explore = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_help	src/cli/command_info.c	/^static const struct command_info cmd_help = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_improve	src/cli/command_info.c	/^static const struct command_info cmd_improve = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_info_base	src/cli/command_info.c	/^static const struct command_info cmd_info_base = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_info_inv	src/cli/command_info.c	/^static const struct command_info cmd_info_inv = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_info_item	src/cli/command_info.c	/^static const struct command_info cmd_info_item = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_info_unit	src/cli/command_info.c	/^static const struct command_info cmd_info_unit = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_info_units	src/cli/command_info.c	/^static const struct command_info cmd_info_units = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_info_world	src/cli/command_info.c	/^static const struct command_info cmd_info_world = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_loadgame	src/cli/command_info.c	/^static const struct command_info cmd_loadgame = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_move	src/cli/command_info.c	/^static const struct command_info cmd_move = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_newgame	src/cli/command_info.c	/^static const struct command_info cmd_newgame = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_settings	src/cli/command_info.c	/^static const struct command_info cmd_settings = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_shop_buy	src/cli/command_info.c	/^static const struct command_info cmd_shop_buy = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_shop_info_inv	src/cli/command_info.c	/^static const struct command_info cmd_shop_info_inv = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_shop_info_item	src/cli/command_info.c	/^static const struct command_info cmd_shop_info_item = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_shop_sell	src/cli/command_info.c	/^static const struct command_info cmd_shop_sell = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_synonyms	src/tui/command_info.h	/^    char *cmd_synonyms[CMD_MAX_SYNONYMS];$/;"	m	struct:command_info	typeref:typename:char * []
+cmd_synonyms_buy	src/tui/command_info.c	/^    *cmd_synonyms_buy[] = { "buy", NULL };$/;"	v	typeref:typename:const char * []	file:
+cmd_synonyms_equip	src/tui/command_info.c	/^    *cmd_synonyms_equip[] = { "equip", NULL };$/;"	v	typeref:typename:const char * []	file:
+cmd_synonyms_exit	src/tui/command_info.c	/^    *cmd_synonyms_exit[] = { "exit", "quit", "q", NULL };$/;"	v	typeref:typename:const char * []	file:
+cmd_synonyms_explore	src/tui/command_info.c	/^    *cmd_synonyms_explore[] = { "explore", "e", NULL };$/;"	v	typeref:typename:const char * []	file:
+cmd_synonyms_help	src/tui/command_info.c	/^    *cmd_synonyms_help[] = { "help", "?", NULL };$/;"	v	typeref:typename:const char * []	file:
+cmd_synonyms_improve	src/tui/command_info.c	/^    *cmd_synonyms_improve[] = { "improve", NULL };$/;"	v	typeref:typename:const char * []	file:
+cmd_synonyms_info_item	src/tui/command_info.c	/^    *cmd_synonyms_info_item[] = { "info item", NULL };$/;"	v	typeref:typename:const char * []	file:
+cmd_synonyms_info_unit	src/tui/command_info.c	/^    *cmd_synonyms_info_unit[] = { "info unit", NULL };$/;"	v	typeref:typename:const char * []	file:
+cmd_synonyms_move	src/tui/command_info.c	/^    *cmd_synonyms_move[] = { "move", "mov", "m", NULL };$/;"	v	typeref:typename:const char * []	file:
+cmd_synonyms_sell	src/tui/command_info.c	/^    *cmd_synonyms_sell[] = { "sell", NULL };$/;"	v	typeref:typename:const char * []	file:
+cmd_synonyms_unequip	src/tui/command_info.c	/^    *cmd_synonyms_unequip[] = { "unequip", NULL };$/;"	v	typeref:typename:const char * []	file:
+cmd_synonyms_wait	src/tui/command_info.c	/^    *cmd_synonyms_wait[] = { "wait", NULL };$/;"	v	typeref:typename:const char * []	file:
+cmd_unequip	src/cli/command_info.c	/^static const struct command_info cmd_unequip = {$/;"	v	typeref:typename:const struct command_info	file:
+cmd_wait	src/cli/command_info.c	/^static const struct command_info cmd_wait = {$/;"	v	typeref:typename:const struct command_info	file:
 color	src/gui/gui-frontend/render/panel_renderer.h	/^    uint32_t color;$/;"	m	struct:panel_renderer	typeref:typename:uint32_t
 color_background	src/gui/gui-frontend/render/text_renderer.h	/^    uint32_t color_background;$/;"	m	struct:text_renderer	typeref:typename:uint32_t
 color_count	src/gui/gui-frontend/res/palletes.h	/^    uint8_t color_count;$/;"	m	struct:pallete	typeref:typename:uint8_t
 color_foreground	src/gui/gui-frontend/render/text_renderer.h	/^    uint32_t color_foreground;$/;"	m	struct:text_renderer	typeref:typename:uint32_t
-command	src/cli/lexical_parser.h	/^struct command {$/;"	s
+command	src/cli/command_parser.h	/^struct command {$/;"	s
+command	src/tui/lexical_parser.h	/^struct command {$/;"	s
 command_info	src/cli/command_info.h	/^struct command_info {$/;"	s
+command_info	src/tui/command_info.h	/^struct command_info {$/;"	s
+command_inputer	src/cli/command_inputer.h	/^struct command_inputer {$/;"	s
+command_inputer_init	src/cli/command_inputer.c	/^void command_inputer_init(struct command_inputer *c)$/;"	f	typeref:typename:void
+command_inputer_input	src/cli/command_inputer.c	/^void command_inputer_input(struct command_inputer *c)$/;"	f	typeref:typename:void
+command_parse_lexical	src/cli/command_parser.c	/^void command_parse_lexical(char *input_buf, struct command *out)$/;"	f	typeref:typename:void
+command_parse_syntax	src/cli/command_parser.c	/^void command_parse_syntax(struct parsed_command *out, $/;"	f	typeref:typename:void
 command_type	src/cli/command_info.h	/^enum command_type {$/;"	g
-commands_info	src/cli/entry.c	/^struct command_info commands_info[CMD_COUNT];$/;"	v	typeref:struct:command_info[]
-commands_info_init	src/cli/command_info.c	/^void commands_info_init(struct command_info commands[])$/;"	f	typeref:typename:void
+command_type	src/tui/command_info.h	/^enum command_type {$/;"	g
+commands_info	src/cli/command_inputer.h	/^    const struct command_info *commands_info[CMD_COUNT];$/;"	m	struct:command_inputer	typeref:typename:const struct command_info * []
+commands_info	src/tui/entry.c	/^struct command_info commands_info[CMD_COUNT];$/;"	v	typeref:struct:command_info[]
+commands_info_init	src/cli/command_info.c	/^void commands_info_init(const struct command_info *commands[])$/;"	f	typeref:typename:void
+commands_info_init	src/tui/command_info.c	/^void commands_info_init(struct command_info commands[])$/;"	f	typeref:typename:void
 cost	src/core/defs/items_info.h	/^    uint16_t cost;$/;"	m	struct:item_info	typeref:typename:uint16_t
 cost	src/core/state/items.h	/^    uint16_t cost;$/;"	m	struct:item	typeref:typename:uint16_t
 create_window	src/gui/platform_interface.h	/^    window_id (*create_window)(const char *, int, int);$/;"	m	struct:platform_interface	typeref:typename:window_id (*)(const char *,int,int)
 crit	src/core/defs/items_info.h	/^    struct param_spec crit;$/;"	m	struct:weapon_info_props	typeref:struct:param_spec
 crit	src/core/state/items.h	/^    uint16_t crit;$/;"	m	struct:weapon_props	typeref:typename:uint16_t
-current_game_state	src/cli/entry.c	/^static int current_game_state(const struct game_state *state)$/;"	f	typeref:typename:int	file:
+current_game_state	src/tui/entry.c	/^static int current_game_state(const struct game_state *state)$/;"	f	typeref:typename:int	file:
 damage	src/core/defs/items_info.h	/^    struct param_spec damage;$/;"	m	struct:weapon_info_props	typeref:struct:param_spec
 damage	src/core/state/items.h	/^    uint16_t damage;$/;"	m	struct:weapon_props	typeref:typename:uint16_t
 data	src/gui/gui-frontend/res/font_bitmaps.h	/^    const unsigned char *data;$/;"	m	struct:font	typeref:typename:const unsigned char *
 data	src/gui/gui-frontend/res/palletes.h	/^    const uint32_t *data;$/;"	m	struct:pallete	typeref:typename:const uint32_t *
 data	src/gui/platform_interface.h	/^    uint32_t *data;$/;"	m	struct:frame_buffer	typeref:typename:uint32_t *
 data_index	src/core/state/world.h	/^    uint8_t data_index;$/;"	m	struct:cell	typeref:typename:uint8_t
-days	src/cli/terminal_view.h	/^    int *days;$/;"	m	struct:draw_frame_context	typeref:typename:int *
 days	src/core/state/game_state.h	/^    uint16_t days;$/;"	m	struct:game_state	typeref:typename:uint16_t
+days	src/tui/terminal_view.h	/^    int *days;$/;"	m	struct:draw_frame_context	typeref:typename:int *
 days_until_update	src/core/state/world.h	/^    uint8_t days_until_update;$/;"	m	struct:cell	typeref:typename:uint8_t
-define_command_type	src/cli/syntax_parser.c	/^static enum command_type define_command_type(const char* first_word, $/;"	f	typeref:enum:command_type	file:
+define_command_type	src/cli/command_parser.c	/^static enum command_type define_command_type(const char* first_word, $/;"	f	typeref:enum:command_type	file:
+define_command_type	src/tui/syntax_parser.c	/^static enum command_type define_command_type(const char* first_word, $/;"	f	typeref:enum:command_type	file:
 depth	src/gui/xlib-port/xlib.c	/^    int screen_num, depth;$/;"	m	struct:xlib_window_data	typeref:typename:int	file:
 description	src/core/defs/cell_info.h	/^    char description[CELL_INFO_DESCRIPTION_BUF_SIZE];$/;"	m	struct:cell_info	typeref:typename:char[]
 description	src/core/defs/items_info.h	/^    char description[ITEM_DESCRIPTION_BUF]; $/;"	m	struct:item_info	typeref:typename:char[]
 description	src/core/defs/skill.h	/^    char description[SKILL_DES_BUF_SIZE];$/;"	m	struct:skill	typeref:typename:char[]
 destroy_window	src/gui/platform_interface.h	/^    void (*destroy_window)(window_id);$/;"	m	struct:platform_interface	typeref:typename:void (*)(window_id)
 display	src/gui/xlib-port/xlib.c	/^    Display *display;$/;"	m	struct:xlib_window_data	typeref:typename:Display *	file:
-draw_char	src/cli/terminal_view.c	/^static void draw_char(char **cursor_ptr, char c)$/;"	f	typeref:typename:void	file:
-draw_context_init	src/cli/terminal_view.c	/^void draw_context_init(struct draw_frame_context *context, struct world *world, $/;"	f	typeref:typename:void
+draw_char	src/tui/terminal_view.c	/^static void draw_char(char **cursor_ptr, char c)$/;"	f	typeref:typename:void	file:
+draw_context_init	src/tui/terminal_view.c	/^void draw_context_init(struct draw_frame_context *context, struct world *world, $/;"	f	typeref:typename:void
 draw_frame	src/gui/platform_interface.h	/^    void (*draw_frame)(window_id, struct frame_buffer *);$/;"	m	struct:platform_interface	typeref:typename:void (*)(window_id,struct frame_buffer *)
-draw_frame_context	src/cli/terminal_view.h	/^struct draw_frame_context {$/;"	s
-draw_int	src/cli/terminal_view.c	/^static void draw_int(char **cursor_ptr, int value)$/;"	f	typeref:typename:void	file:
-draw_player	src/cli/terminal_view.c	/^static void draw_player(char *framebuffer, struct squad *squad)$/;"	f	typeref:typename:void	file:
-draw_rect	src/cli/terminal_view.c	/^static void draw_rect(char **cursor_ptr, const char *rect,$/;"	f	typeref:typename:void	file:
-draw_shop_items	src/cli/shop.c	/^static void draw_shop_items(struct shop *shop, const struct item_info info[])$/;"	f	typeref:typename:void	file:
+draw_frame_context	src/tui/terminal_view.h	/^struct draw_frame_context {$/;"	s
+draw_int	src/tui/terminal_view.c	/^static void draw_int(char **cursor_ptr, int value)$/;"	f	typeref:typename:void	file:
+draw_player	src/tui/terminal_view.c	/^static void draw_player(char *framebuffer, struct squad *squad)$/;"	f	typeref:typename:void	file:
+draw_rect	src/tui/terminal_view.c	/^static void draw_rect(char **cursor_ptr, const char *rect,$/;"	f	typeref:typename:void	file:
+draw_shop_items	src/tui/shop.c	/^static void draw_shop_items(struct shop *shop, const struct item_info info[])$/;"	f	typeref:typename:void	file:
 draw_skill_use_target_list	src/cli/battle.c	/^static void draw_skill_use_target_list(struct battle_skill_use_context *c)$/;"	f	typeref:typename:void	file:
-draw_squad	src/cli/terminal_view.c	/^static void draw_squad(char *framebuffer, struct squad *squad, $/;"	f	typeref:typename:void	file:
-draw_squad_cell_info	src/cli/terminal_view.c	/^void draw_squad_cell_info(char **cursor_ptr, struct draw_frame_context *context)$/;"	f	typeref:typename:void
-draw_squad_inventory	src/cli/terminal_view.c	/^static void draw_squad_inventory(char *framebuffer, struct item inventory[],$/;"	f	typeref:typename:void	file:
-draw_squad_items	src/cli/shop.c	/^static void draw_squad_items(struct squad *squad, struct shop *shop, $/;"	f	typeref:typename:void	file:
-draw_squad_units	src/cli/terminal_view.c	/^static void draw_squad_units(char *framebuffer, struct unit units[])$/;"	f	typeref:typename:void	file:
+draw_skill_use_target_list	src/tui/battle.c	/^static void draw_skill_use_target_list(struct battle_skill_use_context *c)$/;"	f	typeref:typename:void	file:
+draw_squad	src/tui/terminal_view.c	/^static void draw_squad(char *framebuffer, struct squad *squad, $/;"	f	typeref:typename:void	file:
+draw_squad_cell_info	src/tui/terminal_view.c	/^void draw_squad_cell_info(char **cursor_ptr, struct draw_frame_context *context)$/;"	f	typeref:typename:void
+draw_squad_inventory	src/tui/terminal_view.c	/^static void draw_squad_inventory(char *framebuffer, struct item inventory[],$/;"	f	typeref:typename:void	file:
+draw_squad_items	src/tui/shop.c	/^static void draw_squad_items(struct squad *squad, struct shop *shop, $/;"	f	typeref:typename:void	file:
+draw_squad_units	src/tui/terminal_view.c	/^static void draw_squad_units(char *framebuffer, struct unit units[])$/;"	f	typeref:typename:void	file:
 draw_state	src/cli/battle.c	/^static void draw_state(struct battle_state *battle)$/;"	f	typeref:typename:void	file:
-draw_str	src/cli/terminal_view.c	/^static void draw_str(char **cursor_ptr, const char* str)$/;"	f	typeref:typename:void	file:
+draw_state	src/tui/battle.c	/^static void draw_state(struct battle_state *battle)$/;"	f	typeref:typename:void	file:
+draw_str	src/tui/terminal_view.c	/^static void draw_str(char **cursor_ptr, const char* str)$/;"	f	typeref:typename:void	file:
 draw_turn_skill_list	src/cli/battle.c	/^static void draw_turn_skill_list(struct battle_turn_context *c)$/;"	f	typeref:typename:void	file:
-draw_unit_info	src/cli/terminal_view.c	/^static void draw_unit_info(char **cursor_ptr, struct unit *unit)$/;"	f	typeref:typename:void	file:
+draw_turn_skill_list	src/tui/battle.c	/^static void draw_turn_skill_list(struct battle_turn_context *c)$/;"	f	typeref:typename:void	file:
+draw_unit_info	src/tui/terminal_view.c	/^static void draw_unit_info(char **cursor_ptr, struct unit *unit)$/;"	f	typeref:typename:void	file:
 draw_units	src/cli/battle.c	/^static void draw_units(struct battle_unit b_units[])$/;"	f	typeref:typename:void	file:
-draw_world	src/cli/terminal_view.c	/^static void draw_world(char *framebuffer, struct world *world)$/;"	f	typeref:typename:void	file:
+draw_units	src/tui/battle.c	/^static void draw_units(struct battle_unit b_units[])$/;"	f	typeref:typename:void	file:
+draw_world	src/tui/terminal_view.c	/^static void draw_world(char *framebuffer, struct world *world)$/;"	f	typeref:typename:void	file:
 enemy_storage	src/core/state/battle_state.h	/^    struct unit enemy_storage[MAX_UNITS];$/;"	m	struct:battle_state	typeref:struct:unit[]
 enemy_unit_count	src/core/state/battle_state.h	/^    uint8_t enemy_unit_count;$/;"	m	struct:battle_state	typeref:typename:uint8_t
 enemy_units	src/core/state/battle_state.h	/^    struct battle_unit enemy_units[MAX_UNITS];$/;"	m	struct:battle_state	typeref:struct:battle_unit[]
-equip	src/cli/syntax_parser.h	/^        struct cmd_args_equip equip;$/;"	m	union:parsed_command::__anon38f672ac010a	typeref:struct:cmd_args_equip
-equipment_type	src/cli/syntax_parser.h	/^    enum item_type equipment_type;$/;"	m	struct:cmd_args_unequip	typeref:enum:item_type
+enter	src/cli/input.c	/^enum { escape=27, backspace=8, enter=10 };$/;"	e	enum:__anon0d1af1240103	file:
+equip	src/cli/command_parser.h	/^        struct cmd_args_equip equip;$/;"	m	union:parsed_command::__anona9007c84010a	typeref:struct:cmd_args_equip
+equip	src/tui/syntax_parser.h	/^        struct cmd_args_equip equip;$/;"	m	union:parsed_command::__anon563e7026010a	typeref:struct:cmd_args_equip
+equipment_type	src/cli/command_parser.h	/^    enum item_type equipment_type;$/;"	m	struct:cmd_args_unequip	typeref:enum:item_type
+equipment_type	src/tui/syntax_parser.h	/^    enum item_type equipment_type;$/;"	m	struct:cmd_args_unequip	typeref:enum:item_type
+escape	src/cli/input.c	/^enum { escape=27, backspace=8, enter=10 };$/;"	e	enum:__anon0d1af1240103	file:
 event	src/core/defs/event.h	/^struct event {$/;"	s
 event_action	src/core/defs/event.h	/^enum event_action {$/;"	g
 event_answer	src/core/defs/event.h	/^struct event_answer {$/;"	s
 event_cd_cells	src/core/state/world.h	/^    struct cell *event_cd_cells[CELL_LIST_SIZE];$/;"	m	struct:world	typeref:struct:cell * []
 event_get_answer_count	src/core/defs/event.c	/^uint8_t event_get_answer_count(const struct event *event)$/;"	f	typeref:typename:uint8_t
-event_happening	src/cli/entry.c	/^    event_happening,$/;"	e	enum:__anond978d0460103	file:
+event_happening	src/tui/entry.c	/^    event_happening,$/;"	e	enum:__anond8fff3c00103	file:
 event_id	src/core/defs/event.h	/^enum event_id {$/;"	g
 event_init	src/core/defs/event.c	/^void event_init(struct event *event, const char *title, const char *message, $/;"	f	typeref:typename:void
 event_system_choose_explore_event	src/core/event_system.c	/^const struct event *event_system_choose_explore_event(const struct events_info *info, $/;"	f	typeref:typename:const struct event *
@@ -523,11 +638,11 @@ exploring_cd	src/core/defs/cell_info.h	/^    uint8_t exploring_cd;$/;"	m	struct:
 exploring_system_explore_cell	src/core/exploring_system.c	/^void exploring_system_explore_cell(struct cell *cell, struct cell **cd_list,$/;"	f	typeref:typename:void
 exploring_system_explore_squad_cell	src/core/exploring_system.c	/^void exploring_system_explore_squad_cell(struct squad *squad, struct world *world,$/;"	f	typeref:typename:void
 fb	src/gui/gui-frontend/gui_main.c	/^static struct frame_buffer fb;$/;"	v	typeref:struct:frame_buffer	file:
-fighting	src/cli/entry.c	/^    fighting,$/;"	e	enum:__anond978d0460103	file:
+fighting	src/tui/entry.c	/^    fighting,$/;"	e	enum:__anond8fff3c00103	file:
 fill_animal_learnings	src/core/defs/unit_templates.c	/^static void fill_animal_learnings(skills_mask_t *mask)$/;"	f	typeref:typename:void	file:
 fill_enemies_and_allies	src/core/battle/battle_system.c	/^static void fill_enemies_and_allies(struct battle_state *state, uint8_t side, $/;"	f	typeref:typename:void	file:
 fill_human_learnings	src/core/defs/unit_templates.c	/^static void fill_human_learnings(skills_mask_t *mask)$/;"	f	typeref:typename:void	file:
-fill_synonyms	src/cli/command_info.c	/^static void fill_synonyms(char *synonyms[], const char *strings[])$/;"	f	typeref:typename:void	file:
+fill_synonyms	src/tui/command_info.c	/^static void fill_synonyms(char *synonyms[], const char *strings[])$/;"	f	typeref:typename:void	file:
 fill_unit_available_skills	src/core/battle/battle_system.c	/^static void fill_unit_available_skills(struct battle_turn_context *c,$/;"	f	typeref:typename:void	file:
 find_active_unit	src/core/battle/battle_system.c	/^static struct battle_unit *find_active_unit(struct battle_state *state)$/;"	f	typeref:struct:battle_unit *	file:
 find_active_unit_from_side	src/core/battle/battle_system.c	/^static struct battle_unit *find_active_unit_from_side(struct battle_unit side[])$/;"	f	typeref:struct:battle_unit *	file:
@@ -540,20 +655,31 @@ fonts	src/gui/gui-frontend/res/game_resources.h	/^    struct font fonts[FONT_COU
 fonts_load	src/gui/gui-frontend/res/font_bitmaps.c	/^void fonts_load(struct font fonts[])$/;"	f	typeref:typename:void
 frame_buffer	src/gui/platform_interface.h	/^struct frame_buffer {$/;"	s
 frame_buffer_init	src/gui/gui-frontend/gui_main.c	/^static void frame_buffer_init(struct frame_buffer *buffer, $/;"	f	typeref:typename:void	file:
+game	src/cli/game.h	/^struct game {$/;"	s
+game_handle_current_event	src/cli/game_session.c	/^static void game_handle_current_event(struct game *game)$/;"	f	typeref:typename:void	file:
 game_info	src/core/defs/game_info.h	/^struct game_info {$/;"	s
 game_info	src/main.c	/^struct game_info game_info;$/;"	v	typeref:struct:game_info
 game_info_load	src/core/defs/game_info.c	/^void game_info_load(struct game_info *game_info)$/;"	f	typeref:typename:void
+game_init	src/cli/game.c	/^void game_init(struct game *game)$/;"	f	typeref:typename:void
+game_menu	src/cli/game_menu.c	/^void game_menu(struct game *game)$/;"	f	typeref:typename:void
 game_resources	src/gui/gui-frontend/res/game_resources.h	/^struct game_resources {$/;"	s
 game_resources_load	src/gui/gui-frontend/res/game_resources.c	/^void game_resources_load(struct game_resources *res)$/;"	f	typeref:typename:void
+game_run	src/cli/game.c	/^void game_run(struct game *game)$/;"	f	typeref:typename:void
+game_session_load	src/cli/game_session.c	/^void game_session_load(struct game *game)$/;"	f	typeref:typename:void
+game_session_run	src/cli/game_session.c	/^void game_session_run(struct game *game)$/;"	f	typeref:typename:void
 game_state	src/core/state/game_state.h	/^struct game_state {$/;"	s
 game_state	src/main.c	/^struct game_state game_state;$/;"	v	typeref:struct:game_state
+game_state_get_status	src/core/state/game_state.c	/^enum game_status game_state_get_status(const struct game_state *state)$/;"	f	typeref:enum:game_status
 game_state_init	src/core/state/game_state.c	/^void game_state_init(struct game_state *game_state, const struct game_info *info)$/;"	f	typeref:typename:void
+game_status	src/core/state/game_state.h	/^enum game_status {$/;"	g
 gc	src/gui/xlib-port/xlib.c	/^    GC gc;$/;"	m	struct:xlib_window_data	typeref:typename:GC	file:
 get_between_value	src/core/state/items.c	/^uint16_t get_between_value(uint16_t min, uint16_t max)$/;"	f	typeref:typename:uint16_t
 get_cell_type	src/gui/gui-frontend/render/world_renderer.c	/^static enum cell_type_id get_cell_type(const struct cell *world_cells, $/;"	f	typeref:enum:cell_type_id	file:
-get_cell_view	src/cli/terminal_view.c	/^static char get_cell_view(char id)$/;"	f	typeref:typename:char	file:
+get_cell_view	src/cli/print.c	/^static char get_cell_view(enum cell_type_id id)$/;"	f	typeref:typename:char	file:
+get_cell_view	src/tui/terminal_view.c	/^static char get_cell_view(char id)$/;"	f	typeref:typename:char	file:
 get_cell_view_pixel	src/gui/gui-frontend/render/world_renderer.c	/^static uint32_t get_cell_view_pixel(enum cell_type_id type, int x, int y,$/;"	f	typeref:typename:uint32_t	file:
-get_cursor	src/cli/terminal_view.c	/^static char *get_cursor(char *framebuffer_ptr, uint16_t column, uint16_t row)$/;"	f	typeref:typename:char *	file:
+get_current_event	src/cli/game_session.c	/^static const struct event *get_current_event(const struct game *game)$/;"	f	typeref:typename:const struct event *	file:
+get_cursor	src/tui/terminal_view.c	/^static char *get_cursor(char *framebuffer_ptr, uint16_t column, uint16_t row)$/;"	f	typeref:typename:char *	file:
 get_scale_multiplier	src/core/defs/items_info.c	/^static float get_scale_multiplier(enum scale_rank rank)$/;"	f	typeref:typename:float	file:
 get_stat_scale_profit	src/core/defs/items_info.c	/^static float get_stat_scale_profit(enum scale_rank rank, uint16_t stat)$/;"	f	typeref:typename:float	file:
 get_world_seed	src/core/state/world.c	/^static uint32_t get_world_seed()$/;"	f	typeref:typename:uint32_t	file:
@@ -571,68 +697,91 @@ height	src/gui/platform_interface.h	/^    int height;$/;"	m	struct:window_size	t
 height	src/gui/xlib-port/xlib.c	/^    int width, height;$/;"	m	struct:xlib_window_data	typeref:typename:int	file:
 height_layout	src/gui/gui-frontend/layout_node.h	/^    struct layout_size height_layout;$/;"	m	struct:layout_node	typeref:struct:layout_size
 help_message	src/cli/command_info.h	/^    const char *help_message;$/;"	m	struct:command_info	typeref:typename:const char *
-help_message_buy	src/cli/command_info.c	/^    help_message_buy[] = "buy [N merchant item]";$/;"	v	typeref:typename:const char[]	file:
-help_message_equip	src/cli/command_info.c	/^    help_message_equip[] = "equip [N unit] [N item]";$/;"	v	typeref:typename:const char[]	file:
-help_message_improve	src/cli/command_info.c	/^    help_message_improve[] = "improve [N unit] [str|agl|wil|int]";$/;"	v	typeref:typename:const char[]	file:
-help_message_info_item	src/cli/command_info.c	/^    help_message_info_item[] = "info item [N item]";$/;"	v	typeref:typename:const char[]	file:
-help_message_info_unit	src/cli/command_info.c	/^    help_message_info_unit[] = "info unit [N unit]";$/;"	v	typeref:typename:const char[]	file:
-help_message_move	src/cli/command_info.c	/^    help_message_move[] = "mov [r|l|u|d|s]";$/;"	v	typeref:typename:const char[]	file:
-help_message_sell	src/cli/command_info.c	/^    help_message_sell[] = "sell [N squad item]";$/;"	v	typeref:typename:const char[]	file:
-help_message_unequip	src/cli/command_info.c	/^    help_message_unequip[] = "unequip [N unit] [weapon|armor]";$/;"	v	typeref:typename:const char[]	file:
+help_message	src/tui/command_info.h	/^    const char *help_message;$/;"	m	struct:command_info	typeref:typename:const char *
+help_message_buy	src/tui/command_info.c	/^    help_message_buy[] = "buy [N merchant item]";$/;"	v	typeref:typename:const char[]	file:
+help_message_equip	src/tui/command_info.c	/^    help_message_equip[] = "equip [N unit] [N item]";$/;"	v	typeref:typename:const char[]	file:
+help_message_improve	src/tui/command_info.c	/^    help_message_improve[] = "improve [N unit] [str|agl|wil|int]";$/;"	v	typeref:typename:const char[]	file:
+help_message_info_item	src/tui/command_info.c	/^    help_message_info_item[] = "info item [N item]";$/;"	v	typeref:typename:const char[]	file:
+help_message_info_unit	src/tui/command_info.c	/^    help_message_info_unit[] = "info unit [N unit]";$/;"	v	typeref:typename:const char[]	file:
+help_message_move	src/tui/command_info.c	/^    help_message_move[] = "mov [r|l|u|d|s]";$/;"	v	typeref:typename:const char[]	file:
+help_message_sell	src/tui/command_info.c	/^    help_message_sell[] = "sell [N squad item]";$/;"	v	typeref:typename:const char[]	file:
+help_message_unequip	src/tui/command_info.c	/^    help_message_unequip[] = "unequip [N unit] [weapon|armor]";$/;"	v	typeref:typename:const char[]	file:
 hp	src/core/state/unit.h	/^    uint16_t hp, max_hp;$/;"	m	struct:unit	typeref:typename:uint16_t
 hp_change	src/core/state/battle_state.h	/^    int hp_change;$/;"	m	struct:battle_event_report	typeref:typename:int
 hp_max	src/core/defs/unit_templates.h	/^    uint16_t hp_min, hp_max;$/;"	m	struct:unit_template	typeref:typename:uint16_t
 hp_min	src/core/defs/unit_templates.h	/^    uint16_t hp_min, hp_max;$/;"	m	struct:unit_template	typeref:typename:uint16_t
 id	src/core/state/items.h	/^    enum item_id id;$/;"	m	struct:item	typeref:enum:item_id
-idle	src/cli/entry.c	/^    idle$/;"	e	enum:__anond978d0460103	file:
-improve	src/cli/syntax_parser.h	/^        struct cmd_args_improve improve;$/;"	m	union:parsed_command::__anon38f672ac010a	typeref:struct:cmd_args_improve
+idle	src/tui/entry.c	/^    idle$/;"	e	enum:__anond8fff3c00103	file:
+improve	src/cli/command_parser.h	/^        struct cmd_args_improve improve;$/;"	m	union:parsed_command::__anona9007c84010a	typeref:struct:cmd_args_improve
+improve	src/tui/syntax_parser.h	/^        struct cmd_args_improve improve;$/;"	m	union:parsed_command::__anon563e7026010a	typeref:struct:cmd_args_improve
 indexing	src/gui/gui-frontend/res/sprites.h	/^    enum pallete_indexing indexing;$/;"	m	struct:sprite	typeref:enum:pallete_indexing
-info_item	src/cli/syntax_parser.h	/^        struct cmd_args_info_item info_item;$/;"	m	union:parsed_command::__anon38f672ac010a	typeref:struct:cmd_args_info_item
-info_unit	src/cli/syntax_parser.h	/^        struct cmd_args_info_unit info_unit;$/;"	m	union:parsed_command::__anon38f672ac010a	typeref:struct:cmd_args_info_unit
+info	src/cli/command_parser.h	/^    const struct command_info *info;$/;"	m	struct:parsed_command	typeref:typename:const struct command_info *
+info	src/cli/game.h	/^    const struct game_info *info;$/;"	m	struct:game	typeref:typename:const struct game_info *
+info_item	src/tui/syntax_parser.h	/^        struct cmd_args_info_item info_item;$/;"	m	union:parsed_command::__anon563e7026010a	typeref:struct:cmd_args_info_item
+info_unit	src/tui/syntax_parser.h	/^        struct cmd_args_info_unit info_unit;$/;"	m	union:parsed_command::__anon563e7026010a	typeref:struct:cmd_args_info_unit
 init_armor	src/core/defs/items_info.c	/^static void init_armor(struct item_info *armor, const char *title, $/;"	f	typeref:typename:void	file:
 init_item	src/core/defs/items_info.c	/^static void init_item(struct item_info *item, const char *title, $/;"	f	typeref:typename:void	file:
 init_provision	src/core/defs/items_info.c	/^static void init_provision(struct item_info *provision, const char *title,$/;"	f	typeref:typename:void	file:
 init_weapon	src/core/defs/items_info.c	/^static void init_weapon(struct item_info *weapon, const char *title, $/;"	f	typeref:typename:void	file:
 initial_learned	src/core/defs/unit_templates.h	/^    skills_mask_t initial_learned;$/;"	m	struct:unit_template	typeref:typename:skills_mask_t
+input_buf	src/cli/command_inputer.h	/^    char input_buf[INPUT_BUF_SIZE];$/;"	m	struct:command_inputer	typeref:typename:char[]
+input_choose_number	src/cli/input.c	/^int input_choose_number(int min, int max)$/;"	f	typeref:typename:int
 input_event	src/gui/platform_interface.h	/^struct input_event {$/;"	s
 input_event_type	src/gui/platform_interface.h	/^enum input_event_type {$/;"	g
+input_line	src/cli/input.c	/^void input_line(char *buf, size_t len)$/;"	f	typeref:typename:void
+input_line_prefix	src/cli/input.c	/^void input_line_prefix(char *buf, size_t len, const char *prefix)$/;"	f	typeref:typename:void
+inputer	src/cli/game.h	/^    struct command_inputer *inputer;$/;"	m	struct:game	typeref:struct:command_inputer *
 intelligence	src/core/defs/items_info.h	/^    enum scale_rank intelligence;$/;"	m	struct:scaling_group	typeref:enum:scale_rank
 intelligence	src/core/defs/unit_stats.h	/^    uint16_t intelligence;$/;"	m	struct:unit_stats	typeref:typename:uint16_t
-interpret_command	src/cli/command_interpretation.c	/^void interpret_command(struct parsed_command *cmd, $/;"	f	typeref:typename:void
+interpret_command	src/tui/command_interpretation.c	/^void interpret_command(struct parsed_command *cmd, $/;"	f	typeref:typename:void
 interpret_equip	src/cli/command_interpretation.c	/^static void interpret_equip(struct parsed_command *cmd, $/;"	f	typeref:typename:void	file:
+interpret_equip	src/tui/command_interpretation.c	/^static void interpret_equip(struct parsed_command *cmd, $/;"	f	typeref:typename:void	file:
 interpret_item_info	src/cli/command_interpretation.c	/^static void interpret_item_info(struct parsed_command *cmd, $/;"	f	typeref:typename:void	file:
+interpret_item_info	src/tui/command_interpretation.c	/^static void interpret_item_info(struct parsed_command *cmd, $/;"	f	typeref:typename:void	file:
 interpret_move	src/cli/command_interpretation.c	/^static void interpret_move(struct parsed_command *cmd, struct squad *squad)$/;"	f	typeref:typename:void	file:
+interpret_move	src/tui/command_interpretation.c	/^static void interpret_move(struct parsed_command *cmd, struct squad *squad)$/;"	f	typeref:typename:void	file:
+interpret_shop_cmd	src/cli/shop.c	/^void interpret_shop_cmd(struct parsed_command *cmd,$/;"	f	typeref:typename:void
 interpret_unequip	src/cli/command_interpretation.c	/^static void interpret_unequip(struct parsed_command *cmd, $/;"	f	typeref:typename:void	file:
+interpret_unequip	src/tui/command_interpretation.c	/^static void interpret_unequip(struct parsed_command *cmd, $/;"	f	typeref:typename:void	file:
 interpret_unit_improve	src/cli/command_interpretation.c	/^void interpret_unit_improve(struct parsed_command *cmd, $/;"	f	typeref:typename:void
+interpret_unit_improve	src/tui/command_interpretation.c	/^void interpret_unit_improve(struct parsed_command *cmd, $/;"	f	typeref:typename:void
 interpret_unit_info	src/cli/command_interpretation.c	/^static void interpret_unit_info(struct parsed_command *cmd, $/;"	f	typeref:typename:void	file:
+interpret_unit_info	src/tui/command_interpretation.c	/^static void interpret_unit_info(struct parsed_command *cmd, $/;"	f	typeref:typename:void	file:
 inventory	src/core/state/squad.h	/^    struct item inventory[SQUAD_MAX_ITEMS];$/;"	m	struct:squad	typeref:struct:item[]
 is_active_unit_able_to_useful_turn	src/core/battle/battle_system.c	/^static int is_active_unit_able_to_useful_turn(const struct battle_state *state,$/;"	f	typeref:typename:int	file:
 is_actor_died	src/core/state/battle_state.h	/^    uint8_t is_actor_died;$/;"	m	struct:battle_skill_execution_report	typeref:typename:uint8_t
 is_alive	src/core/state/unit.h	/^    uint8_t is_alive;$/;"	m	struct:unit	typeref:typename:uint8_t
 is_any_alive_unit	src/core/battle/battle_system.c	/^static int is_any_alive_unit(struct battle_unit units[MAX_UNITS])$/;"	f	typeref:typename:int	file:
-is_correct	src/cli/syntax_parser.h	/^    int is_correct;$/;"	m	struct:parsed_command	typeref:typename:int
+is_correct	src/cli/command_parser.h	/^    int is_correct;$/;"	m	struct:parsed_command	typeref:typename:int
+is_correct	src/tui/syntax_parser.h	/^    int is_correct;$/;"	m	struct:parsed_command	typeref:typename:int
 is_crit	src/core/state/battle_state.h	/^    uint8_t is_crit;$/;"	m	struct:battle_skill_execution_report	typeref:typename:uint8_t
 is_extended_ascii	src/gui/gui-frontend/res/font_bitmaps.h	/^    int is_extended_ascii;$/;"	m	struct:font	typeref:typename:int
-is_need_redraw_after_execution	src/cli/command_info.h	/^    int is_need_redraw_after_execution;$/;"	m	struct:command_info	typeref:typename:int
+is_need_redraw_after_execution	src/tui/command_info.h	/^    int is_need_redraw_after_execution;$/;"	m	struct:command_info	typeref:typename:int
 is_over	src/core/state/game_state.h	/^    uint8_t is_over;$/;"	m	struct:game_state	typeref:typename:uint8_t
-is_running	src/core/state/game_state.h	/^    uint8_t is_running;$/;"	m	struct:game_state	typeref:typename:uint8_t
+is_printable	src/cli/input.c	/^static int is_printable(int ch)$/;"	f	typeref:typename:int	file:
+is_running	src/cli/game.h	/^    int is_running;$/;"	m	struct:game	typeref:typename:int
+is_running	src/core/state/game_state.h	/^    uint8_t is_running;  \/* probably get rid *\/$/;"	m	struct:game_state	typeref:typename:uint8_t
+is_selling_mode	src/tui/shop.c	/^    int is_selling_mode;$/;"	m	struct:shop_interface_state	typeref:typename:int	file:
 is_target_died	src/core/state/battle_state.h	/^    uint8_t is_target_died;$/;"	m	struct:battle_event_report	typeref:typename:uint8_t
 is_unit_able_to_turn	src/core/battle/battle_system.c	/^static int is_unit_able_to_turn(const struct battle_unit *b)$/;"	f	typeref:typename:int	file:
 is_valid	src/core/defs/event.h	/^    uint8_t is_valid;$/;"	m	struct:event_answer	typeref:typename:uint8_t
+is_view_info_mode	src/tui/shop.c	/^    int is_view_info_mode;$/;"	m	struct:shop_interface_state	typeref:typename:int	file:
 item	src/core/state/items.h	/^struct item {$/;"	s
 item_id	src/core/defs/items_info.h	/^enum item_id {$/;"	g
 item_info	src/core/defs/items_info.h	/^struct item_info {$/;"	s
 item_init	src/core/state/items.c	/^void item_init(struct item *item, const struct item_info info[], enum item_id id)$/;"	f	typeref:typename:void
-item_num	src/cli/syntax_parser.h	/^    uint16_t item_num;$/;"	m	struct:cmd_args_equip	typeref:typename:uint16_t
-item_num	src/cli/syntax_parser.h	/^    uint16_t item_num;$/;"	m	struct:cmd_args_info_item	typeref:typename:uint16_t
+item_num	src/cli/command_parser.h	/^        uint16_t item_num;$/;"	m	union:parsed_command::__anona9007c84010a	typeref:typename:uint16_t
+item_num	src/cli/command_parser.h	/^    uint16_t item_num;$/;"	m	struct:cmd_args_equip	typeref:typename:uint16_t
+item_num	src/tui/syntax_parser.h	/^    uint16_t item_num;$/;"	m	struct:cmd_args_equip	typeref:typename:uint16_t
+item_num	src/tui/syntax_parser.h	/^    uint16_t item_num;$/;"	m	struct:cmd_args_info_item	typeref:typename:uint16_t
 item_storage_add	src/core/state/item_storage.c	/^int item_storage_add(struct item storage[], size_t capacity, struct item *item)$/;"	f	typeref:typename:int
 item_storage_add_by_item_id	src/core/state/item_storage.c	/^int item_storage_add_by_item_id(struct item storage[], size_t capacity, $/;"	f	typeref:typename:int
 item_storage_get_item	src/core/state/item_storage.c	/^struct item *item_storage_get_item(struct item storage[], size_t capacity,   $/;"	f	typeref:struct:item *
 item_type	src/core/defs/items_info.h	/^enum item_type {$/;"	g
 items	src/core/defs/game_info.h	/^    struct item_info items[ALL_ITEMS_COUNT];$/;"	m	struct:game_info	typeref:struct:item_info[]
 items	src/core/state/shop.h	/^    struct item items[SHOP_MAX_ITEMS_COUNT];$/;"	m	struct:shop	typeref:struct:item[]
-items_info	src/cli/terminal_view.h	/^    const struct item_info *items_info;$/;"	m	struct:draw_frame_context	typeref:typename:const struct item_info *
 items_info	src/core/state/squad.h	/^    const struct item_info *items_info;$/;"	m	struct:squad	typeref:typename:const struct item_info *
+items_info	src/tui/terminal_view.h	/^    const struct item_info *items_info;$/;"	m	struct:draw_frame_context	typeref:typename:const struct item_info *
 items_info_get_rand_armor_id	src/core/defs/items_info.c	/^enum item_id items_info_get_rand_armor_id()$/;"	f	typeref:enum:item_id
 items_info_get_rand_weapon_id	src/core/defs/items_info.c	/^enum item_id items_info_get_rand_weapon_id()$/;"	f	typeref:enum:item_id
 items_info_is_nature_equip	src/core/defs/items_info.c	/^int items_info_is_nature_equip(enum item_id id)$/;"	f	typeref:typename:int
@@ -649,14 +798,16 @@ layout_node_update_root	src/gui/gui-frontend/layout_node.c	/^void layout_node_up
 layout_pos	src/gui/gui-frontend/layout_node.h	/^struct layout_pos {$/;"	s
 layout_size	src/gui/gui-frontend/layout_node.h	/^struct layout_size {$/;"	s
 learned	src/core/state/unit.h	/^    skills_mask_t learned;$/;"	m	struct:unit	typeref:typename:skills_mask_t
-leave	src/cli/entry.c	/^    leave,$/;"	e	enum:__anond978d0460103	file:
+leave	src/tui/entry.c	/^    leave,$/;"	e	enum:__anond8fff3c00103	file:
 level	src/core/state/unit.h	/^    uint8_t level;$/;"	m	struct:unit	typeref:typename:uint8_t
-lexical_command_input	src/cli/lexical_parser.c	/^void lexical_command_input(struct command *cmd, char input_buffer[])$/;"	f	typeref:typename:void
+lexical_command_input	src/tui/lexical_parser.c	/^void lexical_command_input(struct command *cmd, char input_buffer[])$/;"	f	typeref:typename:void
 linear_inter	src/core/value_noise.c	/^static double linear_inter(double a, double b, double t)$/;"	f	typeref:typename:double	file:
-lose	src/cli/entry.c	/^    lose,$/;"	e	enum:__anond978d0460103	file:
+lose	src/tui/entry.c	/^    lose,$/;"	e	enum:__anond8fff3c00103	file:
+main	src/cli/main.c	/^int main(void)$/;"	f	typeref:typename:int
 main	src/main.c	/^int main()$/;"	f	typeref:typename:int
 margin	src/gui/gui-frontend/layout_node.h	/^    uint16_t margin;$/;"	m	struct:layout_pos	typeref:typename:uint16_t
-match_string	src/cli/syntax_parser.c	/^static int match_string(const char *s, const char *strings[])$/;"	f	typeref:typename:int	file:
+match_string	src/cli/command_parser.c	/^static int match_string(const char *s, const char * const strings[])$/;"	f	typeref:typename:int	file:
+match_string	src/tui/syntax_parser.c	/^static int match_string(const char *s, const char *strings[])$/;"	f	typeref:typename:int	file:
 max	src/core/defs/items_info.h	/^    uint16_t max;$/;"	m	struct:param_spec	typeref:typename:uint16_t
 max_hp	src/core/state/unit.h	/^    uint16_t hp, max_hp;$/;"	m	struct:unit	typeref:typename:uint16_t
 max_pos_x	src/gui/gui-frontend/camera.h	/^    int min_pos_x, pos_x, max_pos_x;$/;"	m	struct:camera	typeref:typename:int
@@ -665,14 +816,16 @@ max_scale	src/gui/gui-frontend/camera.h	/^    int min_scale, scale, max_scale;$/
 max_stats_value	src/core/defs/unit_templates.h	/^    struct unit_stats max_stats_value;$/;"	m	struct:unit_template	typeref:struct:unit_stats
 message	src/core/defs/event.h	/^    char message[EVENT_MESSAGE_BUF_SIZE];$/;"	m	struct:event	typeref:typename:char[]
 min	src/core/defs/items_info.h	/^    uint16_t min;$/;"	m	struct:param_spec	typeref:typename:uint16_t
-min_argc	src/cli/command_info.h	/^    uint8_t min_argc;$/;"	m	struct:command_info	typeref:typename:uint8_t
+min_argc	src/cli/command_info.h	/^    const uint8_t min_argc;$/;"	m	struct:command_info	typeref:typename:const uint8_t
+min_argc	src/tui/command_info.h	/^    uint8_t min_argc;$/;"	m	struct:command_info	typeref:typename:uint8_t
 min_pos_x	src/gui/gui-frontend/camera.h	/^    int min_pos_x, pos_x, max_pos_x;$/;"	m	struct:camera	typeref:typename:int
 min_pos_y	src/gui/gui-frontend/camera.h	/^    int min_pos_y, pos_y, max_pos_y;$/;"	m	struct:camera	typeref:typename:int
 min_scale	src/gui/gui-frontend/camera.h	/^    int min_scale, scale, max_scale;$/;"	m	struct:camera	typeref:typename:int
 min_stats_value	src/core/defs/unit_templates.h	/^    struct unit_stats min_stats_value;$/;"	m	struct:unit_template	typeref:struct:unit_stats
 mobility	src/core/defs/items_info.h	/^    struct param_spec mobility;$/;"	m	struct:armor_info_props	typeref:struct:param_spec
 mobility	src/core/state/items.h	/^    uint16_t mobility;$/;"	m	struct:armor_props	typeref:typename:uint16_t
-move	src/cli/syntax_parser.h	/^        struct cmd_args_move move;$/;"	m	union:parsed_command::__anon38f672ac010a	typeref:struct:cmd_args_move
+move	src/tui/syntax_parser.h	/^        struct cmd_args_move move;$/;"	m	union:parsed_command::__anon563e7026010a	typeref:struct:cmd_args_move
+move_order	src/cli/command_parser.h	/^        enum move_order move_order;$/;"	m	union:parsed_command::__anona9007c84010a	typeref:enum:move_order
 move_order	src/core/state/squad.h	/^    enum move_order move_order;$/;"	m	struct:squad	typeref:enum:move_order
 move_order	src/core/state/squad.h	/^enum move_order {$/;"	g
 movement_change_squad_pos_by_order	src/core/squad_movement.c	/^void movement_change_squad_pos_by_order(struct squad *squad)$/;"	f	typeref:typename:void
@@ -682,12 +835,16 @@ name	src/core/defs/skill.h	/^    char name[SKILL_NAME_BUF_SIZE];$/;"	m	struct:sk
 name	src/core/defs/unit_templates.h	/^    char name[UNIT_TEMP_BUF_SIZE];$/;"	m	struct:unit_template	typeref:typename:char[]
 name	src/core/state/unit.h	/^    char name[UNIT_NAME_BUF_SIZE];$/;"	m	struct:unit	typeref:typename:char[]
 notification_event	src/cli/battle.c	/^static void notification_event(struct battle_event_report *r)$/;"	f	typeref:typename:void	file:
+notification_event	src/tui/battle.c	/^static void notification_event(struct battle_event_report *r)$/;"	f	typeref:typename:void	file:
 notification_turn_result	src/cli/battle.c	/^static void notification_turn_result(struct battle_skill_execution_report *r)$/;"	f	typeref:typename:void	file:
+notification_turn_result	src/tui/battle.c	/^static void notification_turn_result(struct battle_skill_execution_report *r)$/;"	f	typeref:typename:void	file:
 notification_turn_started	src/cli/battle.c	/^static void notification_turn_started(struct battle_turn_context *c, int round)$/;"	f	typeref:typename:void	file:
+notification_turn_started	src/tui/battle.c	/^static void notification_turn_started(struct battle_turn_context *c, int round)$/;"	f	typeref:typename:void	file:
 open_village_shop	src/core/event_system.c	/^static void open_village_shop(struct shop **active_shop, $/;"	f	typeref:typename:void	file:
-order	src/cli/syntax_parser.h	/^    enum move_order order; $/;"	m	struct:cmd_args_move	typeref:enum:move_order
+order	src/tui/syntax_parser.h	/^    enum move_order order; $/;"	m	struct:cmd_args_move	typeref:enum:move_order
 out	src/gui/gui-frontend/layout_node.h	/^    struct layout_node_output out;$/;"	m	struct:layout_node	typeref:struct:layout_node_output
-output_event_info	src/cli/entry.c	/^static void output_event_info(const struct event *event, uint8_t answer_count)$/;"	f	typeref:typename:void	file:
+output_event_info	src/tui/entry.c	/^static void output_event_info(const struct event *event, uint8_t answer_count)$/;"	f	typeref:typename:void	file:
+page	src/tui/shop.c	/^    uint8_t page;$/;"	m	struct:shop_interface_state	typeref:typename:uint8_t	file:
 pallete	src/gui/gui-frontend/res/palletes.h	/^struct pallete {$/;"	s
 pallete	src/gui/gui-frontend/res/sprites.h	/^    struct pallete *pallete;$/;"	m	struct:sprite	typeref:struct:pallete *
 pallete_id	src/gui/gui-frontend/res/palletes.h	/^enum pallete_id {$/;"	g
@@ -699,14 +856,20 @@ panel_renderer_render	src/gui/gui-frontend/render/panel_renderer.c	/^void panel_
 param_spec	src/core/defs/items_info.h	/^struct param_spec {$/;"	s
 param_spec_init	src/core/defs/items_info.c	/^static void param_spec_init(struct param_spec *param, uint16_t min, uint16_t max,$/;"	f	typeref:typename:void	file:
 parent	src/gui/gui-frontend/layout_node.h	/^    struct layout_node *parent;$/;"	m	struct:layout_node	typeref:struct:layout_node *
-parse_command	src/cli/lexical_parser.c	/^static void parse_command(char *input_buf, struct command *cmd)$/;"	f	typeref:typename:void	file:
-parse_equip_args	src/cli/syntax_parser.c	/^static void parse_equip_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
-parse_improve_args	src/cli/syntax_parser.c	/^static void parse_improve_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
-parse_info_item_args	src/cli/syntax_parser.c	/^static void parse_info_item_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
-parse_info_unit_args	src/cli/syntax_parser.c	/^static void parse_info_unit_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
-parse_move_args	src/cli/syntax_parser.c	/^static void parse_move_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
-parse_unequip_args	src/cli/syntax_parser.c	/^static void parse_unequip_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
-parsed_command	src/cli/syntax_parser.h	/^struct parsed_command {$/;"	s
+parse_command	src/tui/lexical_parser.c	/^static void parse_command(char *input_buf, struct command *cmd)$/;"	f	typeref:typename:void	file:
+parse_equip_args	src/cli/command_parser.c	/^static void parse_equip_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
+parse_equip_args	src/tui/syntax_parser.c	/^static void parse_equip_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
+parse_improve_args	src/cli/command_parser.c	/^static void parse_improve_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
+parse_improve_args	src/tui/syntax_parser.c	/^static void parse_improve_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
+parse_info_item_args	src/tui/syntax_parser.c	/^static void parse_info_item_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
+parse_info_unit_args	src/tui/syntax_parser.c	/^static void parse_info_unit_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
+parse_move_args	src/cli/command_parser.c	/^static void parse_move_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
+parse_move_args	src/tui/syntax_parser.c	/^static void parse_move_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
+parse_num	src/cli/command_parser.c	/^static void parse_num(int *result_status, const char *source,$/;"	f	typeref:typename:void	file:
+parse_unequip_args	src/cli/command_parser.c	/^static void parse_unequip_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
+parse_unequip_args	src/tui/syntax_parser.c	/^static void parse_unequip_args(struct parsed_command *out,$/;"	f	typeref:typename:void	file:
+parsed_command	src/cli/command_parser.h	/^struct parsed_command {$/;"	s
+parsed_command	src/tui/syntax_parser.h	/^struct parsed_command {$/;"	s
 pixels	src/gui/gui-frontend/res/sprites.h	/^    const unsigned char *pixels;$/;"	m	struct:sprite	typeref:typename:const unsigned char *
 platform_interface	src/gui/platform_interface.h	/^struct platform_interface {$/;"	s
 player_unit_count	src/core/state/battle_state.h	/^    uint8_t player_unit_count;$/;"	m	struct:battle_state	typeref:typename:uint8_t
@@ -718,9 +881,20 @@ pos_x	src/gui/gui-frontend/layout_node.h	/^    struct layout_pos pos_x; $/;"	m	s
 pos_y	src/core/state/squad.h	/^    uint16_t pos_y;$/;"	m	struct:squad	typeref:typename:uint16_t
 pos_y	src/gui/gui-frontend/camera.h	/^    int min_pos_y, pos_y, max_pos_y;$/;"	m	struct:camera	typeref:typename:int
 pos_y	src/gui/gui-frontend/layout_node.h	/^    struct layout_pos pos_y; $/;"	m	struct:layout_node	typeref:struct:layout_pos
+print_base_info	src/cli/print.c	/^void print_base_info(const struct game_state *game, $/;"	f	typeref:typename:void
 print_item_info	src/cli/print.c	/^void print_item_info(const struct item *item, const struct item_info info[],$/;"	f	typeref:typename:void
+print_item_info	src/tui/print.c	/^void print_item_info(const struct item *item, const struct item_info info[],$/;"	f	typeref:typename:void
+print_item_list	src/cli/print.c	/^void print_item_list(const struct squad *squad)$/;"	f	typeref:typename:void
+print_navigation_message	src/tui/shop.c	/^static void print_navigation_message(struct shop_interface_state *state)$/;"	f	typeref:typename:void	file:
+print_shop_items	src/cli/shop.c	/^static void print_shop_items(struct shop *shop, const struct item_info info[])$/;"	f	typeref:typename:void	file:
+print_squad_gold	src/cli/shop.c	/^static void print_squad_gold(const struct squad *squad)$/;"	f	typeref:typename:void	file:
+print_squad_items	src/cli/shop.c	/^static void print_squad_items(struct squad *squad, struct shop *shop)$/;"	f	typeref:typename:void	file:
 print_stat_with_scaling	src/cli/print.c	/^void print_stat_with_scaling(const char *label, int base_value, int real_value,$/;"	f	typeref:typename:void
+print_stat_with_scaling	src/tui/print.c	/^void print_stat_with_scaling(const char *label, int base_value, int real_value,$/;"	f	typeref:typename:void
 print_unit_info	src/cli/print.c	/^void print_unit_info(struct unit *unit, const struct item_info items[],$/;"	f	typeref:typename:void
+print_unit_info	src/tui/print.c	/^void print_unit_info(struct unit *unit, const struct item_info items[],$/;"	f	typeref:typename:void
+print_unit_list	src/cli/print.c	/^void print_unit_list(const struct squad *squad)$/;"	f	typeref:typename:void
+print_world	src/cli/print.c	/^void print_world(struct world *world, struct squad *squad)$/;"	f	typeref:typename:void
 process_input_key_down	src/gui/gui-frontend/gui_main.c	/^static void process_input_key_down(int keycode, struct camera *cam)$/;"	f	typeref:typename:void	file:
 props	src/core/defs/items_info.h	/^    } props;$/;"	m	struct:item_info	typeref:union:item_info::__anon97efa328010a
 props	src/core/state/items.h	/^    } props;$/;"	m	struct:item	typeref:union:item::__anon00d60d1c010a
@@ -753,13 +927,15 @@ shop	src/core/state/shop.h	/^struct shop {$/;"	s
 shop	src/core/state/world.h	/^    struct shop shop;$/;"	m	struct:village	typeref:struct:shop
 shop_generate_village_items	src/core/state/shop.c	/^void shop_generate_village_items(struct shop *shop, const struct item_info info[])$/;"	f	typeref:typename:void
 shop_get_buy_price	src/core/state/shop.c	/^uint16_t shop_get_buy_price(struct shop *shop, struct item *item)$/;"	f	typeref:typename:uint16_t
-shop_get_item_by_num	src/core/state/shop.c	/^struct item *shop_get_item_by_num(struct shop *shop, uint8_t num)$/;"	f	typeref:struct:item *
+shop_get_item_by_num	src/core/state/shop.c	/^struct item *shop_get_item_by_num(struct shop *shop, uint16_t num)$/;"	f	typeref:struct:item *
 shop_get_sell_price	src/core/state/shop.c	/^uint16_t shop_get_sell_price(struct shop *shop, struct item *item)$/;"	f	typeref:typename:uint16_t
 shop_init	src/core/state/shop.c	/^void shop_init(struct shop *shop, uint16_t gold, $/;"	f	typeref:typename:void
+shop_interface_state	src/tui/shop.c	/^static struct shop_interface_state {$/;"	s	file:
+shop_item_num	src/cli/command_parser.h	/^        uint16_t shop_item_num;$/;"	m	union:parsed_command::__anona9007c84010a	typeref:typename:uint16_t
 shop_system_try_buy_item	src/core/shop_system.c	/^shop_system_try_buy_item(struct shop *shop, struct item *item, struct squad *squad)$/;"	f	typeref:enum:shop_transaction_status
 shop_system_try_sell_item	src/core/shop_system.c	/^shop_system_try_sell_item(struct shop *shop, struct item *item, struct squad *squad)$/;"	f	typeref:enum:shop_transaction_status
 shop_transaction_status	src/core/shop_system.h	/^enum shop_transaction_status {$/;"	g
-shopping	src/cli/entry.c	/^    shopping,$/;"	e	enum:__anond978d0460103	file:
+shopping	src/tui/entry.c	/^    shopping,$/;"	e	enum:__anond8fff3c00103	file:
 side	src/core/state/battle_state.h	/^    uint8_t side;$/;"	m	struct:battle_unit	typeref:typename:uint8_t
 size	src/gui/gui-frontend/render/text_renderer.h	/^    int size;$/;"	m	struct:text_renderer	typeref:typename:int
 size	src/gui/platform_interface.h	/^        struct window_size size;$/;"	m	union:input_event::__anona884fabb010a	typeref:struct:window_size
@@ -788,30 +964,33 @@ sprite_get_color	src/gui/gui-frontend/res/sprites.c	/^uint32_t sprite_get_color(
 sprite_id	src/gui/gui-frontend/res/sprites.h	/^enum sprite_id {$/;"	g
 sprites	src/gui/gui-frontend/res/game_resources.h	/^    struct sprite sprites[SPRITE_COUNT];$/;"	m	struct:game_resources	typeref:struct:sprite[]
 sprites_load	src/gui/gui-frontend/res/sprites.c	/^void sprites_load(struct sprite sprites[], struct pallete palletes[])$/;"	f	typeref:typename:void
-squad	src/cli/terminal_view.h	/^    struct squad *squad;$/;"	m	struct:draw_frame_context	typeref:struct:squad *
 squad	src/core/state/game_state.h	/^    struct squad squad;$/;"	m	struct:game_state	typeref:struct:squad
 squad	src/core/state/squad.h	/^struct squad {$/;"	s
+squad	src/tui/terminal_view.h	/^    struct squad *squad;$/;"	m	struct:draw_frame_context	typeref:struct:squad *
 squad_add_item	src/core/state/squad.c	/^int squad_add_item(struct squad *squad, struct item *item)$/;"	f	typeref:typename:int
 squad_add_unit	src/core/state/squad.c	/^int squad_add_unit(struct squad *squad, struct unit *unit)$/;"	f	typeref:typename:int
 squad_consume_day_provision	src/core/state/squad.c	/^void squad_consume_day_provision(struct squad *squad)$/;"	f	typeref:typename:void
-squad_get_item_by_num	src/core/state/squad.c	/^struct item *squad_get_item_by_num(struct squad *squad, uint8_t num)$/;"	f	typeref:struct:item *
-squad_get_unit_by_num	src/core/state/squad.c	/^struct unit *squad_get_unit_by_num(struct squad *squad, uint8_t num)$/;"	f	typeref:struct:unit *
+squad_get_item_by_num	src/core/state/squad.c	/^struct item *squad_get_item_by_num(struct squad *squad, uint16_t num)$/;"	f	typeref:struct:item *
+squad_get_unit_by_num	src/core/state/squad.c	/^struct unit *squad_get_unit_by_num(struct squad *squad, uint16_t num)$/;"	f	typeref:struct:unit *
 squad_init	src/core/state/squad.c	/^void squad_init(struct squad *squad, uint16_t x, uint16_t y, $/;"	f	typeref:typename:void
 squad_panel	src/gui/gui-frontend/gui_main.c	/^static struct panel_renderer squad_panel;$/;"	v	typeref:struct:panel_renderer	file:
-squad_unit_equip	src/core/state/squad.c	/^    squad_unit_equip(struct squad *squad, uint8_t unit_num, struct item *item)$/;"	f	typeref:enum:squad_unit_equip_status
+squad_unit_equip	src/core/state/squad.c	/^squad_unit_equip(struct squad *squad, uint16_t unit_num, $/;"	f	typeref:enum:squad_unit_equip_status
 squad_unit_equip_status	src/core/state/squad.h	/^enum squad_unit_equip_status {$/;"	g
-squad_unit_unequip	src/core/state/squad.c	/^squad_unit_unequip(struct squad *squad, uint8_t unit_num, enum item_type type)$/;"	f	typeref:enum:squad_unit_unequip_status
+squad_unit_unequip	src/core/state/squad.c	/^squad_unit_unequip(struct squad *squad, uint16_t unit_num, $/;"	f	typeref:enum:squad_unit_unequip_status
 squad_unit_unequip_status	src/core/state/squad.h	/^enum squad_unit_unequip_status {$/;"	g
 start_forest_animals_battle	src/core/event_system.c	/^static void start_forest_animals_battle(struct battle_state *b, $/;"	f	typeref:typename:void	file:
-stat	src/cli/syntax_parser.h	/^    enum stat_selection stat;$/;"	m	struct:cmd_args_improve	typeref:enum:stat_selection
+stat	src/cli/command_parser.h	/^    enum stat_selection stat;$/;"	m	struct:cmd_args_improve	typeref:enum:stat_selection
+stat	src/tui/syntax_parser.h	/^    enum stat_selection stat;$/;"	m	struct:cmd_args_improve	typeref:enum:stat_selection
 stat_selection	src/core/defs/unit_stats.h	/^enum stat_selection {$/;"	g
+state	src/cli/game.h	/^    struct game_state *state;$/;"	m	struct:game	typeref:struct:game_state *
 stats	src/core/state/unit.h	/^    struct unit_stats stats;$/;"	m	struct:unit	typeref:struct:unit_stats
 status	src/core/state/battle_state.h	/^    enum battle_status status;$/;"	m	struct:battle_state	typeref:enum:battle_status
 strength	src/core/defs/items_info.h	/^    enum scale_rank strength;$/;"	m	struct:scaling_group	typeref:enum:scale_rank
 strength	src/core/defs/unit_stats.h	/^    uint16_t strength;$/;"	m	struct:unit_stats	typeref:typename:uint16_t
 strline_count	src/gui/gui-frontend/render/text_renderer.c	/^static uint16_t strline_count(const char *s)$/;"	f	typeref:typename:uint16_t	file:
-syntax_command_input	src/cli/syntax_parser.c	/^void syntax_command_input(struct parsed_command *cmd, char input_buffer[],$/;"	f	typeref:typename:void
-syntax_command_parse	src/cli/syntax_parser.c	/^void syntax_command_parse(struct parsed_command *out, $/;"	f	typeref:typename:void
+synonyms	src/cli/command_info.h	/^    const char *synonyms[CMD_MAX_SYNONYMS];$/;"	m	struct:command_info	typeref:typename:const char * []
+syntax_command_input	src/tui/syntax_parser.c	/^void syntax_command_input(struct parsed_command *cmd, char input_buffer[],$/;"	f	typeref:typename:void
+syntax_command_parse	src/tui/syntax_parser.c	/^void syntax_command_parse(struct parsed_command *out, $/;"	f	typeref:typename:void
 tags	src/core/defs/event.h	/^    uint64_t tags; \/* bit mask *\/$/;"	m	struct:event	typeref:typename:uint64_t
 tags_mask	src/core/defs/unit_templates.h	/^    uint64_t tags_mask;$/;"	m	struct:unit_template	typeref:typename:uint64_t
 target	src/core/state/battle_state.h	/^    struct battle_unit *target;$/;"	m	struct:battle_event_report	typeref:struct:battle_unit *
@@ -819,10 +998,10 @@ target_class	src/core/defs/skill.h	/^    enum skill_target_class target_class;$/
 target_count	src/core/state/battle_state.h	/^    uint8_t target_count;$/;"	m	struct:battle_skill_execution_report	typeref:typename:uint8_t
 target_count	src/core/state/battle_state.h	/^    uint8_t target_count;$/;"	m	struct:battle_skill_use_context	typeref:typename:uint8_t
 template_id	src/core/state/unit.h	/^    enum unit_template_id template_id;$/;"	m	struct:unit	typeref:enum:unit_template_id
-terminal_view_init_framebuffer	src/cli/terminal_view.c	/^void terminal_view_init_framebuffer(char *framebuffer_ptr)$/;"	f	typeref:typename:void
-terminal_view_redraw	src/cli/terminal_view.c	/^void terminal_view_redraw(char *framebuffer, $/;"	f	typeref:typename:void
-terminal_view_stdout_framebuffer	src/cli/terminal_view.c	/^void terminal_view_stdout_framebuffer(char *framebuffer)$/;"	f	typeref:typename:void
-terminal_view_update_framebuffer	src/cli/terminal_view.c	/^void terminal_view_update_framebuffer(char *framebuffer, $/;"	f	typeref:typename:void
+terminal_view_init_framebuffer	src/tui/terminal_view.c	/^void terminal_view_init_framebuffer(char *framebuffer_ptr)$/;"	f	typeref:typename:void
+terminal_view_redraw	src/tui/terminal_view.c	/^void terminal_view_redraw(char *framebuffer, $/;"	f	typeref:typename:void
+terminal_view_stdout_framebuffer	src/tui/terminal_view.c	/^void terminal_view_stdout_framebuffer(char *framebuffer)$/;"	f	typeref:typename:void
+terminal_view_update_framebuffer	src/tui/terminal_view.c	/^void terminal_view_update_framebuffer(char *framebuffer, $/;"	f	typeref:typename:void
 text	src/core/defs/event.h	/^    char text[EVENT_TITLE_BUF_SIZE];$/;"	m	struct:event_answer	typeref:typename:char[]
 text	src/gui/gui-frontend/render/text_renderer.h	/^    char *text;$/;"	m	struct:text_renderer	typeref:typename:char *
 text1	src/gui/gui-frontend/gui_main.c	/^static struct text_renderer text1;$/;"	v	typeref:struct:text_renderer	file:
@@ -836,13 +1015,17 @@ time_system_spend	src/core/time_system.c	/^void time_system_spend(struct game_st
 title	src/core/defs/cell_info.h	/^    char title[CELL_INFO_NAME_BUF_SIZE];$/;"	m	struct:cell_info	typeref:typename:char[]
 title	src/core/defs/event.h	/^    char title[EVENT_TITLE_BUF_SIZE];$/;"	m	struct:event	typeref:typename:char[]
 title	src/core/defs/items_info.h	/^    char title[ITEM_TITLE_BUF];$/;"	m	struct:item_info	typeref:typename:char[]
-type	src/cli/syntax_parser.h	/^    enum command_type type;$/;"	m	struct:parsed_command	typeref:enum:command_type
+turn_off_canonical	src/cli/game.c	/^static void turn_off_canonical(void)$/;"	f	typeref:typename:void	file:
+turn_on_canonical	src/cli/game.c	/^static void turn_on_canonical(void)$/;"	f	typeref:typename:void	file:
+type	src/cli/command_parser.h	/^    enum command_type type;$/;"	m	struct:parsed_command	typeref:enum:command_type
 type	src/core/defs/items_info.h	/^    enum item_type type;$/;"	m	struct:item_info	typeref:enum:item_type
 type	src/core/state/battle_state.h	/^    enum battle_event_type type;$/;"	m	struct:battle_event_report	typeref:enum:battle_event_type
 type	src/gui/platform_interface.h	/^    enum input_event_type type;$/;"	m	struct:input_event	typeref:enum:input_event_type
+type	src/tui/syntax_parser.h	/^    enum command_type type;$/;"	m	struct:parsed_command	typeref:enum:command_type
 type_id	src/core/state/world.h	/^    enum cell_type_id type_id; $/;"	m	struct:cell	typeref:enum:cell_type_id
 ui_init	src/gui/gui-frontend/gui_main.c	/^static void ui_init()$/;"	f	typeref:typename:void	file:
-unequip	src/cli/syntax_parser.h	/^        struct cmd_args_unequip unequip;$/;"	m	union:parsed_command::__anon38f672ac010a	typeref:struct:cmd_args_unequip
+unequip	src/cli/command_parser.h	/^        struct cmd_args_unequip unequip;$/;"	m	union:parsed_command::__anona9007c84010a	typeref:struct:cmd_args_unequip
+unequip	src/tui/syntax_parser.h	/^        struct cmd_args_unequip unequip;$/;"	m	union:parsed_command::__anon563e7026010a	typeref:struct:cmd_args_unequip
 unit	src/core/state/battle_state.h	/^    struct unit *unit;$/;"	m	struct:battle_unit	typeref:struct:unit *
 unit	src/core/state/unit.h	/^struct unit {$/;"	s
 unit_add_exp	src/core/state/unit.c	/^void unit_add_exp(struct unit *unit, uint16_t exp)$/;"	f	typeref:typename:void
@@ -853,10 +1036,14 @@ unit_get_damage	src/core/state/unit.c	/^uint16_t unit_get_damage(struct unit *un
 unit_get_mobility	src/core/state/unit.c	/^uint16_t unit_get_mobility(struct unit *unit, const struct item_info items[])$/;"	f	typeref:typename:uint16_t
 unit_get_protection	src/core/state/unit.c	/^uint16_t unit_get_protection(struct unit *unit, const struct item_info items[])$/;"	f	typeref:typename:uint16_t
 unit_init	src/core/state/unit.c	/^void unit_init(struct unit *unit, const char *name, enum unit_template_id id, $/;"	f	typeref:typename:void
-unit_num	src/cli/syntax_parser.h	/^    uint16_t unit_num;$/;"	m	struct:cmd_args_equip	typeref:typename:uint16_t
-unit_num	src/cli/syntax_parser.h	/^    uint16_t unit_num;$/;"	m	struct:cmd_args_improve	typeref:typename:uint16_t
-unit_num	src/cli/syntax_parser.h	/^    uint16_t unit_num;$/;"	m	struct:cmd_args_info_unit	typeref:typename:uint16_t
-unit_num	src/cli/syntax_parser.h	/^    uint16_t unit_num;$/;"	m	struct:cmd_args_unequip	typeref:typename:uint16_t
+unit_num	src/cli/command_parser.h	/^        uint16_t unit_num;$/;"	m	union:parsed_command::__anona9007c84010a	typeref:typename:uint16_t
+unit_num	src/cli/command_parser.h	/^    uint16_t unit_num;$/;"	m	struct:cmd_args_equip	typeref:typename:uint16_t
+unit_num	src/cli/command_parser.h	/^    uint16_t unit_num;$/;"	m	struct:cmd_args_improve	typeref:typename:uint16_t
+unit_num	src/cli/command_parser.h	/^    uint16_t unit_num;$/;"	m	struct:cmd_args_unequip	typeref:typename:uint16_t
+unit_num	src/tui/syntax_parser.h	/^    uint16_t unit_num;$/;"	m	struct:cmd_args_equip	typeref:typename:uint16_t
+unit_num	src/tui/syntax_parser.h	/^    uint16_t unit_num;$/;"	m	struct:cmd_args_improve	typeref:typename:uint16_t
+unit_num	src/tui/syntax_parser.h	/^    uint16_t unit_num;$/;"	m	struct:cmd_args_info_unit	typeref:typename:uint16_t
+unit_num	src/tui/syntax_parser.h	/^    uint16_t unit_num;$/;"	m	struct:cmd_args_unequip	typeref:typename:uint16_t
 unit_stats	src/core/defs/unit_stats.h	/^struct unit_stats {$/;"	s
 unit_stats_get_stat	src/core/defs/unit_stats.c	/^uint16_t *unit_stats_get_stat(struct unit_stats *stats, enum stat_selection s)$/;"	f	typeref:typename:uint16_t *
 unit_stats_init	src/core/defs/unit_stats.c	/^void unit_stats_init(struct unit_stats *p, uint16_t strength, uint16_t agility, $/;"	f	typeref:typename:void
@@ -875,7 +1062,7 @@ value_noise	src/core/value_noise.c	/^double value_noise(uint32_t x, uint32_t y, 
 value_noise_hash	src/core/value_noise.c	/^double value_noise_hash(uint32_t x, uint32_t y, uint32_t seed)$/;"	f	typeref:typename:double
 value_noise_octave	src/core/value_noise.c	/^double value_noise_octave(uint32_t x, uint32_t y, $/;"	f	typeref:typename:double
 values	src/gui/platform_interface.h	/^    } values;$/;"	m	struct:input_event	typeref:union:input_event::__anona884fabb010a
-view_cells_id	src/cli/terminal_view.c	/^static void view_cells_id(char *buf_ptr, size_t size)$/;"	f	typeref:typename:void	file:
+view_cells_id	src/tui/terminal_view.c	/^static void view_cells_id(char *buf_ptr, size_t size)$/;"	f	typeref:typename:void	file:
 village	src/core/state/world.h	/^struct village {$/;"	s
 village_count	src/core/state/world.h	/^    uint8_t village_count;$/;"	m	struct:world	typeref:typename:uint8_t
 villages	src/core/state/world.h	/^    struct village villages[VILLAGE_MAX_COUNT];$/;"	m	struct:world	typeref:struct:village[]
@@ -897,13 +1084,12 @@ will	src/core/defs/unit_stats.h	/^    uint16_t will;$/;"	m	struct:unit_stats	typ
 window	src/gui/xlib-port/xlib.c	/^    Window window;$/;"	m	struct:xlib_window_data	typeref:typename:Window	file:
 window_id	src/gui/platform_interface.h	/^typedef void* window_id;$/;"	t	typeref:typename:void *
 window_size	src/gui/platform_interface.h	/^struct window_size {$/;"	s
-world	src/cli/terminal_view.h	/^    struct world *world;$/;"	m	struct:draw_frame_context	typeref:struct:world *
 world	src/core/state/game_state.h	/^    struct world world;$/;"	m	struct:game_state	typeref:struct:world
 world	src/core/state/world.h	/^struct world {$/;"	s
+world	src/tui/terminal_view.h	/^    struct world *world;$/;"	m	struct:draw_frame_context	typeref:struct:world *
 world_cell_list_add	src/core/state/world.c	/^void world_cell_list_add(struct cell** list, struct cell *cell)$/;"	f	typeref:typename:void
 world_fill_cells_id_buffer	src/core/state/world.c	/^void world_fill_cells_id_buffer(struct world *world, char *buffer)$/;"	f	typeref:typename:void
 world_generate	src/core/state/world.c	/^void world_generate(struct world *world, const struct item_info items[])$/;"	f	typeref:typename:void
-world_queries_get_squad_cell	src/core/world_queries.c	/^struct cell *world_queries_get_squad_cell(struct squad *squad, struct world *world)$/;"	f	typeref:struct:cell *
 world_renderer_render	src/gui/gui-frontend/render/world_renderer.c	/^void world_renderer_render(struct frame_buffer *fb, const struct camera *cam,$/;"	f	typeref:typename:void
 x	src/gui/gui-frontend/layout_node.h	/^    uint16_t x;$/;"	m	struct:layout_node_output	typeref:typename:uint16_t
 xlib_create_window	src/gui/xlib-port/xlib.c	/^       xlib_create_window(const char *title, int width, int height)$/;"	f	typeref:typename:window_id	file:

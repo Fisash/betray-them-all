@@ -3,6 +3,24 @@
 
 #include "cli/command_info.h"
 
+static const struct command_info cmd_newgame = {
+    { "newgame", "begin", "start", "new", "n", NULL},
+    0, 
+    NULL
+};
+
+static const struct command_info cmd_loadgame = {
+    { "loadgame", "load", "l", NULL},
+    0, 
+    NULL
+};
+
+static const struct command_info cmd_settings = {
+    { "settings", "config", NULL},
+    0, 
+    NULL
+};
+
 static const struct command_info cmd_exit = {
     { "exit", "quit", "leave", "q", NULL},
     0, 
@@ -114,25 +132,30 @@ static const struct command_info cmd_help = {
 
 void commands_info_init(const struct command_info *commands[])
 {
-    commands[CMD_EXIT] = &cmd_exit; 
-    commands[CMD_MOVE] = &cmd_move;
+    commands[CMD_NEWGAME]  = &cmd_newgame; 
+    commands[CMD_LOADGAME] = &cmd_loadgame; 
+    commands[CMD_SETTINGS] = &cmd_settings; 
+
+    commands[CMD_EXIT]    = &cmd_exit; 
+    commands[CMD_MOVE]    = &cmd_move;
     commands[CMD_EXPLORE] = &cmd_explore; 
-    commands[CMD_WAIT] = &cmd_wait; 
+    commands[CMD_WAIT]    = &cmd_wait; 
 
-    commands[CMD_INFO_WORLD] = &cmd_info_world; 
-    commands[CMD_SQUAD_INFO_BASE] = &cmd_info_base;
-    commands[CMD_SQUAD_INFO_UNIT] = &cmd_info_unit;
+    commands[CMD_INFO_WORLD]       = &cmd_info_world; 
+    commands[CMD_SQUAD_INFO_BASE]  = &cmd_info_base;
+    commands[CMD_SQUAD_INFO_UNIT]  = &cmd_info_unit;
     commands[CMD_SQUAD_INFO_UNITS] = &cmd_info_units;
-    commands[CMD_SQUAD_INFO_ITEM] = &cmd_info_item;
-    commands[CMD_SQUAD_INFO_INV] = &cmd_info_inv;
+    commands[CMD_SQUAD_INFO_ITEM]  = &cmd_info_item;
+    commands[CMD_SQUAD_INFO_INV]   = &cmd_info_inv;
 
-    commands[CMD_EQUIP] = &cmd_equip;
+    commands[CMD_EQUIP]   = &cmd_equip;
     commands[CMD_UNEQUIP] = &cmd_unequip;
     commands[CMD_IMPROVE] = &cmd_improve;
 
-    commands[CMD_SHOP_BUY] = &cmd_shop_buy;
-    commands[CMD_SHOP_SELL] = &cmd_shop_sell;
+    commands[CMD_SHOP_BUY]       = &cmd_shop_buy;
+    commands[CMD_SHOP_SELL]      = &cmd_shop_sell;
     commands[CMD_SHOP_INFO_ITEM] = &cmd_shop_info_item;
-    commands[CMD_SHOP_INFO_INV] = &cmd_shop_info_inv;
+    commands[CMD_SHOP_INFO_INV]  = &cmd_shop_info_inv;
+
     commands[CMD_HELP] = &cmd_help;
 }

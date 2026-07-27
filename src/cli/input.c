@@ -41,6 +41,13 @@ void input_line(char *buf, size_t len)
     buf[cur] = '\0';
 }
 
+void input_line_prefix(char *buf, size_t len, const char *prefix)
+{
+    if (prefix)
+        fputs(prefix, stdout);
+    input_line(buf, len);
+}
+
 /*-----------------------------------------------------------------------*/
 
 #if 0

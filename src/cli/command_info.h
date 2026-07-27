@@ -6,6 +6,10 @@
 #define CMD_MAX_SYNONYMS 6
 
 enum command_type {
+    CMD_NEWGAME,
+    CMD_LOADGAME,
+    CMD_SETTINGS,
+
     CMD_EXIT,
     CMD_MOVE,
     CMD_EXPLORE,

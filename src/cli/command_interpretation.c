@@ -110,8 +110,9 @@ void print_help_general(void)
 
 /*-----------------------------------------------------------------------*/
 
-void interpret_command(struct parsed_command *cmd, struct game_state *game,
-                                              const struct game_info *info)
+/* game_ !!    and     interpret -> execute */
+void apply_command(struct parsed_command *cmd, struct game_state *game,
+                                          const struct game_info *info)
 {
     if (!cmd->is_correct)
     {
