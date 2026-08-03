@@ -9,7 +9,7 @@ struct text_renderer {
     struct layout_node layout;
 
     char *text;
-    struct font *font;
+    const struct font *font;
     int size;
     int has_background;
     uint32_t color_background;
@@ -17,8 +17,9 @@ struct text_renderer {
 };
 
 void text_renderer_init(struct text_renderer *r, char *text,  
-                        struct font *font, int size, int has_background, 
-                        uint32_t color_background, uint32_t color_foreground);
+                        const struct font *font, int size, 
+                        int has_background, uint32_t color_background, 
+                        uint32_t color_foreground);
 
 void text_renderer_calc_layout(struct text_renderer *r);
 

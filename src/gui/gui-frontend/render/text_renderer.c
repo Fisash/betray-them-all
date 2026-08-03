@@ -7,8 +7,9 @@
 
 
 void text_renderer_init(struct text_renderer *r, char *text,  
-                        struct font *font, int size, int has_background, 
-                        uint32_t color_background, uint32_t color_foreground)
+                        const struct font *font, int size, 
+                        int has_background, uint32_t color_background, 
+                        uint32_t color_foreground)
 {
     r->text = text;
     r->font = font;

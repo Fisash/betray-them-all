@@ -2,6 +2,10 @@
 #define PLATFORM_INTERFACE_H
 
 #include <stdint.h>
+#include "gui/frame_buffer.h"
+
+#define START_WIDTH 800
+#define START_HEIGHT 480
 
 #define KEY_ESCAPE 9
 
@@ -12,17 +16,6 @@
 
 #define KEY_Z 52
 #define KEY_X 53
-
-
-struct window_size {
-    int width;
-    int height;
-};
-
-struct frame_buffer {
-    struct window_size size;
-    uint32_t *data;
-};
 
 enum input_event_type {
     INP_EVENT_NONE,

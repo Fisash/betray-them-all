@@ -1,82 +1,133 @@
-CC = gcc
-OPT = -O2
-STRIP_FLAG = -s
+CC := gcc
+AR := ar
 
-CFLAGS = -Wall -Werror -Wextra -std=c89 -MMD -MP \
-         -fno-asynchronous-unwind-tables -flto -fno-ident \
-         -ffunction-sections -fdata-sections
+BUILD := build
+SRC := src
 
+TARGET := betray
+
+OPT := -O2
+STRIP := -s
+
+CFLAGS := \
+    -std=c89 \
+    -Wall -Wextra -Werror \
+    -MMD -MP \
+    -ffunction-sections \
+    -fdata-sections \
+    -fno-asynchronous-unwind-tables \
+    -flto \
+    -fno-ident \
+    -Isrc \
+    $(OPT)
+
+LDFLAGS := -lm
 
 ifdef DEBUG
-OPT = -O0
-STRIP_FLAG =
-CFLAGS += -g -DDEBUG
+CFLAGS += -O0 -g -DDEBUG
+else
+CFLAGS += -O2
+LDFLAGS += -s
 endif
 
-CFLAGS += $(OPT) -Isrc
-LDFLAGS = -lm -Wl,--gc-sections $(STRIP_FLAG)
+CORE_SRC := $(shell find $(SRC)/core -name '*.c')
 
-SRCDIR   = src
-BUILDDIR = build
+GUI_SRC := \
+    $(shell find $(SRC)/gui/gui-frontend -name '*.c') \
+    $(SRC)/gui/frame_buffer.c
 
-CORE_SRC = $(shell find $(SRCDIR)/core -name '*c')
-CORE_OBJ = $(patsubst $(SRCDIR)/core/%.c,$(BUILDDIR)/core/%.o,$(CORE_SRC))
+CLI_SRC := \
+    $(filter-out $(SRC)/cli/main.c,\
+        $(shell find $(SRC)/cli -name '*.c'))
 
-GUI_FRONTEND_SRC = $(shell find $(SRCDIR)/gui/gui-frontend/ -name '*.c')
-GUI_FRONTEND_OBJ = $(patsubst $(SRCDIR)/gui/gui-frontend/%.c,$(BUILDDIR)/gui/frontend/%.o,$(GUI_FRONTEND_SRC))
+CLI_MAIN := $(SRC)/cli/main.c
 
-CLI_SRC = $(wildcard $(SRCDIR)/cli/*.c)
-CLI_OBJ = $(patsubst $(SRCDIR)/cli/%.c,$(BUILDDIR)/cli/%.o,$(CLI_SRC))
-MAIN_CLI_OBJ = $(BUILDDIR)/cli/main.o
+XLIB_SRC := \
+    $(shell find $(SRC)/gui/xlib-port -name '*.c')
 
-XLIB_PORT_SRC = $(wildcard $(SRCDIR)/gui/xlib-port/*.c)
-XLIB_PORT_OBJ = $(patsubst $(SRCDIR)/gui/xlib-port/%.c,$(BUILDDIR)/xlib/port/%.o,$(XLIB_PORT_SRC))
-MAIN_XLIB_OBJ = $(BUILDDIR)/xlib/main.o
+XLIB_MAIN := $(SRC)/gui/main.c
 
-$(CORE_OBJ): $(BUILDDIR)/core/%.o: $(SRCDIR)/core/%.c
+# dont used now. check when will make tui
+TUI_SRC := \
+    $(filter-out $(SRC)/tui/main.c,\
+        $(shell find $(SRC)/tui -name '*.c'))
+
+
+CORE_OBJ := $(CORE_SRC:$(SRC)/%.c=$(BUILD)/%.o)
+
+GUI_OBJ := $(GUI_SRC:$(SRC)/%.c=$(BUILD)/%.o)
+
+CLI_OBJ := $(CLI_SRC:$(SRC)/%.c=$(BUILD)/%.o)
+CLI_MAIN_OBJ := $(BUILD)/cli/main.o
+
+XLIB_OBJ := $(XLIB_SRC:$(SRC)/%.c=$(BUILD)/%.o)
+XLIB_MAIN_OBJ := $(BUILD)/gui/main.o
+
+$(BUILD)/%.o: $(SRC)/%.c
 	@mkdir -p $(@D)
-	@echo "compiling $(notdir $<)"
+	@echo compiling $<
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(GUI_FRONTEND_OBJ): $(BUILDDIR)/gui/frontend/%.o: $(SRCDIR)/gui/gui-frontend/%.c
-	@mkdir -p $(@D)
-	@echo "compiling $(notdir $<)"
-	@$(CC) $(CFLAGS) -c $< -o $@
+CORE_LIB := $(BUILD)/libcore.a
+GUI_LIB := $(BUILD)/libgui.a
 
-$(CLI_OBJ): CFLAGS += -DCLI
-$(CLI_OBJ): $(BUILDDIR)/cli/%.o: $(SRCDIR)/cli/%.c
+$(CORE_LIB): $(CORE_OBJ)
 	@mkdir -p $(@D)
-	@echo "compiling $(notdir $<)"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo archiving libcore.a
+	@$(AR) rcs $@ $^
 
-$(XLIB_PORT_OBJ): CFLAGS += -DXLIB
-$(XLIB_PORT_OBJ): $(BUILDDIR)/xlib/port/%.o: $(SRCDIR)/gui/xlib-port/%.c
+$(GUI_LIB): $(GUI_OBJ)
 	@mkdir -p $(@D)
-	@echo "compiling $(notdir $<)"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo archiving libgui.a
+	@$(AR) rcs $@ $^
 
-$(MAIN_XLIB_OBJ): CFLAGS += -DXLIB
-$(MAIN_XLIB_OBJ): $(SRCDIR)/main.c
-	@mkdir -p $(@D)
-	@echo "compiling $(notdir $<)"
-	@$(CC) $(CFLAGS) -c $< -o $@
 
-DEPS = $(CORE_OBJ:.o=.d) $(GUI_FRONTEND_OBJ:.o=.d) \
-       $(CLI_OBJ:.o=.d) $(MAIN_CLI_OBJ:.o=.d) \
-       $(XLIB_PORT_OBJ:.o=.d) $(MAIN_XLIB_OBJ:.o=.d)
+$(CLI_MAIN_OBJ): CFLAGS += -DCLI
+$(CLI_OBJ):      CFLAGS += -DCLI
+
+$(XLIB_MAIN_OBJ): CFLAGS += -DXLIB
+$(XLIB_OBJ):      CFLAGS += -DXLIB
+$(GUI_OBJ):       CFLAGS += -DXLIB
+
+.PHONY: all
+all: cli
+
+.PHONY: core
+core: $(CORE_LIB)
+
+.PHONY: gui
+gui: core $(GUI_LIB)
+
+.PHONY: cli
+cli: core $(CLI_OBJ) $(CLI_MAIN_OBJ)
+	@echo linking $(TARGET)
+	@$(CC) \
+	    $(CLI_OBJ) \
+	    $(CLI_MAIN_OBJ) \
+	    $(CORE_LIB) \
+	    $(LDFLAGS) \
+	    -o $(TARGET)
+
+.PHONY: xlib
+xlib: gui $(XLIB_OBJ) $(XLIB_MAIN_OBJ)
+	@echo linking  $(TARGET)
+	@$(CC) \
+	    $(XLIB_OBJ) \
+	    $(XLIB_MAIN_OBJ) \
+	    $(GUI_LIB) \
+	    $(CORE_LIB) \
+	    $(LDFLAGS) \
+	    -lX11 \
+	    -o $(TARGET)
+
+.PHONY: tui
+tui:
+	@echo "not implemented yet."
+
+.PHONY: clean
+clean:
+	rm -rf $(BUILD) $(TARGET)
+
+DEPS := $(shell find $(BUILD) -name '*.d' 2>/dev/null)
+
 -include $(DEPS)
-
-.PHONY: core xlib
-
-core: $(CORE_OBJ)            
-
-gui: $(GUI_FRONTEND_OBJ)    
-
-cli: $(CORE_OBJ) $(CLI_OBJ) $(MAIN_CLI_OBJ)
-	@echo "linking everything"
-	@$(CC) $(LDFLAGS) $^ -o $@
-
-xlib: LDFLAGS += -lX11
-xlib: $(CORE_OBJ) $(GUI_FRONTEND_OBJ) $(XLIB_PORT_OBJ) $(MAIN_XLIB_OBJ)
-	@echo "linking everything"
-	@$(CC) $(LDFLAGS) $^ -o $@
