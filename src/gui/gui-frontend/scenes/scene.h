@@ -12,8 +12,23 @@ enum scene_id {
     SCENE_MAIN
 };
 
+enum scene_request_type {
+    SCENE_REQ_NONE,
+    SCENE_REQ_EXIT,
+    SCENE_REQ_LOAD_SCENE
+};
+
+struct scene_request {
+    enum scene_request_type type;
+    union {
+        int exit_code;
+        enum scene_id scene_id;
+    } props;
+};
+
 struct scene {
     enum scene_id id;
+    struct scene_request req;
     struct layout_node root;
     struct renderer renderers[RENDERERS_MAX];
 };
@@ -26,5 +41,9 @@ void scene_update_layout(struct scene *s);
 void scene_process_ie(struct scene *s, struct input_event *ie);
 
 void scene_draw(struct scene *s, struct frame_buffer *fb);
+
+void scene_request_exit(struct scene *s, int exit_code);
+
+void scene_request_load_scene(struct scene *s, enum scene_id id);
 
 #endif

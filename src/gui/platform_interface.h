@@ -35,11 +35,9 @@ struct input_event {
 
 typedef void* window_id;
 
-struct platform_interface {
-    window_id (*create_window)(const char *, int, int);
-    void (*destroy_window)(window_id);
-    void (*draw_frame)(window_id, struct frame_buffer *);
-    void (*poll_event)(window_id, struct input_event *);
-};
+window_id platform_create_window(const char *title, int width, int height);
+void platform_destroy_window(window_id win);
+void platform_draw_frame(window_id win, struct frame_buffer *fb);
+void platform_poll_event(window_id win, struct input_event *event);
 
 #endif

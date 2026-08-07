@@ -25,8 +25,8 @@ void scene_main_load(struct scene *s, struct game_resources *res,
     /* ----------------------------------------------------------- */
     layout_node_init(&world_view.layout, ALIGN_START,  0, 
                                          ALIGN_CENTER, 0,
-                         SIZE_PARENT_NODE_PERCENT, 70.0f,  
-                        SIZE_PARENT_NODE_PERCENT, 100.0f, 
+                         SIZE_PARENT_NODE_PERCENT, 65.0f,  
+                        SIZE_PARENT_NODE_PERCENT,  90.0f, 
                                                &s->root);
     world_renderer_init(&world_view, &cam, &core->state->world,
                                                  res->sprites);
@@ -64,12 +64,12 @@ void scene_main_load(struct scene *s, struct game_resources *res,
     /* ----------------------------------------------------------- */
 }
 
-static void process_input_key_down(int keycode)
+static void process_input_key_down(struct scene *s, int keycode)
 {
     switch(keycode)
     {
         case KEY_ESCAPE:
-            puts("escape key down");
+            scene_request_exit(s, 0);
         default:
             break;
     }
@@ -78,11 +78,10 @@ static void process_input_key_down(int keycode)
 
 void scene_main_process_ie(struct scene *s, struct input_event *ie)
 {
-    s->id = s->id; /* for test for fix warning of anusing */
     switch(ie->type)
     {
         case INP_EVENT_KEY_DOWN:
-            process_input_key_down(ie->values.keycode);
+            process_input_key_down(s, ie->values.keycode);
             break;
         default:
             break;

@@ -291,6 +291,9 @@ SCENE_H	src/gui/gui-frontend/scenes/scene.h	/^#define SCENE_H$/;"	d
 SCENE_MAIN	src/gui/gui-frontend/scenes/scene.h	/^    SCENE_MAIN$/;"	e	enum:scene_id
 SCENE_MAIN_H	src/gui/gui-frontend/scenes/main.h	/^#define SCENE_MAIN_H$/;"	d
 SCENE_NONE	src/gui/gui-frontend/scenes/scene.h	/^    SCENE_NONE,$/;"	e	enum:scene_id
+SCENE_REQ_EXIT	src/gui/gui-frontend/scenes/scene.h	/^    SCENE_REQ_EXIT,$/;"	e	enum:scene_request_type
+SCENE_REQ_LOAD_SCENE	src/gui/gui-frontend/scenes/scene.h	/^    SCENE_REQ_LOAD_SCENE$/;"	e	enum:scene_request_type
+SCENE_REQ_NONE	src/gui/gui-frontend/scenes/scene.h	/^    SCENE_REQ_NONE,$/;"	e	enum:scene_request_type
 SELECTING_LESS_HP_TARGET	src/core/battle/battle_bot.h	/^    SELECTING_LESS_HP_TARGET$/;"	e	enum:bot_selecting_target_tactic
 SELECTING_RANDOM_NOT_SKIP_SKILL	src/core/battle/battle_bot.h	/^    SELECTING_RANDOM_NOT_SKIP_SKILL$/;"	e	enum:bot_selecting_skill_tactic
 SELECTING_RANDOM_TARGET	src/core/battle/battle_bot.h	/^    SELECTING_RANDOM_TARGET,$/;"	e	enum:bot_selecting_target_tactic
@@ -392,9 +395,9 @@ WORLD_OFFSET_Y	src/tui/terminal_view.h	/^#define WORLD_OFFSET_Y /;"	d
 WORLD_RENDERER_H	src/gui/gui-frontend/render/world_renderer.h	/^#define WORLD_RENDERER_H$/;"	d
 WORLD_VIEW	src/gui/gui-frontend/scenes/main.c	/^    WORLD_VIEW,$/;"	e	enum:__anon407014970103	file:
 WORLD_WIDTH	src/core/state/world.h	/^#define WORLD_WIDTH /;"	d
-XLIB_H	src/gui/xlib-port/xlib.h	/^#define XLIB_H$/;"	d
 __anon00d60d1c010a	src/core/state/items.h	/^    union {$/;"	u	struct:item
 __anon0d1af1240103	src/cli/input.c	/^enum { escape=27, backspace=8, enter=10 };$/;"	g	file:
+__anon20b2e6c5010a	src/gui/gui-frontend/scenes/scene.h	/^    union {$/;"	u	struct:scene_request
 __anon31e20a2d010a	src/gui/gui-frontend/render/renderer.h	/^    union {$/;"	u	struct:renderer
 __anon407014970103	src/gui/gui-frontend/scenes/main.c	/^enum {$/;"	g	file:
 __anon563e7026010a	src/tui/syntax_parser.h	/^    union {$/;"	u	struct:parsed_command
@@ -587,7 +590,6 @@ core_init	src/core/core.c	/^void core_init(struct core *core)$/;"	f	typeref:type
 core_new_session	src/core/core.c	/^void core_new_session(struct core *core)$/;"	f	typeref:typename:void
 cost	src/core/defs/items_info.h	/^    uint16_t cost;$/;"	m	struct:item_info	typeref:typename:uint16_t
 cost	src/core/state/items.h	/^    uint16_t cost;$/;"	m	struct:item	typeref:typename:uint16_t
-create_window	src/gui/platform_interface.h	/^    window_id (*create_window)(const char *, int, int);$/;"	m	struct:platform_interface	typeref:typename:window_id (*)(const char *,int,int)
 crit	src/core/defs/items_info.h	/^    struct param_spec crit;$/;"	m	struct:weapon_info_props	typeref:struct:param_spec
 crit	src/core/state/items.h	/^    uint16_t crit;$/;"	m	struct:weapon_props	typeref:typename:uint16_t
 current_game_state	src/tui/entry.c	/^static int current_game_state(const struct game_state *state)$/;"	f	typeref:typename:int	file:
@@ -606,11 +608,9 @@ depth	src/gui/xlib-port/xlib.c	/^    int screen_num, depth;$/;"	m	struct:xlib_wi
 description	src/core/defs/cell_info.h	/^    char description[CELL_INFO_DESCRIPTION_BUF_SIZE];$/;"	m	struct:cell_info	typeref:typename:char[]
 description	src/core/defs/items_info.h	/^    char description[ITEM_DESCRIPTION_BUF]; $/;"	m	struct:item_info	typeref:typename:char[]
 description	src/core/defs/skill.h	/^    char description[SKILL_DES_BUF_SIZE];$/;"	m	struct:skill	typeref:typename:char[]
-destroy_window	src/gui/platform_interface.h	/^    void (*destroy_window)(window_id);$/;"	m	struct:platform_interface	typeref:typename:void (*)(window_id)
 display	src/gui/xlib-port/xlib.c	/^    Display *display;$/;"	m	struct:xlib_window_data	typeref:typename:Display *	file:
 draw_char	src/tui/terminal_view.c	/^static void draw_char(char **cursor_ptr, char c)$/;"	f	typeref:typename:void	file:
 draw_context_init	src/tui/terminal_view.c	/^void draw_context_init(struct draw_frame_context *context, struct world *world, $/;"	f	typeref:typename:void
-draw_frame	src/gui/platform_interface.h	/^    void (*draw_frame)(window_id, struct frame_buffer *);$/;"	m	struct:platform_interface	typeref:typename:void (*)(window_id,struct frame_buffer *)
 draw_frame_context	src/tui/terminal_view.h	/^struct draw_frame_context {$/;"	s
 draw_int	src/tui/terminal_view.c	/^static void draw_int(char **cursor_ptr, int value)$/;"	f	typeref:typename:void	file:
 draw_player	src/tui/terminal_view.c	/^static void draw_player(char *framebuffer, struct squad *squad)$/;"	f	typeref:typename:void	file:
@@ -658,6 +658,7 @@ events	src/core/state/battle_state.h	/^    struct battle_event_report events[MAX
 events_info	src/core/defs/events_info.h	/^struct events_info {$/;"	s
 events_info	src/core/defs/game_info.h	/^    struct events_info events_info;$/;"	m	struct:game_info	typeref:struct:events_info
 events_info_load	src/core/defs/events_info.c	/^void events_info_load(struct events_info *load_ptr)$/;"	f	typeref:typename:void
+exit_code	src/gui/gui-frontend/scenes/scene.h	/^        int exit_code;$/;"	m	union:scene_request::__anon20b2e6c5010a	typeref:typename:int
 exp	src/core/state/unit.h	/^    uint16_t exp, exp_for_next_level;$/;"	m	struct:unit	typeref:typename:uint16_t
 exp_for_next_level	src/core/state/unit.h	/^    uint16_t exp, exp_for_next_level;$/;"	m	struct:unit	typeref:typename:uint16_t
 exp_reward	src/core/state/unit.h	/^    uint16_t exp_reward;$/;"	m	struct:unit	typeref:typename:uint16_t
@@ -681,9 +682,10 @@ font_is_fill_char_pixel	src/gui/gui-frontend/res/font_bitmaps.c	/^int font_is_fi
 fonts	src/gui/gui-frontend/res/game_resources.h	/^    struct font fonts[FONT_COUNT];$/;"	m	struct:game_resources	typeref:struct:font[]
 fonts_load	src/gui/gui-frontend/res/font_bitmaps.c	/^void fonts_load(struct font fonts[])$/;"	f	typeref:typename:void
 frame_buffer	src/gui/frame_buffer.h	/^struct frame_buffer {$/;"	s
-frame_buffer_init	src/gui/frame_buffer.c	/^void frame_buffer_init(struct frame_buffer *fb, $/;"	f	typeref:typename:void
+frame_buffer_init	src/gui/frame_buffer.c	/^void frame_buffer_init(struct frame_buffer *fb, int width, int height)$/;"	f	typeref:typename:void
 game	src/cli/game.h	/^struct game {$/;"	s
 game	src/gui/gui-frontend/game.h	/^struct game {$/;"	s
+game_destory	src/gui/gui-frontend/game.c	/^void game_destory(struct game *game)$/;"	f	typeref:typename:void
 game_handle_current_event	src/cli/game_session.c	/^static void game_handle_current_event(struct game *game)$/;"	f	typeref:typename:void	file:
 game_info	src/core/defs/game_info.h	/^struct game_info {$/;"	s
 game_info_load	src/core/defs/game_info.c	/^void game_info_load(struct game_info *game_info)$/;"	f	typeref:typename:void
@@ -901,11 +903,12 @@ parse_unequip_args	src/tui/syntax_parser.c	/^static void parse_unequip_args(stru
 parsed_command	src/cli/command_parser.h	/^struct parsed_command {$/;"	s
 parsed_command	src/tui/syntax_parser.h	/^struct parsed_command {$/;"	s
 pixels	src/gui/gui-frontend/res/sprites.h	/^    const unsigned char *pixels;$/;"	m	struct:sprite	typeref:typename:const unsigned char *
-platform	src/gui/gui-frontend/game.h	/^    struct platform_interface platform;$/;"	m	struct:game	typeref:struct:platform_interface
-platform_interface	src/gui/platform_interface.h	/^struct platform_interface {$/;"	s
+platform_create_window	src/gui/xlib-port/xlib.c	/^window_id platform_create_window(const char *title, int width, int height)$/;"	f	typeref:typename:window_id
+platform_destroy_window	src/gui/xlib-port/xlib.c	/^void platform_destroy_window(window_id win)$/;"	f	typeref:typename:void
+platform_draw_frame	src/gui/xlib-port/xlib.c	/^void platform_draw_frame(window_id win, struct frame_buffer *fb)$/;"	f	typeref:typename:void
+platform_poll_event	src/gui/xlib-port/xlib.c	/^void platform_poll_event(window_id win, struct input_event *event)$/;"	f	typeref:typename:void
 player_unit_count	src/core/state/battle_state.h	/^    uint8_t player_unit_count;$/;"	m	struct:battle_state	typeref:typename:uint8_t
 player_units	src/core/state/battle_state.h	/^    struct battle_unit player_units[MAX_UNITS];$/;"	m	struct:battle_state	typeref:struct:battle_unit[]
-poll_event	src/gui/platform_interface.h	/^    void (*poll_event)(window_id, struct input_event *);$/;"	m	struct:platform_interface	typeref:typename:void (*)(window_id,struct input_event *)
 pos_x	src/core/state/squad.h	/^    uint16_t pos_x;$/;"	m	struct:squad	typeref:typename:uint16_t
 pos_x	src/gui/gui-frontend/camera.h	/^    int min_pos_x, pos_x, max_pos_x;$/;"	m	struct:camera	typeref:typename:int
 pos_x	src/gui/gui-frontend/layout_node.h	/^    struct layout_pos pos_x; $/;"	m	struct:layout_node	typeref:struct:layout_pos
@@ -927,10 +930,12 @@ print_unit_info	src/tui/print.c	/^void print_unit_info(struct unit *unit, const 
 print_unit_list	src/cli/print.c	/^void print_unit_list(const struct squad *squad)$/;"	f	typeref:typename:void
 print_world	src/cli/print.c	/^void print_world(struct world *world, struct squad *squad)$/;"	f	typeref:typename:void
 process_input	src/gui/gui-frontend/game.c	/^static void process_input(struct game *game)$/;"	f	typeref:typename:void	file:
-process_input_key_down	src/gui/gui-frontend/scenes/main.c	/^static void process_input_key_down(int keycode)$/;"	f	typeref:typename:void	file:
+process_input_key_down	src/gui/gui-frontend/scenes/main.c	/^static void process_input_key_down(struct scene *s, int keycode)$/;"	f	typeref:typename:void	file:
+process_scene_request	src/gui/gui-frontend/game.c	/^static void process_scene_request(struct game *game)$/;"	f	typeref:typename:void	file:
 props	src/core/defs/items_info.h	/^    } props;$/;"	m	struct:item_info	typeref:union:item_info::__anon97efa328010a
 props	src/core/state/items.h	/^    } props;$/;"	m	struct:item	typeref:union:item::__anon00d60d1c010a
 props	src/gui/gui-frontend/render/renderer.h	/^    } props;$/;"	m	struct:renderer	typeref:union:renderer::__anon31e20a2d010a
+props	src/gui/gui-frontend/scenes/scene.h	/^    } props;$/;"	m	struct:scene_request	typeref:union:scene_request::__anon20b2e6c5010a
 protection	src/core/defs/items_info.h	/^    struct param_spec protection;$/;"	m	struct:armor_info_props	typeref:struct:param_spec
 protection	src/core/state/items.h	/^    uint16_t protection;$/;"	m	struct:armor_props	typeref:typename:uint16_t
 provision	src/core/state/squad.h	/^    uint16_t provision;$/;"	m	struct:squad	typeref:typename:uint16_t
@@ -945,6 +950,7 @@ renderer_render	src/gui/gui-frontend/render/renderer.c	/^void renderer_render(st
 renderer_type	src/gui/gui-frontend/render/renderer.h	/^enum renderer_type {$/;"	g
 renderer_update_layout	src/gui/gui-frontend/render/renderer.c	/^void renderer_update_layout(struct renderer *r)$/;"	f	typeref:typename:void
 renderers	src/gui/gui-frontend/scenes/scene.h	/^    struct renderer renderers[RENDERERS_MAX];$/;"	m	struct:scene	typeref:struct:renderer[]
+req	src/gui/gui-frontend/scenes/scene.h	/^    struct scene_request req;$/;"	m	struct:scene	typeref:struct:scene_request
 req_learned	src/core/defs/skill.h	/^    struct skill *req_learned;$/;"	m	struct:skill	typeref:struct:skill *
 req_stats	src/core/defs/skill.h	/^    struct unit_stats req_stats;$/;"	m	struct:skill	typeref:struct:unit_stats
 resources	src/gui/gui-frontend/game.h	/^    struct game_resources *resources;$/;"	m	struct:game	typeref:struct:game_resources *
@@ -960,11 +966,16 @@ scaling_group	src/core/defs/items_info.h	/^struct scaling_group {$/;"	s
 scalings	src/core/defs/items_info.h	/^    struct scaling_group scalings;$/;"	m	struct:param_spec	typeref:struct:scaling_group
 scene	src/gui/gui-frontend/scenes/scene.h	/^struct scene {$/;"	s
 scene_draw	src/gui/gui-frontend/scenes/scene.c	/^void scene_draw(struct scene *s, struct frame_buffer *fb)$/;"	f	typeref:typename:void
+scene_id	src/gui/gui-frontend/scenes/scene.h	/^        enum scene_id scene_id;$/;"	m	union:scene_request::__anon20b2e6c5010a	typeref:enum:scene_id
 scene_id	src/gui/gui-frontend/scenes/scene.h	/^enum scene_id {$/;"	g
 scene_load	src/gui/gui-frontend/scenes/scene.c	/^void scene_load(struct scene *s, enum scene_id id, $/;"	f	typeref:typename:void
 scene_main_load	src/gui/gui-frontend/scenes/main.c	/^void scene_main_load(struct scene *s, struct game_resources *res, $/;"	f	typeref:typename:void
 scene_main_process_ie	src/gui/gui-frontend/scenes/main.c	/^void scene_main_process_ie(struct scene *s, struct input_event *ie)$/;"	f	typeref:typename:void
 scene_process_ie	src/gui/gui-frontend/scenes/scene.c	/^void scene_process_ie(struct scene *s, struct input_event *ie)$/;"	f	typeref:typename:void
+scene_request	src/gui/gui-frontend/scenes/scene.h	/^struct scene_request {$/;"	s
+scene_request_exit	src/gui/gui-frontend/scenes/scene.c	/^void scene_request_exit(struct scene *s, int exit_code)$/;"	f	typeref:typename:void
+scene_request_load_scene	src/gui/gui-frontend/scenes/scene.c	/^void scene_request_load_scene(struct scene *s, enum scene_id id)$/;"	f	typeref:typename:void
+scene_request_type	src/gui/gui-frontend/scenes/scene.h	/^enum scene_request_type {$/;"	g
 scene_update_layout	src/gui/gui-frontend/scenes/scene.c	/^void scene_update_layout(struct scene *s)$/;"	f	typeref:typename:void
 screen_num	src/gui/xlib-port/xlib.c	/^    int screen_num, depth;$/;"	m	struct:xlib_window_data	typeref:typename:int	file:
 select_less_hp_target	src/core/battle/battle_bot.c	/^       *select_less_hp_target(struct battle_skill_use_context *context)$/;"	f	typeref:struct:battle_unit *	file:
@@ -1073,6 +1084,7 @@ type	src/cli/command_parser.h	/^    enum command_type type;$/;"	m	struct:parsed_
 type	src/core/defs/items_info.h	/^    enum item_type type;$/;"	m	struct:item_info	typeref:enum:item_type
 type	src/core/state/battle_state.h	/^    enum battle_event_type type;$/;"	m	struct:battle_event_report	typeref:enum:battle_event_type
 type	src/gui/gui-frontend/render/renderer.h	/^    enum renderer_type type;$/;"	m	struct:renderer	typeref:enum:renderer_type
+type	src/gui/gui-frontend/scenes/scene.h	/^    enum scene_request_type type;$/;"	m	struct:scene_request	typeref:enum:scene_request_type
 type	src/gui/platform_interface.h	/^    enum input_event_type type;$/;"	m	struct:input_event	typeref:enum:input_event_type
 type	src/tui/syntax_parser.h	/^    enum command_type type;$/;"	m	struct:parsed_command	typeref:enum:command_type
 type_id	src/core/state/world.h	/^    enum cell_type_id type_id; $/;"	m	struct:cell	typeref:enum:cell_type_id
@@ -1150,10 +1162,5 @@ world_renderer_init	src/gui/gui-frontend/render/world_renderer.c	/^void world_re
 world_renderer_render	src/gui/gui-frontend/render/world_renderer.c	/^void world_renderer_render(struct world_renderer *r,$/;"	f	typeref:typename:void
 world_view	src/gui/gui-frontend/scenes/main.c	/^static struct world_renderer world_view;$/;"	v	typeref:struct:world_renderer	file:
 x	src/gui/gui-frontend/layout_node.h	/^    uint16_t x;$/;"	m	struct:layout_node_output	typeref:typename:uint16_t
-xlib_create_window	src/gui/xlib-port/xlib.c	/^       xlib_create_window(const char *title, int width, int height)$/;"	f	typeref:typename:window_id	file:
-xlib_destroy_winow	src/gui/xlib-port/xlib.c	/^static void xlib_destroy_winow(window_id id)$/;"	f	typeref:typename:void	file:
-xlib_draw_frame	src/gui/xlib-port/xlib.c	/^static void xlib_draw_frame(window_id window_id, struct frame_buffer *buffer)$/;"	f	typeref:typename:void	file:
-xlib_init_interface	src/gui/xlib-port/xlib.c	/^void xlib_init_interface(struct platform_interface *out)$/;"	f	typeref:typename:void
-xlib_poll_event	src/gui/xlib-port/xlib.c	/^static void xlib_poll_event(window_id win,$/;"	f	typeref:typename:void	file:
 xlib_window_data	src/gui/xlib-port/xlib.c	/^struct xlib_window_data {$/;"	s	file:
 y	src/gui/gui-frontend/layout_node.h	/^    uint16_t y;$/;"	m	struct:layout_node_output	typeref:typename:uint16_t

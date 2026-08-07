@@ -13,7 +13,6 @@ struct frame_buffer {
     uint32_t *data;
 };
 
-void frame_buffer_init(struct frame_buffer *fb, 
-                        int width, int height);
+void frame_buffer_init(struct frame_buffer *fb, int width, int height);
 
 #endif

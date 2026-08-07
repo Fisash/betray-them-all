@@ -8,7 +8,7 @@
 #include <time.h>
 #include <string.h>
 
-#include "gui/xlib-port/xlib.h"
+#include "gui/platform_interface.h"
 
 struct xlib_window_data {
     Display *display;
@@ -18,8 +18,7 @@ struct xlib_window_data {
     int screen_num, depth;
 };
 
-static window_id 
-       xlib_create_window(const char *title, int width, int height)
+window_id platform_create_window(const char *title, int width, int height)
 {
     struct xlib_window_data *data = malloc(sizeof(struct xlib_window_data));
     Display *display = XOpenDisplay(NULL);
@@ -54,17 +53,17 @@ static window_id
     return (window_id)data;
 }
 
-static void xlib_destroy_winow(window_id id)
+void platform_destroy_window(window_id win)
 {
-    struct xlib_window_data *data = (struct xlib_window_data*)id;
+    struct xlib_window_data *data = (struct xlib_window_data*)win;
     XFreeGC(data->display, data->gc);
     XCloseDisplay(data->display);
     free(data);
 }
 
-static void xlib_draw_frame(window_id window_id, struct frame_buffer *buffer)
+void platform_draw_frame(window_id win, struct frame_buffer *fb)
 {
-    struct xlib_window_data *data = (struct xlib_window_data* )window_id;
+    struct xlib_window_data *data = (struct xlib_window_data* )win;
     if (!data || !data->display)
     {
         fprintf(stderr, "Invalid window or display data");
@@ -73,20 +72,20 @@ static void xlib_draw_frame(window_id window_id, struct frame_buffer *buffer)
 
     Visual *default_visual = DefaultVisual(data->display, data->screen_num);
     XImage *image = XCreateImage(data->display, default_visual, data->depth, 
-                                            ZPixmap, 0, (char*)buffer->data, 
-                            buffer->size.width, buffer->size.height, 32, 0);
+                                                ZPixmap, 0, (char*)fb->data, 
+                                    fb->size.width, fb->size.height, 32, 0);
 
     XPutImage(data->display, data->window, data->gc, image, 
                     0, 0, 0, 0, data->width, data->height);
     XFlush(data->display);
+    XFree(image);
 }
 
-static void xlib_poll_event(window_id win,
-                            struct input_event *out_event)
+void platform_poll_event(window_id win, struct input_event *event)
 {
     struct xlib_window_data *data = (struct xlib_window_data *)win;
 
-    out_event->type = INP_EVENT_NONE;
+    event->type = INP_EVENT_NONE;
     if(XPending(data->display) == 0)
         return;
 
@@ -98,35 +97,27 @@ static void xlib_poll_event(window_id win,
         case Expose:
             if(report.xexpose.count != 0)
                 break;
-            out_event->type = INP_EVENT_EXPOSE;
+            event->type = INP_EVENT_EXPOSE;
             break;
         case ConfigureNotify:
-            out_event->type = INP_EVENT_WINDOW_RESIZE;
+            event->type = INP_EVENT_WINDOW_RESIZE;
             int width, height;
             width = report.xconfigure.width;
             height = report.xconfigure.height;
-            out_event->values.size.width = width;
-            out_event->values.size.height = height;
+            event->values.size.width = width;
+            event->values.size.height = height;
             data->width = width;
             data->height = height;
             break;
         case KeyPress:
-            out_event->type = INP_EVENT_KEY_DOWN;
-            out_event->values.keycode = report.xkey.keycode;
+            event->type = INP_EVENT_KEY_DOWN;
+            event->values.keycode = report.xkey.keycode;
             break;
         case KeyRelease:
-            out_event->type = INP_EVENT_KEY_UP;
-            out_event->values.keycode = report.xkey.keycode;
+            event->type = INP_EVENT_KEY_UP;
+            event->values.keycode = report.xkey.keycode;
             break;
         default:
             break;
     }
-}
-
-void xlib_init_interface(struct platform_interface *out)
-{
-    out->create_window = xlib_create_window;
-    out->destroy_window = xlib_destroy_winow;
-    out->draw_frame = xlib_draw_frame;
-    out->poll_event = xlib_poll_event;
 }

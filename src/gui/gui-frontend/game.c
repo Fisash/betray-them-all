@@ -1,12 +1,7 @@
 #include "gui/gui-frontend/game.h"
 
-#ifdef XLIB
-#   include "gui/xlib-port/xlib.h"
-#else
-#   error "Invalid platform"
-#endif
-
 #include <stdlib.h>
+#include <string.h>
 #define WINDOW_NAME "gui-demo"
 
 static struct game_resources GLOBAL_resources;
@@ -15,15 +10,12 @@ void game_init(struct game *game)
 {
     core_init(&game->core);
 
-#ifdef XLIB
-    xlib_init_interface(&game->platform);
-#endif
-
     frame_buffer_init(&game->fb, START_WIDTH, START_HEIGHT);
-    game->window = game->platform.create_window(WINDOW_NAME, 
-                                 START_WIDTH, START_HEIGHT);
+    game->window = platform_create_window(WINDOW_NAME, 
+                           START_WIDTH, START_HEIGHT);
     game_resources_load(&GLOBAL_resources);
     game->resources = &GLOBAL_resources;
+    memset(&game->active_scene, 0, sizeof(struct scene));
 
     game->is_running = 0;
 }
@@ -32,7 +24,7 @@ static void process_input(struct game *game)
 {
     struct input_event event;
     do {
-        game->platform.poll_event(game->window, &event);
+        platform_poll_event(game->window, &event);
         switch(event.type)
         {
             case INP_EVENT_WINDOW_RESIZE:
@@ -52,6 +44,29 @@ static void process_input(struct game *game)
     while(event.type != INP_EVENT_NONE);
 }
 
+static void process_scene_request(struct game *game)
+{
+    struct scene *s = &game->active_scene;
+    switch(s->req.type)
+    {
+        case SCENE_REQ_EXIT:
+            game->is_running = 0;
+            break;
+        case SCENE_REQ_LOAD_SCENE:
+            scene_load(s, s->req.props.scene_id, 
+                  game->resources, &game->core);
+            break;
+        default:
+            break;
+    }
+}
+
+void game_destory(struct game *game)
+{
+    platform_destroy_window(game->window);
+    free(game->fb.data);
+}
+
 void game_run(struct game *game)
 {
     core_new_session(&game->core); /* take it out to menu save choise */
@@ -63,6 +78,8 @@ void game_run(struct game *game)
     {
         process_input(game);
         scene_draw(&game->active_scene, &game->fb);
-        game->platform.draw_frame(game->window, &game->fb);
+        platform_draw_frame(game->window, &game->fb);
+        process_scene_request(game);
     }
+    game_destory(game);
 }

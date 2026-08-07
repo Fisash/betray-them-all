@@ -10,15 +10,14 @@ struct game {
 
     struct frame_buffer fb;
     window_id window;
-    struct platform_interface platform;
     struct game_resources *resources;
 
     struct scene active_scene;
-    
     int is_running;
 };
 
 void game_init(struct game *game);
 void game_run(struct game *game);
+void game_destory(struct game *game);
 
 #endif
