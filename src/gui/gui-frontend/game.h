@@ -2,7 +2,7 @@
 #define GAME_H
 
 #include "core/core.h"
-#include "gui/platform_interface.h"
+#include "gui/platform.h"
 #include "gui/gui-frontend/scenes/scene.h"
 
 struct game {

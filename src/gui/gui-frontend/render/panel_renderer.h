@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#include "gui/platform_interface.h"
+#include "gui/frame_buffer.h"
 #include "gui/gui-frontend/layout_node.h"
 
 struct panel_renderer {

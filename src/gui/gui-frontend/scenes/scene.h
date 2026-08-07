@@ -3,6 +3,7 @@
 
 #include "gui/gui-frontend/render/renderer.h"
 #include "gui/gui-frontend/res/game_resources.h"
+#include "gui/platform.h"
 #include "core/core.h"
 
 #define RENDERERS_MAX 16

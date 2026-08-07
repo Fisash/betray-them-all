@@ -2,7 +2,7 @@
 #define WORLD_RENDERER_H
 
 #include "core/state/world.h"
-#include "gui/platform_interface.h"
+#include "gui/frame_buffer.h"
 
 #include "gui/gui-frontend/res/sprites.h"
 #include "gui/gui-frontend/camera.h"

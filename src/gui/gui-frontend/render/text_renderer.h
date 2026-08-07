@@ -1,7 +1,7 @@
 #ifndef TEXT_RENDERER_H
 #define TEXT_RENDERER_H
 
-#include "gui/platform_interface.h"
+#include "gui/frame_buffer.h"
 #include "gui/gui-frontend/res/font_bitmaps.h"
 #include "gui/gui-frontend/layout_node.h"
 

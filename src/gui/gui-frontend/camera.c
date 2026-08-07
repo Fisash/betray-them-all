@@ -1,6 +1,6 @@
 #include "gui/gui-frontend/camera.h"
 
-#include "gui/platform_interface.h"
+#include "gui/platform.h"
 
 void camera_init(struct camera *cam)
 {

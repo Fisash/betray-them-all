@@ -8,7 +8,7 @@
 #include <time.h>
 #include <string.h>
 
-#include "gui/platform_interface.h"
+#include "gui/platform.h"
 
 struct xlib_window_data {
     Display *display;
